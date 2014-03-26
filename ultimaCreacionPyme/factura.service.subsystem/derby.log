@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Wed Mar 19 21:12:21 COT 2014:
- Arrancando Derby versiÃ³n The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instancia a816c00e-0144-dd42-b84e-00000acb5d08 
-en el directorio de base de datos /private/var/folders/0z/w3j7nwwn3fd_v9550gkzx8040000gn/T/gfembed6916716481355563788tmp/lib/databases/embedded_default  con el cargador de clases sun.misc.Launcher$AppClassLoader@1c45484a
+Wed Mar 26 16:34:55 COT 2014:
+ Arrancando Derby versión The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instancia a816c00e-0145-0051-3ca0-00000b0a3bb8 
+en el directorio de base de datos C:\Users\admin\AppData\Local\Temp\gfembed4035452719777344648tmp\lib\databases\embedded_default  con el cargador de clases sun.misc.Launcher$AppClassLoader@2fe41869
 
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_51-b13
-user.dir=/Users/JoseMiguel/Documents/datos mac/jose/desarrollo/ultimaCreacionPyme/factura.service.subsystem
+user.dir=C:\Workspaces\PymeBasica\dessoftItem\ultimaCreacionPyme\factura.service.subsystem
 derby.system.home=null
 Cargador de clases de base de datos iniciado - derby.database.classpath=''

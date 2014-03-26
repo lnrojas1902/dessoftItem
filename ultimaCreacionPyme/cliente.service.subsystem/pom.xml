@@ -42,5 +42,14 @@
             <version>1.0.0.CR3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+ 
+            <groupId>jasperreports</groupId>
+ 
+            <artifactId>jasperreports</artifactId>
+ 
+            <version>3.5.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

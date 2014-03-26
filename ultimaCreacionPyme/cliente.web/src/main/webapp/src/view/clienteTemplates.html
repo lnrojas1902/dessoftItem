@@ -58,3 +58,25 @@
     </form>
     </div>
 </script> 
+
+<script type="text/template" id="clienteSearch">
+    <div class="form-group">
+    <form role="form" id="<%= componentId %>-clienteForm">
+    <% if(cliente.id) {%>
+    <input type="hidden" name="id" value="<%= cliente.id %>"/>
+    <% }%>
+		<div class="form-group" >
+		<label for="name">name</label>
+    	<input type="text" class="form-control" id="name" name="name" placeholder="Enter value" value="<%= cliente.get('name') %>"/>	
+		</div>
+		
+ 
+    </form>
+    <button id="<%= componentId%>-cliente-searchButton" 
+        onclick="Backbone.trigger('<%= componentId %>-cliente-search',{}); return false" 
+        type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search
+    </button>
+    </div>
+ 
+</script>

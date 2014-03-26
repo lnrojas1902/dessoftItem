@@ -153,6 +153,52 @@ define(['model/clienteModel'], function(clienteModel) {
 				}));
                 self.$el.slideDown("fast");
             });
+        },
+         _renderSearch: function() {
+ 
+            var self = this;
+            this.$el.slideUp("fast", function() {
+                self.$el.html(self.searchTemplate({componentId: self.componentId,
+                    clientes: self.clienteModelList.models,
+                    cliente: self.currentClienteModel,
+                    showEdit: false,
+                    showDelete:false
+                }));
+                self.$el.slideDown("fast");
+            });
+        },
+        search: function() {
+            this.currentClienteModel = new App.Model.ClienteModel();
+            this.clienteModelList = new this.listModelClass();
+            this._renderSearch();
+        },
+        clienteSearch: function() {
+            var self = this;
+            var model = $('#' + this.componentId + '-clienteForm').serializeObject();
+            this.currentClienteModel.set(model);
+            self.searchP(self.currentClienteModel, function(data) {
+                self.clienteModelList=new App.Model.ClienteList();
+                _.each(data,function(d){
+                    var model=new App.Model.ClienteModel(d);
+                    self.clienteModelList.models.push(model);
+                });
+                self._renderSearch();
+            }, function(data) {
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
+            });
+        },
+        searchP: function(cliente, callback, callbackError) {
+            console.log('Cliente Search: ');
+            $.ajax({
+                url: '/cliente.service.subsystem.web/webresources/Cliente/search',
+                type: 'POST',
+                data: JSON.stringify(cliente),
+                contentType: 'application/json'
+            }).done(_.bind(function(data) {
+                callback(data);
+            }, this)).error(_.bind(function(data) {
+                callbackError(data);
+            }, this));
         }
     });
     return App.Controller._ClienteController;

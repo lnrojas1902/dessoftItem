@@ -1,9 +1,12 @@
 package co.edu.uniandes.csw.cliente.service;
 
+import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -14,5 +17,11 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteService extends _ClienteService {
 
-
+    
+    @POST
+    @Path("/search")
+    public List<ClienteDTO> searchCliente(ClienteDTO cliente){
+        return this.clienteLogicService.searchCliente(cliente);
+    }
+    
 }

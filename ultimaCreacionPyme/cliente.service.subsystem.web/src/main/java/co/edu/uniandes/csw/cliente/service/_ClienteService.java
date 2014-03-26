@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import co.edu.uniandes.csw.cliente.logic.api.IClienteLogicService;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
+import javax.ws.rs.Produces;
 
 
 public abstract class _ClienteService {
@@ -23,6 +24,13 @@ public abstract class _ClienteService {
 	public ClienteDTO createCliente(ClienteDTO cliente){
 		return clienteLogicService.createCliente(cliente);
 	}
+        
+        @GET
+        @Path("/report")
+        @Produces("application/pdf")
+        public byte[] getReport(){
+            return clienteLogicService.getReport();
+        }
 	
 	@DELETE
 	@Path("{id}")
