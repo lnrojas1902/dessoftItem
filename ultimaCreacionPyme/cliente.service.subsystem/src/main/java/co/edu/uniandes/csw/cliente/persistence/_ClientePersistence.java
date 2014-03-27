@@ -11,9 +11,12 @@ import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import co.edu.uniandes.csw.cliente.persistence.api._IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
 
 public abstract class _ClientePersistence implements _IClientePersistence {
 
+        protected FacturaSingleton facturaSingleton;
+    
 	@PersistenceContext(unitName="ClientePU")
 	protected EntityManager entityManager;
 	

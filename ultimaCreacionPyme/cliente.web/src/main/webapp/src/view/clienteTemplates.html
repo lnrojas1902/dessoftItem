@@ -18,13 +18,15 @@
 		<td><%= htmlEncode(cliente.getDisplay('docId')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('tipo')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('password')) %></td>
+                <td><a class="btn" onclick="Backbone.trigger('cliente-comprar',{id:<%= cliente.id%>})">Confirmar Compra</a></td>
     <td>
     <% if(showEdit) {%>
-    <a onclick="Backbone.trigger('<%= componentId %>-cliente-edit',{id:<%= cliente.id %>}); return false" >Edit</a> |
+    <a onclick="Backbone.trigger('<%= componentId %>-cliente-edit',{id:<%= cliente.id %>}); return false" >Iniciar Sesion</a> |
 	<% } %> 
 	<% if(showDelete) {%>
-    <a onclick="Backbone.trigger('<%= componentId %>-cliente-delete',{id:<%= cliente.id %>}); return false" >Delete</a> 
-	<% } %>    
+    <a onclick="Backbone.trigger('<%= componentId %>-cliente-delete',{id:<%= cliente.id %>}); return false" >Delete</a>
+	<% } %>  
+    
 	</td>
     </tr>
     <% }); %>

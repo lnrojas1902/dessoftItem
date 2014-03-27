@@ -12,6 +12,19 @@ define(['delegate/_clienteDelegate'], function() {
             }, this)).error(_.bind(function(data) {
                 callbackError(data);
             }, this));
-        }
+        },
+        comprar: function(id,callback,callbackError){
+	    console.log('comprar: '+id);
+            $.ajax({
+	          url: '/cliente.service.subsystem/webresources/Cliente/'+id+'/comprar',
+	          type: 'PUT',
+	          data: {},
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	}
     });
 });

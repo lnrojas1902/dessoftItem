@@ -6,6 +6,10 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
+import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
+import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity._FacturaEntity;
 import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -29,6 +34,7 @@ import net.sf.jasperreports.engine.JasperReport;
 @LocalBean
 public class ClientePersistence extends _ClientePersistence  implements IClientePersistence {
 
+    
     public byte[] getReport() {
         try {
             Map parameters = new HashMap();
@@ -60,6 +66,17 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         }
         
         return resp;
+    }
+
+    public void comprar(Long id) {
+        
+        
+        
+        FacturaEntity nueva = new FacturaEntity();
+        nueva.setId(facturaSingleton.getId());
+        nueva.setClienteId(id);
+        entityManager.persist(nueva);
+        
     }
 
 }

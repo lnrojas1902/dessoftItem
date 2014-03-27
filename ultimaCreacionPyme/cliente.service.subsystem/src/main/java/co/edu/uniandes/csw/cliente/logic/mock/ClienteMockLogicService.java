@@ -18,5 +18,9 @@ public class ClienteMockLogicService extends _ClienteMockLogicService implements
     public List<ClienteDTO> searchCliente(ClienteDTO cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public void comprar(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 }

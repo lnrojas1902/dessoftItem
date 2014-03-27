@@ -10,4 +10,6 @@ public interface IClientePersistence extends _IClientePersistence {
     public byte[] getReport();
     
     public List<ClienteDTO> searchCliente(ClienteDTO cliente);
+
+    public void comprar(Long id);
 }

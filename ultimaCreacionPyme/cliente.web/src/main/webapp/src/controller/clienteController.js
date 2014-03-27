@@ -16,10 +16,38 @@ define(['controller/_clienteController','delegate/clienteDelegate'], function() 
             Backbone.on(this.componentId+'-cliente-search', function(params) {
                 self.clienteSearch(params);
             });
+             this.selection=new App.Controller.SelectionController({});
+           
+ 
+            Backbone.on('cliente-comprar',function(params){
+                self.comprar(params);
+            });
         },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");
-        }
+        },
+        comprar: function(params){
+            console.log('comprar' + params.id);
+            var self=this;
+            self.comprarDelegate(params.id,function(data){
+                alert('comprar');
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+            });
+        },
+         comprarDelegate: function(id,callback,callbackError){
+	    console.log('comprar: '+id);
+            $.ajax({
+	          url: '/cliente.service.subsystem/webresources/Cliente/'+id+'/comprar',
+	          type: 'PUT',
+	          data: {},
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	}
         
     });
     return App.Controller.ClienteController;

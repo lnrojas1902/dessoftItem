@@ -26,6 +26,11 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
         return persistance.searchCliente(cliente);
     }
 
+    public void comprar(Long id) {
+        
+        persistance.comprar(id);
+    }
+
    
 
 }
