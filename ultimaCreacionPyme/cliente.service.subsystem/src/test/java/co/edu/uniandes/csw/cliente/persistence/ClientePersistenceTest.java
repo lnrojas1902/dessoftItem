@@ -83,10 +83,10 @@ public class ClientePersistenceTest {
 	@Test
 	public void createClienteTest(){
 		ClienteDTO dto=new ClienteDTO();
-		dto.setName(generateRandom(String.class));
-		dto.setDocId(generateRandom(String.class));
-		dto.setTipo(generateRandom(String.class));
-		dto.setPassword(generateRandom(String.class));
+		dto.setName("name");
+		dto.setDocId("docID");
+		dto.setTipo("tipo");
+		dto.setPassword("password");
 		
 		
 		ClienteDTO result=clientePersistence.createCliente(dto);

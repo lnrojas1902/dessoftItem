@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import co.edu.uniandes.csw.cliente.logic.api.IClienteLogicService;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
+import java.io.Console;
 import javax.ws.rs.Produces;
 
 
@@ -21,8 +22,16 @@ public abstract class _ClienteService {
 	protected IClienteLogicService clienteLogicService;
 	
 	@POST
-	public ClienteDTO createCliente(ClienteDTO cliente){
-		return clienteLogicService.createCliente(cliente);
+	public ClienteDTO createCliente(ClienteDTO cliente) throws Exception{
+            
+            ClienteDTO clienteX = clienteLogicService.createCliente(cliente);
+            
+            if(clienteX== null)
+                throw new Exception ("Ya existe un cliente con el mismo id");
+            
+            else
+                return clienteX;
+		
 	}
         
         @GET

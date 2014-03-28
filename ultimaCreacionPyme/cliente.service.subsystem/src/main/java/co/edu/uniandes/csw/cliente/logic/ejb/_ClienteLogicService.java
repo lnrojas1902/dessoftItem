@@ -12,9 +12,10 @@ public abstract class _ClienteLogicService implements _IClienteLogicService {
 	@Inject
 	protected IClientePersistence persistance;
 
-	public ClienteDTO createCliente(ClienteDTO cliente){
-		return persistance.createCliente( cliente); 
-    }
+	public ClienteDTO createCliente(ClienteDTO cliente){            
+                       
+            return persistance.createCliente( cliente); 
+        }
 
 	public List<ClienteDTO> getClientes(){
 		return persistance.getClientes(); 

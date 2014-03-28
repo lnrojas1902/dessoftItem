@@ -65,7 +65,7 @@ define(['controller/selectionController', 'model/cacheModel', 'model/clienteMast
             this.tabModel = new App.Model.TabModel(
                     {
                         tabs: [
-                            {label: "Item", name: "item", enable: true},
+                            {label: "Carrito De Compras", name: "item", enable: true},
                         ]
                     }
             );

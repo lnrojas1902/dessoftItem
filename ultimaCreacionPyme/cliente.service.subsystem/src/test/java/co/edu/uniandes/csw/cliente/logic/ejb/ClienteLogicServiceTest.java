@@ -78,10 +78,10 @@ public class ClienteLogicServiceTest {
 	@Test
 	public void createClienteTest(){
 		ClienteDTO ldto=new ClienteDTO();
-		ldto.setName(generateRandom(String.class));
-		ldto.setDocId(generateRandom(String.class));
-		ldto.setTipo(generateRandom(String.class));
-		ldto.setPassword(generateRandom(String.class));
+		ldto.setName("a");
+		ldto.setDocId("1");
+		ldto.setTipo("a");
+		ldto.setPassword("a");
 		
 		
 		ClienteDTO result=clienteLogicService.createCliente(ldto);

@@ -21,6 +21,16 @@ public abstract class _ClientePersistence implements _IClientePersistence {
 	protected EntityManager entityManager;
 	
 	public ClienteDTO createCliente(ClienteDTO cliente) {
+            
+                List<ClienteDTO> lista = getClientes();
+
+                for (int i = 0; i < lista.size(); i++) {
+
+                    if ( cliente.getId()== lista.get(i).getId() ||
+                            cliente.getDocId().equalsIgnoreCase(lista.get(i).getDocId())){
+                        return null;
+                    }
+                }
 		ClienteEntity entity=ClienteConverter.persistenceDTO2Entity(cliente);
 		entityManager.persist(entity);
 		return ClienteConverter.entity2PersistenceDTO(entity);
