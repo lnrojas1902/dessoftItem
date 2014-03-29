@@ -25,9 +25,11 @@ public class ClienteService extends _ClienteService {
     public List<ClienteDTO> searchCliente(ClienteDTO cliente){
         return this.clienteLogicService.searchCliente(cliente);
     }
-    @PUT
-    @Path("/{id}/comprar")
-    public void comprar(@PathParam("id") Long id) {
+    
+    @POST
+    @Path("/comprar")
+    public void comprar(Long id) {
         this.clienteLogicService.comprar(id);
+        
     }
 }

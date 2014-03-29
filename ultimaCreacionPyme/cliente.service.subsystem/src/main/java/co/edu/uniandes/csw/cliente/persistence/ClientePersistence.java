@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._FacturaEntity;
+import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
 import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         
         
         FacturaEntity nueva = new FacturaEntity();
-        nueva.setId(facturaSingleton.getId());
+        nueva.setId(FacturaSingleton.darInstancia().getId());
         nueva.setClienteId(id);
         entityManager.persist(nueva);
         

@@ -12,8 +12,24 @@ package co.edu.uniandes.csw.cliente.singleton;
  */
 public class FacturaSingleton {
     
-    private static Long id = new Long(-1);
+    private Long id;
     
+    private  static FacturaSingleton instancia;
+    
+    public static FacturaSingleton darInstancia(){
+        
+        if ( instancia == null){
+            
+            instancia = new FacturaSingleton();
+        }
+       
+            return instancia;
+    } 
+    
+    private FacturaSingleton (){
+        
+         id = new Long(-1);
+    } 
     
     public Long getId(){
         

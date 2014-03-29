@@ -15,7 +15,7 @@ import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
 
 public abstract class _ClientePersistence implements _IClientePersistence {
 
-        protected FacturaSingleton facturaSingleton;
+        
     
 	@PersistenceContext(unitName="ClientePU")
 	protected EntityManager entityManager;

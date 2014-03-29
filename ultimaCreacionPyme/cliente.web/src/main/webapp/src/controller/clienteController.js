@@ -37,10 +37,11 @@ define(['controller/_clienteController','delegate/clienteDelegate'], function() 
         },
          comprarDelegate: function(id,callback,callbackError){
 	    console.log('comprar: '+id);
+            
             $.ajax({
-	          url: '/cliente.service.subsystem/webresources/Cliente/'+id+'/comprar',
-	          type: 'PUT',
-	          data: {},
+	          url: '/cliente.service.subsystem.web/webresources/Cliente/comprar',
+	          type: 'POST',
+	          data: JSON.stringify(id),
 	          contentType: 'application/json'
 	      }).done(_.bind(function(data){
 	    	  callback(data);
@@ -48,6 +49,7 @@ define(['controller/_clienteController','delegate/clienteDelegate'], function() 
 	    	  callbackError(data);
 	      },this));
 	}
+        
         
     });
     return App.Controller.ClienteController;
