@@ -8,7 +8,10 @@ import javax.enterprise.inject.Default;
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity._ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity._FacturaItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._FacturaEntity;
 import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
 import java.io.ByteArrayOutputStream;
@@ -74,10 +77,31 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         
         
         FacturaEntity nueva = new FacturaEntity();
-        nueva.setId(FacturaSingleton.darInstancia().getId());
+        Long facturaID = new Long(3);
+        nueva.setId(facturaID);
         nueva.setClienteId(id);
         entityManager.persist(nueva);
+                     
+                
+        Query q = entityManager.createQuery("select u from ClienteItemEntity u");
         
+        List <_ClienteItemEntity> items = q.getResultList();
+        
+        for (int i = 0; i < items.size(); i++) {
+            
+            _ClienteItemEntity actual = items.get(i);
+            
+            if ( actual.getClienteId() == id){
+            
+                FacturaItemEntity facItem = new FacturaItemEntity();
+
+                facItem.setFacturaID(facturaID);
+                facItem.setItemId(actual.getItemId());
+
+                entityManager.persist(facItem);
+            
+            }
+        }
     }
 
 }
