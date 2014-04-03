@@ -8,8 +8,9 @@
 		 <th>docId</th>
 		 <th>tipo</th>
 		 <th>password</th>
+                 <th>Iniciar</th>
                  <th>Acciones</th>
-    <th>Editar</th>
+                 <th>Editar</th>
     </tr>
     </thead>
     <tbody>
@@ -18,7 +19,26 @@
 		<td><%= htmlEncode(cliente.getDisplay('name')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('docId')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('tipo')) %></td>
-		<td><%= htmlEncode(cliente.getDisplay('password')) %></td>
+                <td>
+                    <div class="form-group">     
+                        <form role="form" id="<%= componentId %>-clienteForm">
+                            <% if(cliente.id) {%>
+                            <input type="hidden" name="id" value="<%= cliente.id %>"/>
+                            <% }%>
+                            <input type="hidden" name="password" value="<%= cliente.password %>"/>
+                            <div class="form-group" >
+                                <input type="text" class="form-control" id="pasword" name="pasword" placeholder="Enter value" value=""/>	
+                            </div>
+                        </form>
+                </td>
+                <td>
+                        <button id="<%= componentId%>-cliente-loginButton" 
+                            onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
+                            type="button" class="btn btn-default">
+                            inciar Sesión
+                        </button>
+                    </div>
+                </td>
                 <td><a class="btn" onclick="Backbone.trigger('cliente-comprar',{id:<%= cliente.id%>})">Confirmar Compra</a></td>
     <td>
     <% if(showEdit) {%>
