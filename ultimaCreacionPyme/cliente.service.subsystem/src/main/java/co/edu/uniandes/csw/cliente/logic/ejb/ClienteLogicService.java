@@ -31,6 +31,11 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
         persistance.comprar(id);
     }
 
+    public boolean existeCliente(ClienteDTO cliente) {
+        
+        return persistance.existeCliente(cliente);
+    }
+
    
 
 }

@@ -13,4 +13,6 @@ public interface IClienteLogicService extends _IClienteLogicService {
     public List<ClienteDTO> searchCliente(ClienteDTO cliente);
 
     public void comprar(Long id);
+    
+    public boolean existeCliente(ClienteDTO cliente);
 }

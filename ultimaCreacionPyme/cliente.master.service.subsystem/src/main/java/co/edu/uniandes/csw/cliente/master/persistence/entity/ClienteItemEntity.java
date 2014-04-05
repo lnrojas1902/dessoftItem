@@ -13,6 +13,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn; 
 import org.eclipse.persistence.annotations.JoinFetch;
 
+/**
+ *
+ * @author admin
+ */
 @Entity
 @IdClass(ClienteItemEntityId.class)
 @NamedQueries({

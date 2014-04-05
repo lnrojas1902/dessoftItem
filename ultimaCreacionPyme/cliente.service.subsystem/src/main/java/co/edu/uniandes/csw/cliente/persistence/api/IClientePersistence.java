@@ -11,5 +11,7 @@ public interface IClientePersistence extends _IClientePersistence {
     
     public List<ClienteDTO> searchCliente(ClienteDTO cliente);
 
+    public boolean existeCliente(ClienteDTO cliente);
+    
     public void comprar(Long id);
 }

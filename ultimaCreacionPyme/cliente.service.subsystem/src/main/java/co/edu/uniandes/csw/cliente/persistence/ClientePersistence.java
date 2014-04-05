@@ -8,6 +8,7 @@ import javax.enterprise.inject.Default;
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
@@ -97,11 +98,20 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
 
                 facItem.setFacturaID(facturaID);
                 facItem.setItemId(actual.getItemId());
-
+                
                 entityManager.persist(facItem);
-            
+                
+                
+                Query q2 = entityManager.createNamedQuery("ClienteItemEntity.deleteClienteItem");
+                q2.setParameter("clienteId", id);
+                q2.setParameter("itemId", actual.getItemId());
+                q2.executeUpdate();
             }
         }
+        
+        
     }
+
+    
 
 }

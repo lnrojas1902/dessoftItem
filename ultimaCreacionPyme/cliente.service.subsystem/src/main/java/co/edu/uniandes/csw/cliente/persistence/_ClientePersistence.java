@@ -22,18 +22,13 @@ public abstract class _ClientePersistence implements _IClientePersistence {
 	
 	public ClienteDTO createCliente(ClienteDTO cliente) {
             
-                List<ClienteDTO> lista = getClientes();
-
-                for (int i = 0; i < lista.size(); i++) {
-
-                    if ( cliente.getId()== lista.get(i).getId() ||
-                            cliente.getDocId().equalsIgnoreCase(lista.get(i).getDocId())){
-                        return null;
-                    }
+                if (!existeCliente(cliente) ){
+                    ClienteEntity entity=ClienteConverter.persistenceDTO2Entity(cliente);
+                    entityManager.persist(entity);
+                    return ClienteConverter.entity2PersistenceDTO(entity);
                 }
-		ClienteEntity entity=ClienteConverter.persistenceDTO2Entity(cliente);
-		entityManager.persist(entity);
-		return ClienteConverter.entity2PersistenceDTO(entity);
+                
+                return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,4 +51,18 @@ public abstract class _ClientePersistence implements _IClientePersistence {
 		ClienteConverter.entity2PersistenceDTO(entity);
 	}
 
+        public boolean existeCliente(ClienteDTO cliente) {
+        
+            List<ClienteDTO> lista = getClientes();
+
+                for (int i = 0; i < lista.size(); i++) {
+
+                    if ( cliente.getId()== lista.get(i).getId() ||
+                            cliente.getDocId().equalsIgnoreCase(lista.get(i).getDocId())){
+                        return true;
+                    }
+                }
+            return false;
+              
+    }
 }

@@ -32,4 +32,13 @@ public class ClienteService extends _ClienteService {
         this.clienteLogicService.comprar(id);
         
     }
+    
+    @POST
+    @Path("/verificarExisteCliente")
+    public void existeCliente(ClienteDTO cliente)throws Exception {
+      
+        if ( this.clienteLogicService.existeCliente(cliente))
+            throw new Exception("Ya existe un cliente con el mismo ID");
+        
+    }
 }
