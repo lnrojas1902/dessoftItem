@@ -78,7 +78,8 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         
         
         FacturaEntity nueva = new FacturaEntity();
-        Long facturaID = new Long(3);
+        Long a = FacturaSingleton.darInstancia().getId();
+        Long facturaID = a;
         nueva.setId(facturaID);
         nueva.setClienteId(id);
         entityManager.persist(nueva);
