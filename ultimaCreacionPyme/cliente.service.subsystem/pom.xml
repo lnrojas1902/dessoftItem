@@ -51,5 +51,11 @@
             <version>3.5.0</version>
             <type>jar</type>
         </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>co.edu.uniandes.csw</groupId>
+      <artifactId>item.service.subsystem</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
 </project>

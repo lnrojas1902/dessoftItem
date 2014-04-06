@@ -131,23 +131,23 @@ define(['model/clienteModel'], function(clienteModel) {
                     },function(data){
                         alert('Error: Ya existe un cliente con el mismo ID');
                         //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-verificar', view: self, id: params.id, data: data, error: 'Error en crear cliente'});
-                        Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-scomprar', view: self, id: '', data: data, error: 'Error in crear cliente'});
+                        Backbone.trigger(self.componentId + '-' + 'error', {event: 'clientes-comprar', view: self, id: '', data: data, error: 'Error in crear cliente'});
                     });
                 Backbone.trigger(this.componentId + '-' + 'instead-cliente-save', {view: this, model : model});
                 
             } else {
-                 alert("3");
+              
                 Backbone.trigger(this.componentId + '-' + 'pre-cliente-save', {view: this, model : model});
                 this.currentClienteModel.set(model);
                 
                 this.currentClienteModel.save({},
                         {
                             success: function(model) {
-                                 alert("4");
+                                
                                 Backbone.trigger(self.componentId + '-' + 'post-cliente-save', {model: self.currentClienteModel});
                             },
                             error: function(error) {
-                                 alert("5");
+                                 
                                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-save', view: self, error: error});
                             }
                         });
@@ -225,10 +225,10 @@ define(['model/clienteModel'], function(clienteModel) {
                 data: JSON.stringify(cliente),
                 contentType: 'application/json'
             }).done(_.bind(function(data) {
-                alert("31");
+                
                 callback(data);
             }, this)).error(_.bind(function(data) {
-                alert("41");
+                
                 callbackError(data);
             }, this));
         }

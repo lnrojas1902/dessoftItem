@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
-import co.edu.uniandes.csw.cliente.persistence.entity._ClienteItemEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._FacturaItemEntity;
@@ -86,11 +86,11 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
                 
         Query q = entityManager.createQuery("select u from ClienteItemEntity u");
         
-        List <_ClienteItemEntity> items = q.getResultList();
+        List <ClienteItemEntity> items = q.getResultList();
         
         for (int i = 0; i < items.size(); i++) {
             
-            _ClienteItemEntity actual = items.get(i);
+            ClienteItemEntity actual = items.get(i);
             
             if ( actual.getClienteId() == id){
             

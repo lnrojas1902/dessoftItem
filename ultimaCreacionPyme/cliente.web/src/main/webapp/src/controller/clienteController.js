@@ -30,7 +30,7 @@ define(['controller/_clienteController','delegate/clienteDelegate'], function() 
             console.log('comprar' + params.id);
             var self=this;
             self.comprarDelegate(params.id,function(data){
-                alert('comprar');
+                
             },function(data){
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
             });
