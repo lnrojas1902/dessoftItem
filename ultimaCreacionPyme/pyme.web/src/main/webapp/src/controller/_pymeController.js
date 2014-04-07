@@ -34,6 +34,11 @@ define(['model/pymeModel'], function(pymeModel) {
             if(self.postInit){
             	self.postInit();
             }
+            this.pymeDefault(function(data) {
+               alert("1");
+            }, function(data) {
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'pyme-default', view: self, id: '', data: data, error: 'Error in default pyme'});
+            });
         },
         create: function() {
             if (App.Utils.eventExists(this.componentId + '-' +'instead-pyme-create')) {
@@ -49,6 +54,12 @@ define(['model/pymeModel'], function(pymeModel) {
             if (params) {
                 var data = params.data;
             }
+            
+            this.pymeDefault(function(data) {
+               alert("2");
+            }, function(data) {
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'pyme-default', view: self, id: '', data: data, error: 'Error in default pyme'});
+            });
             if (App.Utils.eventExists(this.componentId + '-' +'instead-pyme-list')) {
                 Backbone.trigger(this.componentId + '-' + 'instead-pyme-list', {view: this, data: data});
             } else {
@@ -206,6 +217,20 @@ define(['model/pymeModel'], function(pymeModel) {
                 url: '/cliente.service.subsystem.web/webresources/Cliente/search',
                 type: 'POST',
                 data: JSON.stringify(cliente),
+                contentType: 'application/json'
+            }).done(_.bind(function(data) {
+                callback(data);
+            }, this)).error(_.bind(function(data) {
+                callbackError(data);
+            }, this));
+        },
+        pymeDefault: function( callback, callbackError) {
+            console.log('Pyme Default: ');
+            alert("4");
+            $.ajax({
+                url: '/pyme.service.subsystem.web/webresources/Pyme/pymeDefault',
+                type: 'GET',
+                data: {},
                 contentType: 'application/json'
             }).done(_.bind(function(data) {
                 callback(data);

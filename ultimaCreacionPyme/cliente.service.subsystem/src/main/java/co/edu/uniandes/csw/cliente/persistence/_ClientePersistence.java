@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import co.edu.uniandes.csw.cliente.persistence.api._IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.PymeClienteEntity;
 import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
 
 public abstract class _ClientePersistence implements _IClientePersistence {
@@ -25,6 +26,8 @@ public abstract class _ClientePersistence implements _IClientePersistence {
                 if (!existeCliente(cliente) ){
                     ClienteEntity entity=ClienteConverter.persistenceDTO2Entity(cliente);
                     entityManager.persist(entity);
+                    PymeClienteEntity pymeClient = new PymeClienteEntity(1L, entity.getId());
+                    entityManager.persist(pymeClient);
                     return ClienteConverter.entity2PersistenceDTO(entity);
                 }
                 

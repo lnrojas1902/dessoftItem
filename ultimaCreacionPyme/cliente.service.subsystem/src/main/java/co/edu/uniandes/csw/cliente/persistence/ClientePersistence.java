@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.PymeFacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._FacturaItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity._FacturaEntity;
 import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
@@ -103,12 +104,16 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
                 entityManager.persist(facItem);
                 
                 
+                
                 Query q2 = entityManager.createNamedQuery("ClienteItemEntity.deleteClienteItem");
                 q2.setParameter("clienteId", id);
                 q2.setParameter("itemId", actual.getItemId());
                 q2.executeUpdate();
             }
         }
+        
+        PymeFacturaEntity pymeFact = new PymeFacturaEntity(new Long(1), facturaID);
+        entityManager.persist(pymeFact);
         
         
     }
