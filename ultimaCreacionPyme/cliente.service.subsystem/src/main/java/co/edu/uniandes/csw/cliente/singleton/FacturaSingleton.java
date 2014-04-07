@@ -28,7 +28,7 @@ public class FacturaSingleton {
     
     private FacturaSingleton (){
         
-         id = new Long(-1);
+         id = new Long(0);
     } 
     
     public Long getId(){

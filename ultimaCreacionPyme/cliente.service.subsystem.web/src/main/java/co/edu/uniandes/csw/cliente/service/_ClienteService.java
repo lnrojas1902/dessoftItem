@@ -24,6 +24,10 @@ public abstract class _ClienteService {
 	@POST
 	public ClienteDTO createCliente(ClienteDTO cliente) throws Exception{
             
+            if ( clienteLogicService.existeCliente(cliente)){
+                
+                throw new Exception ("Ya existe un cliente con el mismo id");
+            }
             ClienteDTO clienteX = clienteLogicService.createCliente(cliente);
             
             if(clienteX== null)

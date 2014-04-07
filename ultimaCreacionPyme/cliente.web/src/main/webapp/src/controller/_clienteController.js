@@ -126,13 +126,13 @@ define(['model/clienteModel'], function(clienteModel) {
             
             if (App.Utils.eventExists(this.componentId + '-' +'instead-cliente-save')) {
                  
-                 this.veri(model,function(data){
-                    
-                    },function(data){
-                        alert('Error: Ya existe un cliente con el mismo ID');
-                        //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-verificar', view: self, id: params.id, data: data, error: 'Error en crear cliente'});
-                        Backbone.trigger(self.componentId + '-' + 'error', {event: 'clientes-comprar', view: self, id: '', data: data, error: 'Error in crear cliente'});
-                    });
+//                 this.veri(model,function(data){
+//                    
+//                    },function(data){
+//                        alert('Error: Ya existe un cliente con el mismo ID');
+//                        //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-verificar', view: self, id: params.id, data: data, error: 'Error en crear cliente'});
+//                        Backbone.trigger(self.componentId + '-' + 'error', {event: 'clientes-comprar', view: self, id: '', data: data, error: 'Error in crear cliente'});
+//                    });
                 Backbone.trigger(this.componentId + '-' + 'instead-cliente-save', {view: this, model : model});
                 
             } else {

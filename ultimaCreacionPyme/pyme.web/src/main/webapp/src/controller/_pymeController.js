@@ -55,11 +55,7 @@ define(['model/pymeModel'], function(pymeModel) {
                 var data = params.data;
             }
             
-            this.pymeDefault(function(data) {
-               alert("2");
-            }, function(data) {
-                Backbone.trigger(self.componentId + '-' + 'error', {event: 'pyme-default', view: self, id: '', data: data, error: 'Error in default pyme'});
-            });
+            
             if (App.Utils.eventExists(this.componentId + '-' +'instead-pyme-list')) {
                 Backbone.trigger(this.componentId + '-' + 'instead-pyme-list', {view: this, data: data});
             } else {
