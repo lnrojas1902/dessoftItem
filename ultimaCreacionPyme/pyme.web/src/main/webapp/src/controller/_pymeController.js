@@ -35,7 +35,7 @@ define(['model/pymeModel'], function(pymeModel) {
             	self.postInit();
             }
             this.pymeDefault(function(data) {
-               alert("1");
+               
             }, function(data) {
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'pyme-default', view: self, id: '', data: data, error: 'Error in default pyme'});
             });
@@ -222,7 +222,7 @@ define(['model/pymeModel'], function(pymeModel) {
         },
         pymeDefault: function( callback, callbackError) {
             console.log('Pyme Default: ');
-            alert("4");
+            
             $.ajax({
                 url: '/pyme.service.subsystem.web/webresources/Pyme/pymeDefault',
                 type: 'GET',

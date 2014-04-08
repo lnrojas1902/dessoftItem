@@ -12,7 +12,7 @@ import co.edu.uniandes.csw.cliente.persistence.api._IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.PymeClienteEntity;
-import co.edu.uniandes.csw.cliente.singleton.FacturaSingleton;
+
 
 public abstract class _ClientePersistence implements _IClientePersistence {
 

@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.cliente.persistence.entity;
 
 
+import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,9 +31,14 @@ public class ClienteItemEntity implements Serializable {
     @Id
     @Column(name = "itemId")
     private Long itemId;
-   
-    
-   
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "itemId", referencedColumnName = "id")
+    @JoinFetch
+    private ItemEntity itemEntity;
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "clienteId", referencedColumnName = "id")
+    @JoinFetch
+    private ClienteEntity clienteEntity;
 
     public ClienteItemEntity() {
     }
@@ -58,6 +64,20 @@ public class ClienteItemEntity implements Serializable {
         this.itemId = itemId;
     }
 
-    
+    public ItemEntity getItemEntity() {
+        return itemEntity;
+    }
+
+    public void setItemEntity(ItemEntity itemEntity) {
+        this.itemEntity = itemEntity;
+    }
+
+    public ClienteEntity getClienteEntity() {
+        return clienteEntity;
+    }
+
+    public void setClienteEntity(ClienteEntity clienteEntity) {
+        this.clienteEntity = clienteEntity;
+    }
 
 }
