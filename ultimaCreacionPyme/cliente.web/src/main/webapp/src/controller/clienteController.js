@@ -90,7 +90,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
 	          data: JSON.stringify(id),
 	          contentType: 'application/json'
 	      }).done(_.bind(function(data){
-                  alert(data);
+                  
 	    	  callback(data);
 	      },this)).error(_.bind(function(data){
 	    	  callbackError(data);
