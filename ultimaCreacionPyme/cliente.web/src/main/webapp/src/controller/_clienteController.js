@@ -32,7 +32,7 @@ define(['model/clienteModel'], function(clienteModel) {
                 self.save(params);
             });
             if(self.postInit){
-            	self.postInit();
+            	self.postInit(options);
             }
         },
         create: function() {

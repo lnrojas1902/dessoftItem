@@ -7,7 +7,7 @@ import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 
 public interface _IClientePersistence {
 
-	public ClienteDTO createCliente(ClienteDTO detail);
+	public ClienteDTO createCliente(ClienteDTO detail) throws Exception;
 	public List<ClienteDTO> getClientes();
 	public ClienteDTO getCliente(Long id);
 	public void deleteCliente(Long id);

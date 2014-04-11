@@ -20,8 +20,14 @@ public abstract class _ClientePersistence implements _IClientePersistence {
     
 	@PersistenceContext(unitName="ClientePU")
 	protected EntityManager entityManager;
-	
-	public ClienteDTO createCliente(ClienteDTO cliente) {
+
+    /**
+     *
+     * @param cliente
+     * @return
+     * @throws Exception
+     */
+    public ClienteDTO createCliente(ClienteDTO cliente) throws Exception {
             
                 if (!existeCliente(cliente) ){
                     ClienteEntity entity=ClienteConverter.persistenceDTO2Entity(cliente);
@@ -30,8 +36,8 @@ public abstract class _ClientePersistence implements _IClientePersistence {
                     entityManager.persist(pymeClient);
                     return ClienteConverter.entity2PersistenceDTO(entity);
                 }
-                
-                return null;
+                else
+                throw new Exception ("Ya existe un cliente con esa información");
 	}
 
 	@SuppressWarnings("unchecked")

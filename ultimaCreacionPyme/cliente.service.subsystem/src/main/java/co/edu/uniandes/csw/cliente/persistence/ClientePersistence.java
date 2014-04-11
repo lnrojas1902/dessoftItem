@@ -95,7 +95,8 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         
         Query qMax = entityManager.createQuery("select MAX(u.id) from FacturaEntity u");
         
-        Long facturaID = 1 + (Long) qMax.getSingleResult();
+        
+        Long facturaID = 1L + (Long) ((qMax.getSingleResult()== null)? 0L:qMax.getSingleResult());
         nueva.setId(facturaID);
         nueva.setFechaDeRealizacion(new Date());
         nueva.setFechaEsperadaEntrega(new Date());

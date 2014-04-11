@@ -10,6 +10,7 @@
 		 <th>password</th>
                  <th>Iniciar</th>
                  <th>Acciones</th>
+                  <th>Ver Factura</th>
                  <th>Editar</th>
     </tr>
     </thead>
@@ -40,6 +41,7 @@
                     </div>
                 </td>
                 <td><a class="btn" onclick="Backbone.trigger('cliente-comprar',{id:<%= cliente.id%>})">Confirmar Compra</a></td>
+                <td><a class="btn" onclick="Backbone.trigger('cliente-facturas',{id:<%= cliente.id%>})">Ver Factura</a></td>
     <td>
     <% if(showEdit) {%>
     <a onclick="Backbone.trigger('<%= componentId %>-cliente-edit',{id:<%= cliente.id %>}); return false" >Iniciar Sesion</a> |
@@ -102,4 +104,42 @@
     </button>
     </div>
  
+</script>
+
+<script type="text/template" id="facturaList">
+	<div class="panel panel-default">
+	<!-- La información se va a presentar en una tabla -->
+	<table class="table striped">
+<!-- Estos son los encabezados de la tabla para cada campo del model (estos se visualizan) -->
+	<thead>
+	<tr>
+   	  <th>name</th>
+   	  <th>valor</th>
+          <th>estado</th>
+          <th>tipoDePago</th>
+          <th>fechaDeRealizacion</th>
+          <th>fechaEsperadaEntrega</th>
+          <th>dereccionDeEntrega</th>
+          <th>clienteId</th>
+	</tr>
+	</thead>
+	<tbody>
+<!-- Aqui se renderizan los modelos existentes en el modelo de la lista sports. Note el uso de javascript en el interior de los tags <% %> (en este caso un bucle que toma cada ítem de la lista ‘sports’). La variable ‘sports’ será instanciada por el controlador (se verá más adelante) -->
+	<% _.each(facturas, function(factura) { %>
+<!-- Se hace un nuevo <tr> por cada elemento en la lista-->
+	<tr>    	
+            <td><%= htmlEncode(factura.getDisplay('name')) %></td>
+            <!-- esta instrucción indica qué campo del elemento actual del bucle se debe mostrar en ese lugar (cada <td> es una columna)>  -->	
+            <td><%= htmlEncode(factura.getDisplay('valor')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('estado')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('tipoDePago')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('fechaDeRealizacion')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('fechaEsperadaEntrega')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('dereccionDeEntrega')) %></td>
+            <td><%= htmlEncode(factura.getDisplay('clienteId')) %></td>
+	</tr>
+	<% }); %>
+	</tbody>
+	</table>
+	</div>
 </script>

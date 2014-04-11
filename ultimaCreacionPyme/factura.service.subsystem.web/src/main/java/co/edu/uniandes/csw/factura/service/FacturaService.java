@@ -1,9 +1,12 @@
 package co.edu.uniandes.csw.factura.service;
 
+import co.edu.uniandes.csw.factura.logic.dto.FacturaDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -15,4 +18,18 @@ import javax.ws.rs.core.MediaType;
 public class FacturaService extends _FacturaService {
 
 
+    @POST
+    @Path("/facturasCliente")    
+    public List<FacturaDTO> darFacturasCliente(Long id){
+        
+        ArrayList <FacturaDTO> resp = new ArrayList();
+        
+        for (int i = 0; i < getFacturas().size(); i++) {
+            
+            if ( getFacturas().get(i).getClienteId()==id)
+                resp.add(getFacturas().get(i));
+        }
+        
+        return resp;
+    }
 }
