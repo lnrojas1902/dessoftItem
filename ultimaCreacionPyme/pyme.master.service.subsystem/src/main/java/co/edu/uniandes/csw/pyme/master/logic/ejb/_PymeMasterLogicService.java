@@ -82,6 +82,7 @@ public abstract class _PymeMasterLogicService implements _IPymeMasterLogicServic
                 try {
                     persistedClienteDTO = clientePersistance.createCliente(clienteDTO);
                     PymeClienteEntity pymeClienteEntity = new PymeClienteEntity(pyme.getPymeEntity().getId(), persistedClienteDTO.getId());
+                    int y = 1+2;
                 pymeMasterPersistance.createPymeCliente(pymeClienteEntity);
                 } catch (Exception ex) {
                     Logger.getLogger(_PymeMasterLogicService.class.getName()).log(Level.SEVERE, null, ex);
