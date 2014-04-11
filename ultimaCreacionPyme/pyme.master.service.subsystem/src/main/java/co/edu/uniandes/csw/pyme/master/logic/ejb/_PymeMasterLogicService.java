@@ -14,6 +14,8 @@ import co.edu.uniandes.csw.pyme.master.persistence.entity.PymeClienteEntity;
 import co.edu.uniandes.csw.pyme.master.persistence.entity.PymeFacturaEntity;
 import co.edu.uniandes.csw.pyme.master.persistence.entity.PymeProductoEntity;
 import co.edu.uniandes.csw.pyme.persistence.api.IPymePersistence;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 
 public abstract class _PymeMasterLogicService implements _IPymeMasterLogicService {
@@ -33,9 +35,15 @@ public abstract class _PymeMasterLogicService implements _IPymeMasterLogicServic
         PymeDTO persistedPymeDTO = pymePersistance.createPyme(pyme.getPymeEntity());
         if (pyme.getCreateCliente() != null) {
             for (ClienteDTO clienteDTO : pyme.getCreateCliente()) {
-                ClienteDTO persistedClienteDTO = clientePersistance.createCliente(clienteDTO);
-                PymeClienteEntity pymeClienteEntity = new PymeClienteEntity(persistedPymeDTO.getId(), persistedClienteDTO.getId());
+                ClienteDTO persistedClienteDTO;
+                try {
+                    persistedClienteDTO = clientePersistance.createCliente(clienteDTO);
+                    PymeClienteEntity pymeClienteEntity = new PymeClienteEntity(persistedPymeDTO.getId(), persistedClienteDTO.getId());
                 pymeMasterPersistance.createPymeCliente(pymeClienteEntity);
+                } catch (Exception ex) {
+                    Logger.getLogger(_PymeMasterLogicService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
         if (pyme.getCreateFactura() != null) {
@@ -70,9 +78,15 @@ public abstract class _PymeMasterLogicService implements _IPymeMasterLogicServic
         // persist new cliente
         if (pyme.getCreateCliente() != null) {
             for (ClienteDTO clienteDTO : pyme.getCreateCliente()) {
-                ClienteDTO persistedClienteDTO = clientePersistance.createCliente(clienteDTO);
-                PymeClienteEntity pymeClienteEntity = new PymeClienteEntity(pyme.getPymeEntity().getId(), persistedClienteDTO.getId());
+                ClienteDTO persistedClienteDTO;
+                try {
+                    persistedClienteDTO = clientePersistance.createCliente(clienteDTO);
+                    PymeClienteEntity pymeClienteEntity = new PymeClienteEntity(pyme.getPymeEntity().getId(), persistedClienteDTO.getId());
                 pymeMasterPersistance.createPymeCliente(pymeClienteEntity);
+                } catch (Exception ex) {
+                    Logger.getLogger(_PymeMasterLogicService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
         // update cliente
