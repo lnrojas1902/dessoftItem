@@ -2,8 +2,7 @@ define([], function() {
     App.Model._ItemModel = Backbone.Model.extend({
         defaults: {
  
-		 'name' : ''
- ,  
+
 		 'cantidad' : ''
  ,  
 		 'estado' : ''

@@ -83,7 +83,7 @@ public class ItemPersistenceTest {
 	@Test
 	public void createItemTest(){
 		ItemDTO dto=new ItemDTO();
-		dto.setName(generateRandom(String.class));
+		//dto.setName(generateRandom(String.class));
 		dto.setCantidad(generateRandom(Integer.class));
 		dto.setEstado(generateRandom(String.class));
 		dto.setProductoId(generateRandom(Long.class));
@@ -95,7 +95,7 @@ public class ItemPersistenceTest {
 		
 		ItemEntity entity=em.find(ItemEntity.class, result.getId());
 		
-		Assert.assertEquals(dto.getName(), entity.getName());	
+		//Assert.assertEquals(dto.getName(), entity.getName());	
 		Assert.assertEquals(dto.getCantidad(), entity.getCantidad());	
 		Assert.assertEquals(dto.getEstado(), entity.getEstado());	
 		Assert.assertEquals(dto.getProductoId(), entity.getProductoId());	
@@ -121,7 +121,7 @@ public class ItemPersistenceTest {
 		ItemEntity entity=data.get(0);
 		ItemDTO dto=itemPersistence.getItem(entity.getId());
         Assert.assertNotNull(dto);
-		Assert.assertEquals(entity.getName(), dto.getName());
+		//Assert.assertEquals(entity.getName(), dto.getName());
 		Assert.assertEquals(entity.getCantidad(), dto.getCantidad());
 		Assert.assertEquals(entity.getEstado(), dto.getEstado());
 		Assert.assertEquals(entity.getProductoId(), dto.getProductoId());
@@ -142,7 +142,7 @@ public class ItemPersistenceTest {
 		
 		ItemDTO dto=new ItemDTO();
 		dto.setId(entity.getId());
-		dto.setName(generateRandom(String.class));
+		//dto.setName(generateRandom(String.class));
 		dto.setCantidad(generateRandom(Integer.class));
 		dto.setEstado(generateRandom(String.class));
 		dto.setProductoId(generateRandom(Long.class));
@@ -153,7 +153,7 @@ public class ItemPersistenceTest {
 		
 		ItemEntity resp=em.find(ItemEntity.class, entity.getId());
 		
-		Assert.assertEquals(dto.getName(), resp.getName());	
+		//Assert.assertEquals(dto.getName(), resp.getName());	
 		Assert.assertEquals(dto.getCantidad(), resp.getCantidad());	
 		Assert.assertEquals(dto.getEstado(), resp.getEstado());	
 		Assert.assertEquals(dto.getProductoId(), resp.getProductoId());	

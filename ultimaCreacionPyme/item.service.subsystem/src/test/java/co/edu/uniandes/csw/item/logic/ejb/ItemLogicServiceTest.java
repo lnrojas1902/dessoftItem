@@ -66,7 +66,7 @@ public class ItemLogicServiceTest {
 	private void insertData() {
 		for(int i=0;i<3;i++){
 			ItemDTO pdto=new ItemDTO();
-			pdto.setName(generateRandom(String.class));
+			//pdto.setName(generateRandom(String.class));
 			pdto.setCantidad(generateRandom(Integer.class));
 			pdto.setEstado(generateRandom(String.class));
 			pdto.setProductoId(generateRandom(Long.class));
@@ -78,7 +78,7 @@ public class ItemLogicServiceTest {
 	@Test
 	public void createItemTest(){
 		ItemDTO ldto=new ItemDTO();
-		ldto.setName(generateRandom(String.class));
+		//ldto.setName(generateRandom(String.class));
 		ldto.setCantidad(generateRandom(Integer.class));
 		ldto.setEstado(generateRandom(String.class));
 		ldto.setProductoId(generateRandom(Long.class));
@@ -90,7 +90,7 @@ public class ItemLogicServiceTest {
 		
 		ItemDTO pdto=itemPersistence.getItem(result.getId());
 		
-		Assert.assertEquals(ldto.getName(), pdto.getName());	
+		//Assert.assertEquals(ldto.getName(), pdto.getName());	
 		Assert.assertEquals(ldto.getCantidad(), pdto.getCantidad());	
 		Assert.assertEquals(ldto.getEstado(), pdto.getEstado());	
 		Assert.assertEquals(ldto.getProductoId(), pdto.getProductoId());	
@@ -116,7 +116,7 @@ public class ItemLogicServiceTest {
 		ItemDTO pdto=data.get(0);
 		ItemDTO ldto=itemLogicService.getItem(pdto.getId());
         Assert.assertNotNull(ldto);
-		Assert.assertEquals(pdto.getName(), ldto.getName());
+		//Assert.assertEquals(pdto.getName(), ldto.getName());
 		Assert.assertEquals(pdto.getCantidad(), ldto.getCantidad());
 		Assert.assertEquals(pdto.getEstado(), ldto.getEstado());
 		Assert.assertEquals(pdto.getProductoId(), ldto.getProductoId());
@@ -137,7 +137,7 @@ public class ItemLogicServiceTest {
 		
 		ItemDTO ldto=new ItemDTO();
 		ldto.setId(pdto.getId());
-		ldto.setName(generateRandom(String.class));
+		//ldto.setName(generateRandom(String.class));
 		ldto.setCantidad(generateRandom(Integer.class));
 		ldto.setEstado(generateRandom(String.class));
 		ldto.setProductoId(generateRandom(Long.class));
@@ -148,7 +148,7 @@ public class ItemLogicServiceTest {
 		
 		ItemDTO resp=itemPersistence.getItem(pdto.getId());
 		
-		Assert.assertEquals(ldto.getName(), resp.getName());	
+		//Assert.assertEquals(ldto.getName(), resp.getName());	
 		Assert.assertEquals(ldto.getCantidad(), resp.getCantidad());	
 		Assert.assertEquals(ldto.getEstado(), resp.getEstado());	
 		Assert.assertEquals(ldto.getProductoId(), resp.getProductoId());	

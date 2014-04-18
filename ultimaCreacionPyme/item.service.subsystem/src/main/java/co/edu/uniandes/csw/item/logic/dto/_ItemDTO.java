@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public abstract class _ItemDTO {
 
 	private Long id;
-	private String name;
+	//private String name;
 	private Integer cantidad;
 	private String estado;
 	private Long productoId;
@@ -21,13 +21,13 @@ public abstract class _ItemDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
- 
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public String getName() {
+//		return name;
+//	}
+// 
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 	public Integer getCantidad() {
 		return cantidad;
 	}

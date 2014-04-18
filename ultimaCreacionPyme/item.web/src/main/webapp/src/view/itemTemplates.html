@@ -4,20 +4,20 @@
     <table class="table striped">
     <thead>
     <tr>
-		 <th>name</th>
+		 <th>producto</th>
 		 <th>cantidad</th>
 		 <th>estado</th>
-		 <th>productoId</th>
+		 
     <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <% _.each(items, function(item) { %>
     <tr>
-		<td><%= htmlEncode(item.getDisplay('name')) %></td>
+		<td><%= htmlEncode(item.getDisplay('productoId')) %></td>
 		<td><%= htmlEncode(item.getDisplay('cantidad')) %></td>
 		<td><%= htmlEncode(item.getDisplay('estado')) %></td>
-		<td><%= htmlEncode(item.getDisplay('productoId')) %></td>
+		
     <td>
     <% if(showEdit) {%>
     <a onclick="Backbone.trigger('<%= componentId %>-item-edit',{id:<%= item.id %>}); return false" >Edit</a> |
@@ -40,8 +40,14 @@
     <input type="hidden" name="id" value="<%= item.id %>"/>
     <% }%>
 		<div class="form-group" >
-		<label for="name">name</label>
-    	<input type="text" class="form-control" id="name" name="name" placeholder="Enter value" value="<%= item.get('name') %>"/>	
+ 
+			<label for="productoidId">producto</label> 
+            <select class="form-control" id="productoId" name="productoId">
+			  <option value="">None</option>
+            <% producto.each(function(productoid) { %> 
+              <option value="<%=productoid.get('id')%>" <% if(item.get('productoId')==productoid.get('id')) {%>selected<%}%> ><%=productoid.get('name')%></option>
+            <% }); %>                
+            </select>  
 		</div>
 		<div class="form-group" >
 		<label for="cantidad">cantidad</label>
@@ -51,16 +57,7 @@
 		<label for="estado">estado</label>
     	<input type="text" class="form-control" id="estado" name="estado" placeholder="Enter value" value="<%= item.get('estado') %>"/>	
 		</div>
-		<div class="form-group" >
- 
-			<label for="productoidId">productoId</label> 
-            <select class="form-control" id="productoId" name="productoId">
-			  <option value="">None</option>
-            <% producto.each(function(productoid) { %> 
-              <option value="<%=productoid.get('id')%>" <% if(item.get('productoId')==productoid.get('id')) {%>selected<%}%> ><%=productoid.get('name')%></option>
-            <% }); %>                
-            </select>  
-		</div>
+		
     </form>
     </div>
 </script> 

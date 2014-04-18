@@ -14,7 +14,7 @@ public abstract class _ItemConverter {
 		if (entity != null) {
 			ItemDTO dto = new ItemDTO();
 				dto.setId(entity.getId());
-				dto.setName(entity.getName());
+				//dto.setName(entity.getName());
 				dto.setCantidad(entity.getCantidad());
 				dto.setEstado(entity.getEstado());
 				dto.setProductoId(entity.getProductoId());
@@ -28,7 +28,7 @@ public abstract class _ItemConverter {
 		if(dto!=null){
 			ItemEntity entity=new ItemEntity();
 			entity.setId(dto.getId());
-			entity.setName(dto.getName());
+			//entity.setName(dto.getName());
 			entity.setCantidad(dto.getCantidad());
 			entity.setEstado(dto.getEstado());
 			entity.setProductoId(dto.getProductoId());
