@@ -20,13 +20,18 @@ public abstract class _ClienteMasterLogicService implements _IClienteMasterLogic
     protected IItemPersistence itemPersistance;
 
     public ClienteMasterDTO createMasterCliente(ClienteMasterDTO cliente) {
-        ClienteDTO persistedClienteDTO = clientePersistance.createCliente(cliente.getClienteEntity());
-        if (cliente.getCreateItem() != null) {
-            for (ItemDTO itemDTO : cliente.getCreateItem()) {
-                ItemDTO persistedItemDTO = itemPersistance.createItem(itemDTO);
-                ClienteItemEntity clienteItemEntity = new ClienteItemEntity(persistedClienteDTO.getId(), persistedItemDTO.getId());
-                clienteMasterPersistance.createClienteItem(clienteItemEntity);
+        try{
+            ClienteDTO persistedClienteDTO = clientePersistance.createCliente(cliente.getClienteEntity());
+            if (cliente.getCreateItem() != null) {
+                for (ItemDTO itemDTO : cliente.getCreateItem()) {
+                    ItemDTO persistedItemDTO = itemPersistance.createItem(itemDTO);
+                    ClienteItemEntity clienteItemEntity = new ClienteItemEntity(persistedClienteDTO.getId(), persistedItemDTO.getId());
+                    clienteMasterPersistance.createClienteItem(clienteItemEntity);
+                }
             }
+        }
+        catch( Exception e){
+            e.printStackTrace();
         }
         return cliente;
     }
