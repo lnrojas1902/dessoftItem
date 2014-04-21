@@ -1,6 +1,32 @@
 <script type="text/template" id="clienteList">
+    
+    
+    <!-- Iniciar Sesion -->
     <div class="panel panel-default">
-    <!-- Default panel contents -->
+     <div class="form-group">         
+        <form role="form" id="<%= componentId %>-clienteFormLogin">
+
+            <label>Login: </label>
+            <div class="form-group" >
+                <input type="text" class="form-control" id="docId" name="docId" value=""/>	
+            </div>
+
+            <label>Password: </label>
+            <div class="form-group" >
+                <input type="text" class="form-control" id="password" name="password" value=""/>	
+            </div>
+
+        </form>
+        <button id="<%= componentId%>-cliente-loginButton" 
+            onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
+            type="button" class="btn btn-default">
+            inciar Sesi√≥n
+        </button>
+    </div>
+    </div> 
+    
+    <!-- ista de Clientes -->
+    <div class="panel panel-default">
     <table class="table striped">
     <thead>
     <tr>
@@ -56,6 +82,7 @@
     </tbody>
     </table>
     </div>
+    </div>
 </script>
 
 <script type="text/template" id="cliente">
@@ -108,7 +135,7 @@
 
 <script type="text/template" id="facturaList">
 	<div class="panel panel-default">
-	<!-- La informaciÛn se va a presentar en una tabla -->
+	<!-- La informaciÔøΩn se va a presentar en una tabla -->
 	<table class="table striped">
 <!-- Estos son los encabezados de la tabla para cada campo del model (estos se visualizan) -->
 	<thead>
@@ -124,12 +151,12 @@
 	</tr>
 	</thead>
 	<tbody>
-<!-- Aqui se renderizan los modelos existentes en el modelo de la lista sports. Note el uso de javascript en el interior de los tags <% %> (en este caso un bucle que toma cada Ìtem de la lista ësportsí). La variable ësportsí ser· instanciada por el controlador (se ver· m·s adelante) -->
+<!-- Aqui se renderizan los modelos existentes en el modelo de la lista sports. Note el uso de javascript en el interior de los tags <% %> (en este caso un bucle que toma cada ÔøΩtem de la lista ÔøΩsportsÔøΩ). La variable ÔøΩsportsÔøΩ serÔøΩ instanciada por el controlador (se verÔøΩ mÔøΩs adelante) -->
 	<% _.each(facturas, function(factura) { %>
 <!-- Se hace un nuevo <tr> por cada elemento en la lista-->
 	<tr>    	
             <td><%= htmlEncode(factura.getDisplay('name')) %></td>
-            <!-- esta instrucciÛn indica quÈ campo del elemento actual del bucle se debe mostrar en ese lugar (cada <td> es una columna)>  -->	
+            <!-- esta instrucciÔøΩn indica quÔøΩ campo del elemento actual del bucle se debe mostrar en ese lugar (cada <td> es una columna)>  -->	
             <td><%= htmlEncode(factura.getDisplay('valor')) %></td>
             <td><%= htmlEncode(factura.getDisplay('estado')) %></td>
             <td><%= htmlEncode(factura.getDisplay('tipoDePago')) %></td>

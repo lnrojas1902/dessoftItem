@@ -33,6 +33,10 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             Backbone.on(this.componentId + '-' + 'toolbar-print', function(params) {
                 self.facturasCliente(params);
             });
+            
+            Backbone.on(this.componentId+'-cliente-login', function(params) {
+                self.clienteLogin(params);
+            });
         },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");
@@ -56,11 +60,11 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             
             self.facturasDelegate(params.id,function(data){
                 _.each(data, function(d) {
-//Se hace el cálculo del nuevo campo
+//Se hace el cï¿½lculo del nuevo campo
                  
                  var model=new App.Model.FacturaModel(d);
                  
-///*Ahora se instancia un SportPromModel, con un nuevo objeto JSON como parámetro como constructor (antes sportModel), extrayendo los datos de “d”.*/
+///*Ahora se instancia un SportPromModel, con un nuevo objeto JSON como parï¿½metro como constructor (antes sportModel), extrayendo los datos de ï¿½dï¿½.*/
 //                var model = new App.Model.FacturaModel({name: d.attributes.name, 
 //                    
 //                        valor: d.attributes.valor, estado: d.attributes.estado,tipoDePago: d.attributes.tipoDePago,
@@ -98,9 +102,9 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
 	},
         _renderFacturaList: function() {
                var self = this;
-            /*Aquí se utiliza el efecto gráfico backbone deslizar. “$el” hace referencia al <div id=”main”> ubicado en el index.html. Dentro de este div se despliegue la tabla.*/
+            /*Aquï¿½ se utiliza el efecto grï¿½fico backbone deslizar. ï¿½$elï¿½ hace referencia al <div id=ï¿½mainï¿½> ubicado en el index.html. Dentro de este div se despliegue la tabla.*/
                this.$el.slideUp("fast", function() {
-            /*Establece que en el <div> se despliegue el template de la variable “listPromTemplate”. Como parámetros entran las variables establecidas dentro de los tags <%%> con sus valores como un objeto JSON. En este caso, la propiedad sports tendrá la lista que instanció “sportSearch” en la variable del bucle <% _.each(sports, function(sport) { %>*/
+            /*Establece que en el <div> se despliegue el template de la variable ï¿½listPromTemplateï¿½. Como parï¿½metros entran las variables establecidas dentro de los tags <%%> con sus valores como un objeto JSON. En este caso, la propiedad sports tendrï¿½ la lista que instanciï¿½ ï¿½sportSearchï¿½ en la variable del bucle <% _.each(sports, function(sport) { %>*/
 
                self.$el.html(self.listFactTemplate({facturas: self.facturaModelList.models}));
                             self.$el.slideDown("fast");
@@ -119,7 +123,37 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
 	      },this)).error(_.bind(function(data){
 	    	  callbackError(data);
 	      },this));
-	}
+	},
+        clienteLogin: function() {
+            var self = this;
+            var model = $('#' + this.componentId + '-clienteFormLogin').serializeObject();
+            this.currentClienteModel = new App.Model.ClienteModel ();
+            this.currentClienteModel.set(model);
+            self.loginP(
+                self.currentClienteModel,
+            
+                function(data) {
+                self.currentClienteModel=new App.Model.ClienteModel(data);
+                self._renderEdit();
+            }, 
+            
+            function(data) {
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-login', view: self, id: '', data: data, error: 'No se pudo iniciar sesion'});
+            });
+        },
+        loginP: function(cliente, callback, callbackError) {
+            console.log('Cliente Login: ');
+            $.ajax({
+                url: '/cliente.service.subsystem.web/webresources/Cliente/login',
+                type: 'POST',
+                data: JSON.stringify(cliente),
+                contentType: 'application/json'
+            }).done(_.bind(function(data) {
+                callback(data);
+            }, this)).error(_.bind(function(data) {
+                callbackError(data);
+            }, this));
+        }
         
         
     });

@@ -35,7 +35,30 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
         
         return persistance.existeCliente(cliente);
     }
-
+    
+    public ClienteDTO loginCliente(ClienteDTO cliente) throws Exception {
+        ClienteDTO clienteVerdader = searchClienteByDocID(cliente);
+        if ( clienteVerdader == null)
+        {
+            throw new Exception("El usuario no existe");
+        }
+        else if ( clienteVerdader.getPassword().equals(cliente.getPassword()))
+        {
+            return clienteVerdader;
+        }
+        else
+        {
+            throw new Exception("Clave incorrecta. Intente de nuevo");
+        }
+    }
+    
+    public ClienteDTO searchClienteByDocID(ClienteDTO cliente) {
+        List<ClienteDTO> clientesP = getClientes();
+        int i = 0;
+        while (i != clientesP.size() && !clientesP.get(i).getDocId().equals(cliente.getDocId()))
+        {i++;}
+        return (i == clientesP.size())? null: clientesP.get(i);
+    }
    
 
 }

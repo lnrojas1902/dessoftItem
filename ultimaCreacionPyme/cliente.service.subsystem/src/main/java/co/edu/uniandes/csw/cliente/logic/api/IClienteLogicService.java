@@ -15,4 +15,6 @@ public interface IClienteLogicService extends _IClienteLogicService {
     public void comprar(Long id);
     
     public boolean existeCliente(ClienteDTO cliente);
+
+    public ClienteDTO loginCliente(ClienteDTO cliente)throws Exception;
 }

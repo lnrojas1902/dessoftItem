@@ -26,5 +26,9 @@ public class ClienteMockLogicService extends _ClienteMockLogicService implements
     public boolean existeCliente(ClienteDTO cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ClienteDTO loginCliente(ClienteDTO cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 }

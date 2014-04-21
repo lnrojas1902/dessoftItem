@@ -41,4 +41,10 @@ public class ClienteService extends _ClienteService {
             throw new Exception("Ya existe un cliente con el mismo ID");
         
     }
+    
+    @POST
+    @Path("/login")
+    public ClienteDTO loginCliente(ClienteDTO cliente) throws Exception{
+        return this.clienteLogicService.loginCliente(cliente);
+    }
 }
