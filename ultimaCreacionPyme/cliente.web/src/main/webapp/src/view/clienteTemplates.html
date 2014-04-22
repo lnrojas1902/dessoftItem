@@ -1,12 +1,14 @@
 <script type="text/template" id="clienteList">
     
     
+    
     <!-- Iniciar Sesion -->
+    <% if(!clienteP) {%>
     <div class="panel panel-default">
      <div class="form-group">         
         <form role="form" id="<%= componentId %>-clienteFormLogin">
 
-            <label>Login: </label>
+            <label>Login: </label>       
             <div class="form-group" >
                 <input type="text" class="form-control" id="docId" name="docId" value=""/>	
             </div>
@@ -23,8 +25,11 @@
             inciar Sesión
         </button>
     </div>
+   
     </div> 
-    
+    <% }; %> 
+   
+    <% if(clienteP) {%>
     <!-- ista de Clientes -->
     <div class="panel panel-default">
     <table class="table striped">
@@ -83,8 +88,35 @@
     </table>
     </div>
     </div>
+    <% }; %> 
 </script>
 
+<script type="text/template" id="clienteLogin">
+    
+    <!-- Iniciar Sesion -->
+    <div class="panel panel-default">
+     <div class="form-group">         
+        <form role="form" id="<%= componentId %>-clienteFormLogin">
+
+            <label>Login: </label>
+            <div class="form-group" >
+                <input type="text" class="form-control" id="docId" name="docId" value=""/>	
+            </div>
+
+            <label>Password: </label>
+            <div class="form-group" >
+                <input type="text" class="form-control" id="password" name="password" value=""/>	
+            </div>
+
+        </form>
+        <button id="<%= componentId%>-cliente-loginButton" 
+            onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
+            type="button" class="btn btn-default">
+            inciar Sesión
+        </button>
+     </div>
+    </div>
+</script>
 <script type="text/template" id="cliente">
     <div class="form-group">
     <form role="form" id="<%= componentId %>-clienteForm">

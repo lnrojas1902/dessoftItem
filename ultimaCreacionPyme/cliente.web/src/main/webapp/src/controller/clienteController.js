@@ -26,6 +26,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             Backbone.on('cliente-facturas',function(params){
                 self.facturasCliente(params);
             });
+            this.loginTemplate = _.template($('#clienteLogin').html());
             
             this.listFactTemplate = _.template($('#facturaList').html());
             this.listFactModelClass = options.listModelClass;
@@ -134,6 +135,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             
                 function(data) {
                 self.currentClienteModel=new App.Model.ClienteModel(data);
+                //self._renderLogin();
                 self._renderEdit();
             }, 
             
@@ -153,6 +155,13 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             }, this)).error(_.bind(function(data) {
                 callbackError(data);
             }, this));
+        },
+        _renderLogin: function() {
+            var self = this;
+            this.$el.slideUp("fast", function() {
+                self.$el.html(self.loginTemplate({clienteP: self.currentClienteModel, clientes: self.clienteModelList.models, componentId: self.componentId, showEdit : self.showEdit , showDelete : self.showDelete}));
+                self.$el.slideDown("fast");
+            });
         }
         
         
