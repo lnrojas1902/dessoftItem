@@ -4,20 +4,31 @@
     
     <!-- Iniciar Sesion -->
     <% if(!clienteP) {%>
+    <center>
+    <div id="contenedor">
+    <div id="contenido">
     <div class="panel panel-default">
      <div class="form-group">         
         <form role="form" id="<%= componentId %>-clienteFormLogin">
 
-            <label>Login: </label>       
-            <div class="form-group" >
-                <input type="text" class="form-control" id="docId" name="docId" value=""/>	
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label>Login: </label>   
+                </div>
+                <div id="contenido2">
+                    <input type="text" class="form-control" id="docId" name="docId" value=""/>	
+                </div>
+            </div> 
+            
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label>Password: </label>
+                </div>
+                <div id="contenido2">
+                    <input type="text" class="form-control" id="password" name="password" value=""/>	
+                </div>
             </div>
-
-            <label>Password: </label>
-            <div class="form-group" >
-                <input type="text" class="form-control" id="password" name="password" value=""/>	
-            </div>
-
+            
         </form>
         <button id="<%= componentId%>-cliente-loginButton" 
             onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
@@ -25,8 +36,61 @@
             inciar Sesión
         </button>
     </div>
-   
+   </div>
+  </div>
+  <div id="contenido">
+   <div class="panel panel-default">
+   <div class="form-group">
+    <form role="form" id="<%= componentId %>-clienteFormRegistro">
+  
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label for="name">name</label>
+                </div>
+                <div id="contenido2">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter value" value=""/>		
+                </div>
+            </div> 
+           
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label for="docId">docId</label>
+                </div>
+                <div id="contenido2">
+                    <input type="text" class="form-control" id="docId" name="docId" placeholder="Enter value" value=""/>	
+                </div>
+            </div>
+            
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label for="tipo">tipo</label>
+                </div>
+                <div id="contenido2">
+                    <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Enter value" value=""/>	
+                </div>
+            </div>
+            
+            <div id="contenedor" class="form-group">
+                <div id="contenido2">
+                    <label for="password">password</label>
+                </div>
+                <div id="contenido2">
+                    <input class="form-control" id="password" name="password" placeholder="Enter value" value="" type="text">
+                </div>
+            </div>
+    </form>
+    <button id="<%= componentId%>-cliente-loginButton" 
+            onclick="Backbone.trigger('<%= componentId %>-cliente-registrar',{}); return false" 
+            type="button" class="btn btn-default">
+            Registrar
+    </button>
+    </div>
     </div> 
+    </div>
+    
+    </div>
+    </center>
+    </hr>
     <% }; %> 
    
     <% if(clienteP) {%>
@@ -38,8 +102,6 @@
 		 <th>name</th>
 		 <th>docId</th>
 		 <th>tipo</th>
-		 <th>password</th>
-                 <th>Iniciar</th>
                  <th>Acciones</th>
                   <th>Ver Factura</th>
                  <th>Editar</th>
@@ -51,26 +113,7 @@
 		<td><%= htmlEncode(cliente.getDisplay('name')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('docId')) %></td>
 		<td><%= htmlEncode(cliente.getDisplay('tipo')) %></td>
-                <td>
-                    <div class="form-group">     
-                        <form role="form" id="<%= componentId %>-clienteForm">
-                            <% if(cliente.id) {%>
-                            <input type="hidden" name="id" value="<%= cliente.id %>"/>
-                            <% }%>
-                            <input type="hidden" name="password" value="<%= cliente.password %>"/>
-                            <div class="form-group" >
-                                <input type="text" class="form-control" id="pasword" name="pasword" placeholder="Enter value" value=""/>	
-                            </div>
-                        </form>
-                </td>
-                <td>
-                        <button id="<%= componentId%>-cliente-loginButton" 
-                            onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
-                            type="button" class="btn btn-default">
-                            inciar Sesión
-                        </button>
-                    </div>
-                </td>
+                
                 <td><a class="btn" onclick="Backbone.trigger('cliente-comprar',{id:<%= cliente.id%>})">Confirmar Compra</a></td>
                 <td><a class="btn" onclick="Backbone.trigger('cliente-facturas',{id:<%= cliente.id%>})">Ver Factura</a></td>
     <td>
