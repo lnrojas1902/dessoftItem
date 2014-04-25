@@ -38,6 +38,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             Backbone.on(this.componentId+'-cliente-login', function(params) {
                 self.clienteLogin(params);
             });
+            
         },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");

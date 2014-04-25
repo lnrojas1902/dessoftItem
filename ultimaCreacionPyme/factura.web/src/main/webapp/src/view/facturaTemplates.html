@@ -96,3 +96,22 @@
     </form>
     </div>
 </script> 
+<script type="text/template" id="facturaSearch">
+    <div class="form-group">
+    <form role="form" id="<%= componentId %>-facturaForm">
+   
+		<div class="form-group" >
+		<label for="userName">facturaName</label>
+    	<input type="text" class="form-control" id="fechaDeRealizacion" name="fechaDeRealizacion" placeholder="Enter value" value=""/>	
+		</div>
+		
+ 
+    </form>
+    <button id="<%= componentId%>-user-searchButton" 
+        onclick="Backbone.trigger('<%= componentId %>-factura-search-by-date',{}); return false" 
+        type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search
+    </button>
+    </div>
+ 
+</script>

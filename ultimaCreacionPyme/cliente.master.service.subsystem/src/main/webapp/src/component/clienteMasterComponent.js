@@ -11,7 +11,7 @@ define(['controller/selectionController', 'model/cacheModel', 'model/clienteMast
             var uComponent = new ClienteComponent();
             uComponent.initialize();
             uComponent.render('main');
-            //uComponent.controller._renderLogin();
+            uComponent.controller._renderLogin();
             
             Backbone.on(uComponent.componentId + '-post-cliente-create', function(params) {
                 self.renderChilds(params);

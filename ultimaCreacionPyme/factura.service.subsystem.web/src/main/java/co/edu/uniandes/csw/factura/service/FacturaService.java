@@ -32,4 +32,9 @@ public class FacturaService extends _FacturaService {
         
         return resp;
     }
+    @POST
+    @Path("/search")
+    public List<FacturaDTO> buscarFacturaFecha(FacturaDTO user){
+        return facturaLogicService.getFacturasFecha(user);
+    }
 }

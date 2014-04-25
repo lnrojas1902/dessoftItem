@@ -1,0 +1,22 @@
+#contenedor {
+padding:30px 0px 0px 0px;
+width:auto;
+margin-top:10px;
+}
+
+#contenido {
+    padding:10px 30px 10px 30px;
+    color:black;
+    width:459px;
+    float:left;
+    margin-left:50px;
+}
+
+#contenido2 {
+    width:170px;
+    font-size:18px;
+    float:left;
+    height:50px;
+    margin-right:10px;
+    text-align:right;
+}

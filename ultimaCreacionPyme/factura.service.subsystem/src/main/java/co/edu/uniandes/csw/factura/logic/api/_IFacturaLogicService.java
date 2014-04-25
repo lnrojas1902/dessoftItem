@@ -4,6 +4,7 @@ package co.edu.uniandes.csw.factura.logic.api;
 import java.util.List; 
 
 import co.edu.uniandes.csw.factura.logic.dto.FacturaDTO;
+import java.util.Date;
 
 public interface _IFacturaLogicService {
 
@@ -13,4 +14,6 @@ public interface _IFacturaLogicService {
 	public void deleteFactura(Long id);
 	public void updateFactura(FacturaDTO detail);
 	
+
+
 }

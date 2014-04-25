@@ -1,6 +1,10 @@
 
 package co.edu.uniandes.csw.factura.persistence.api;
 
-public interface IFacturaPersistence extends _IFacturaPersistence {
+import co.edu.uniandes.csw.factura.logic.dto.FacturaDTO;
+import java.util.Date;
+import java.util.List;
 
+public interface IFacturaPersistence extends _IFacturaPersistence {
+ public List<FacturaDTO> getFacturasFecha(FacturaDTO d);
 }
