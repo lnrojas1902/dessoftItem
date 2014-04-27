@@ -1,4 +1,6 @@
-define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel'], function() {
+define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel'
+//    ,'model/productoModel'
+], function() {
     App.Controller.ClienteController = App.Controller._ClienteController.extend({
         
         postInit: function(options) {
@@ -39,6 +41,37 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                 self.clienteLogin(params);
             });
             
+//            this.listProductoTemplate = _.template($('#productoList').html());
+//            this.listProductoModelClass = options.listModelClass;
+      
+            
+            
+           //toolbar
+            Backbone.on('show-login-cliente', function() {
+               self._renderLogin();
+            });
+            Backbone.on('show-productos-cliente', function() {
+               self.listProductos();
+            });
+            
+          
+          //Lo siguiente es un ejemplo para hacer modificaciones en el toolbar
+          this.p1 = true;
+           Backbone.on('button2-prueba', function(params) {
+                alert('prueba2');
+                if ( self.p1)
+                {
+                    Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Prueba'});
+                       self.p1 = false;
+                }
+                else
+                {
+                    Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Prueba'});
+                       self.p1 = true;
+                }
+            });
         },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");
@@ -137,6 +170,10 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                 function(data) {
                 self.currentClienteModel=new App.Model.ClienteModel(data);
                 //self._renderLogin();
+                Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Login'});
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Cuenta'}); 
                 self._renderEdit();
             }, 
             
@@ -160,10 +197,53 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
         _renderLogin: function() {
             var self = this;
             this.$el.slideUp("fast", function() {
-                self.$el.html(self.loginTemplate({clienteP: self.currentClienteModel, clientes: self.clienteModelList.models, componentId: self.componentId, showEdit : self.showEdit , showDelete : self.showDelete}));
+                self.$el.html(self.loginTemplate({clienteP: self.currentClienteModel, componentId: self.componentId}));
                 self.$el.slideDown("fast");
             });
         }
+//                ,
+//        listProductos: function(){
+//            
+//          
+//            console.log('productos' );
+//            var self=this;
+//            self.productoModelList = new App.Model.ProductoList();
+//            self.productosDelegate(function(data){
+//                _.each(data, function(d) {
+//                    var model=new App.Model.ProductoModel(d);
+//                    console.log('productos:' +JSON.stringify(model));
+//                    self.productoModelList.models.push(model);
+//                });
+//     
+//            self._renderProductosList();
+//            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+//            },function(data){
+//                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+//            });
+//        },
+//        productosDelegate: function(callback,callbackError){
+//	    console.log('productosDelegate: ');
+//            
+//            $.ajax({
+//	          url: '/producto.service.subsystem.web/webresources/Producto/listar',
+//	          type: 'POST',
+//	          data: '',
+//	          contentType: 'application/json'
+//	      }).done(_.bind(function(data){
+//	    	  callback(data);
+//	      },this)).error(_.bind(function(data){
+//	    	  callbackError(data);
+//	      },this));
+//	},
+//        _renderProductosList: function() {
+//            console.log('productosRender: inicio');
+//               var self = this;
+//               this.$el.slideUp("fast", function() {
+//            
+//               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
+//                            self.$el.slideDown("fast");
+//               });
+//         }
         
         
     });
