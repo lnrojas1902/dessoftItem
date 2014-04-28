@@ -27,6 +27,12 @@ public class ClienteService extends _ClienteService {
     }
     
     @POST
+    @Path("/registrarCliente")
+    public ClienteDTO registrarCliente(ClienteDTO cliente) throws Exception{
+        return createCliente(cliente);
+    }
+    
+    @POST
     @Path("/comprar")
     public void comprar(Long id) {
         this.clienteLogicService.comprar(id);

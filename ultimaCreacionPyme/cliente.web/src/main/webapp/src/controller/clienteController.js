@@ -9,6 +9,10 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
 //            Backbone.on(this.componentId + '-toolbar-print', function(params) {
 //                self.print();
 //            });
+            Backbone.on(this.componentId+'-'+'cliente-registrar', function() {
+                
+               self.registrarCliente();
+            });
             
             this.searchTemplate = _.template($('#clienteSearch').html()+$('#clienteList').html());
  
@@ -26,6 +30,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             });
             
             Backbone.on('cliente-facturas',function(params){
+                
                 self.facturasCliente(params);
             });
             this.loginTemplate = _.template($('#clienteLogin').html());
@@ -53,6 +58,7 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             Backbone.on('show-productos-cliente', function() {
                self.listProductos();
             });
+            
             
           
           //Lo siguiente es un ejemplo para hacer modificaciones en el toolbar
@@ -200,7 +206,37 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                 self.$el.html(self.loginTemplate({clienteP: self.currentClienteModel, componentId: self.componentId}));
                 self.$el.slideDown("fast");
             });
-        }
+        },
+        registrarCliente: function() {
+            
+           
+            var self = this;
+            var model = $('#' + this.componentId + '-clienteFormRegistro').serializeObject();
+            this.currentClienteModel = new App.Model.ClienteModel();
+            this.currentClienteModel.set(model);
+            self.registrarDelegate(self.currentClienteModel, function(data) {
+                
+                var model=new App.Model.ClienteModel(data);
+                self._renderEdit();
+            }, function(data) {
+                //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
+                alert("Ya existe un cliente con el mismo docID");
+            });
+        },
+        registrarDelegate: function(cliente, callback, callbackError) {
+            
+            console.log('Cliente Search: ');
+            $.ajax({
+                url: '/cliente.service.subsystem.web/webresources/Cliente/registrarCliente',
+                type: 'POST',
+                data: JSON.stringify(cliente),
+                contentType: 'application/json'
+            }).done(_.bind(function(data) {
+                callback(data);
+            }, this)).error(_.bind(function(data) {
+                callbackError(data);
+            }, this));
+        },
 //                ,
 //        listProductos: function(){
 //            
