@@ -13,14 +13,24 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
             //this.toolbarModel.set('title','Crear Carrito');
  
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
-                       {name: 'Productos',icon: 'glyphicon-shopping-cart',event: 'show-productos-cliente'});
+                {name: 'Productos',icon: 'glyphicon-list',event: 'show-productos-cliente'});
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
-                       {name: 'Login',icon: 'glyphicon-log-in',event: 'show-login-cliente'});
+                {name: 'Carrito',icon: 'glyphicon-shopping-cart',event: 'show-carrito-cliente'});            
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
-                       {name: 'Cuenta',icon: 'glyphicon-user',event: 'show-cuenta-cliente'}); 
+                {name: 'Login',icon: 'glyphicon-log-in',event: 'show-login-cliente'});
+            Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                {name: 'Cuenta',icon: 'glyphicon-user',event: 'show-cuenta-cliente'});
+            Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                {name: 'Facturas',icon: 'glyphicon-folder-open',event: 'show-facturas-cliente'});
             Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Cuenta'});
-           
+                {name: 'Cuenta'});
+            Backbone.trigger(self.componentId + '-hide-button',
+                {name: 'Facturas'});
+                       
+            Backbone.on('asignar-nombre', function(params) {
+                self.toolbarModel.set('title',params.name);
+            });         
+            
         }
     });
     return App.Component.ClienteComponent;

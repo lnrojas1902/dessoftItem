@@ -1,6 +1,5 @@
-define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel'
-//    ,'model/productoModel'
-], function() {
+define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel','model/productoModel'],
+function() {
     App.Controller.ClienteController = App.Controller._ClienteController.extend({
         
         postInit: function(options) {
@@ -46,8 +45,8 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                 self.clienteLogin(params);
             });
             
-//            this.listProductoTemplate = _.template($('#productoList').html());
-//            this.listProductoModelClass = options.listModelClass;
+            this.listProductoTemplate = _.template($('#productoList').html());
+            this.listProductoModelClass = options.listModelClass;
       
             
             
@@ -57,6 +56,9 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
             });
             Backbone.on('show-productos-cliente', function() {
                self.listProductos();
+            });
+            Backbone.on('show-cuenta-cliente', function() {
+               self._renderEdit();
             });
             
             
@@ -180,6 +182,11 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                        {name: 'Login'});
                 Backbone.trigger(self.componentId + '-show-button',
                        {name: 'Cuenta'}); 
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Facturas'}); 
+                Backbone.trigger('asignar-nombre',
+                       {name: self.currentClienteModel.getDisplay("name")});
+                       
                 self._renderEdit();
             }, 
             
@@ -237,49 +244,49 @@ define(['controller/_clienteController','delegate/clienteDelegate','model/factur
                 callbackError(data);
             }, this));
         },
-//                ,
-//        listProductos: function(){
-//            
-//          
-//            console.log('productos' );
-//            var self=this;
-//            self.productoModelList = new App.Model.ProductoList();
-//            self.productosDelegate(function(data){
-//                _.each(data, function(d) {
-//                    var model=new App.Model.ProductoModel(d);
-//                    console.log('productos:' +JSON.stringify(model));
-//                    self.productoModelList.models.push(model);
-//                });
-//     
-//            self._renderProductosList();
-//            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
-//            },function(data){
-//                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
-//            });
-//        },
-//        productosDelegate: function(callback,callbackError){
-//	    console.log('productosDelegate: ');
-//            
-//            $.ajax({
-//	          url: '/producto.service.subsystem.web/webresources/Producto/listar',
-//	          type: 'POST',
-//	          data: '',
-//	          contentType: 'application/json'
-//	      }).done(_.bind(function(data){
-//	    	  callback(data);
-//	      },this)).error(_.bind(function(data){
-//	    	  callbackError(data);
-//	      },this));
-//	},
-//        _renderProductosList: function() {
-//            console.log('productosRender: inicio');
-//               var self = this;
-//               this.$el.slideUp("fast", function() {
-//            
-//               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
-//                            self.$el.slideDown("fast");
-//               });
-//         }
+        listProductos: function(){
+            
+          
+            console.log('productos' );
+            var self=this;
+            self.productoModelList = new App.Model.ProductoList();
+				
+            self.productosDelegate(function(data){
+                _.each(data, function(d) {
+                    var model=new App.Model.ProductoModel(d);
+                    console.log('productos:' +JSON.stringify(model));
+                    self.productoModelList.models.push(model);
+                });
+     
+            self._renderProductosList();
+            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+            });
+        },
+        productosDelegate: function(callback,callbackError){
+	    console.log('productosDelegate: ');
+            
+            $.ajax({
+	          url: '/producto.service.subsystem.web/webresources/Producto/listar',
+	          type: 'POST',
+	          data: '',
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
+        _renderProductosList: function() {
+            console.log('productosRender: inicio');
+               var self = this;
+               this.$el.slideUp("fast", function() {
+            
+               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
+                            self.$el.slideDown("fast");
+               });
+         }
         
         
     });
