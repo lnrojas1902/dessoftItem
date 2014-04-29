@@ -5,6 +5,7 @@ function() {
         postInit: function(options) {
             var self = this;
             
+            this.clienteActual;
 //            Backbone.on(this.componentId + '-toolbar-print', function(params) {
 //                self.print();
 //            });
@@ -80,6 +81,9 @@ function() {
                        self.p1 = true;
                 }
             });
+        },
+        listProductos: function(){
+            this.list();
         },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");
@@ -177,6 +181,7 @@ function() {
             
                 function(data) {
                 self.currentClienteModel=new App.Model.ClienteModel(data);
+                self.clienteActual = self.currentClienteModel;
                 //self._renderLogin();
                 Backbone.trigger(self.componentId + '-hide-button',
                        {name: 'Login'});
@@ -243,50 +248,7 @@ function() {
             }, this)).error(_.bind(function(data) {
                 callbackError(data);
             }, this));
-        },
-        listProductos: function(){
-            
-          
-            console.log('productos' );
-            var self=this;
-            self.productoModelList = new App.Model.ProductoList();
-				
-            self.productosDelegate(function(data){
-                _.each(data, function(d) {
-                    var model=new App.Model.ProductoModel(d);
-                    console.log('productos:' +JSON.stringify(model));
-                    self.productoModelList.models.push(model);
-                });
-     
-            self._renderProductosList();
-            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
-            },function(data){
-                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
-            });
-        },
-        productosDelegate: function(callback,callbackError){
-	    console.log('productosDelegate: ');
-            
-            $.ajax({
-	          url: '/producto.service.subsystem.web/webresources/Producto/listar',
-	          type: 'POST',
-	          data: '',
-	          contentType: 'application/json'
-	      }).done(_.bind(function(data){
-	    	  callback(data);
-	      },this)).error(_.bind(function(data){
-	    	  callbackError(data);
-	      },this));
-	},
-        _renderProductosList: function() {
-            console.log('productosRender: inicio');
-               var self = this;
-               this.$el.slideUp("fast", function() {
-            
-               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
-                            self.$el.slideDown("fast");
-               });
-         }
+        }
         
         
     });

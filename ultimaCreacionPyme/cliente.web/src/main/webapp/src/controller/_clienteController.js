@@ -45,7 +45,7 @@ define(['model/clienteModel'], function(clienteModel) {
                 Backbone.trigger(this.componentId + '-' + 'post-cliente-create', {view: this});
             }
         },
-        list: function(params) {
+        listaClientes: function(params) {
             if (params) {
                 var data = params.data;
             }
@@ -231,7 +231,40 @@ define(['model/clienteModel'], function(clienteModel) {
                 
                 callbackError(data);
             }, this));
-        }
+        },
+        list: function(){
+            if(!this.clienteModelList){
+                 this.clienteModelList = new this.listModelClass();
+	    }
+          
+            console.log('productos' );
+            var self=this;
+            self.productoModelList = new App.Model.ProductoList();
+            self.clienteDeledate = new App.Delegate.ClienteDelegate();
+            self.clienteDeledate.productosDelegate(function(data){
+                _.each(data, function(d) {
+                    var model=new App.Model.ProductoModel(d);
+                    console.log('productos:' +JSON.stringify(model));
+                    self.productoModelList.models.push(model);
+                });
+     
+            self._renderProductosList();
+            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+            });
+        },
+        
+        _renderProductosList: function() {
+            console.log('productosRender: inicio');
+               var self = this;
+               this.$el.slideUp("fast", function() {
+            
+               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
+                            self.$el.slideDown("fast");
+               });
+         }
+       
     });
     return App.Controller._ClienteController;
 });

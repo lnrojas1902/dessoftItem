@@ -25,6 +25,20 @@ define(['delegate/_clienteDelegate'], function() {
 	      },this)).error(_.bind(function(data){
 	    	  callbackError(data);
 	      },this));
-	}
+	},
+        productosDelegate: function(callback,callbackError){
+	    console.log('productosDelegate: ');
+            
+            $.ajax({
+	          url: '/producto.service.subsystem.web/webresources/Producto/listar',
+	          type: 'POST',
+	          data: '',
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
     });
 });
