@@ -232,6 +232,7 @@ define(['model/clienteModel'], function(clienteModel) {
                 callbackError(data);
             }, this));
         },
+        //Muestra la lista de todos los productos
         list: function(){
             if(!this.clienteModelList){
                  this.clienteModelList = new this.listModelClass();

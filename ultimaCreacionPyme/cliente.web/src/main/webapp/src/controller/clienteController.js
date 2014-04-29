@@ -58,6 +58,9 @@ function() {
             Backbone.on('show-productos-cliente', function() {
                self.listProductos();
             });
+            Backbone.on('show-carrito-cliente', function() {
+               self.productosCarritoCliente();
+            });
             Backbone.on('show-cuenta-cliente', function() {
                self._renderEdit();
             });
@@ -248,7 +251,39 @@ function() {
             }, this)).error(_.bind(function(data) {
                 callbackError(data);
             }, this));
-        }
+        },
+        productosCarritoCliente: function(){
+            if(!this.clienteModelList){
+                 this.clienteModelList = new this.listModelClass();
+	    }
+          
+            console.log('productos' );
+            var self=this;
+            self.productoCarritoModelList = new App.Model.ProductoList();
+            self.clienteDeledate = new App.Delegate.ClienteDelegate();
+            self.clienteDeledate.productosCarritoDelegate(function(data){
+                _.each(data, function(d) {
+                    var model=new App.Model.ProductoModel(d);
+                    console.log('productos:' +JSON.stringify(model));
+                    self.productoCarritoModelList.models.push(model);
+                });
+     
+            self._renderProductosCarritoCliente();
+            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+            });
+        },
+        
+        _renderProductosCarritoCliente: function() {
+            console.log('productosRender: inicio');
+               var self = this;
+               this.$el.slideUp("fast", function() {
+            
+               self.$el.html(self.listProductoTemplate({productos: self.productoCarritoModelList.models}));
+                            self.$el.slideDown("fast");
+               });
+         }
         
         
     });
