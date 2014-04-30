@@ -192,7 +192,8 @@ define(['model/clienteModel'], function(clienteModel) {
             var self = this;
             var model = $('#' + this.componentId + '-clienteForm').serializeObject();
             this.currentClienteModel.set(model);
-            self.searchP(self.currentClienteModel, function(data) {
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            self.clienteDelegate.searchDelegate(self.currentClienteModel, function(data) {
                 self.clienteModelList=new App.Model.ClienteList();
                 _.each(data,function(d){
                     var model=new App.Model.ClienteModel(d);
@@ -202,19 +203,6 @@ define(['model/clienteModel'], function(clienteModel) {
             }, function(data) {
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
             });
-        },
-        searchP: function(cliente, callback, callbackError) {
-            console.log('Cliente Search: ');
-            $.ajax({
-                url: '/cliente.service.subsystem.web/webresources/Cliente/search',
-                type: 'POST',
-                data: JSON.stringify(cliente),
-                contentType: 'application/json'
-            }).done(_.bind(function(data) {
-                callback(data);
-            }, this)).error(_.bind(function(data) {
-                callbackError(data);
-            }, this));
         },
         veri: function(cliente, callback, callbackError) {
             console.log('Verificar cliente existencia: ');

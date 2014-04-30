@@ -22,15 +22,26 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
                 {name: 'Cuenta',icon: 'glyphicon-user',event: 'show-cuenta-cliente'});
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
                 {name: 'Facturas',icon: 'glyphicon-folder-open',event: 'show-facturas-cliente'});
-            Backbone.trigger(self.componentId + '-hide-button',
+            Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                {name: 'Clientes',icon: 'glyphicon-align-justify',event: 'show-clientes'});
+             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                       {name: 'Logout',icon: 'glyphicon-log-out',event: 'logout-cliente'});
+             
+             Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Cuenta'});
             Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Facturas'});
+            Backbone.trigger(self.componentId + '-hide-button',
+                {name: 'Logout'});  
                        
             Backbone.on('asignar-nombre', function(params) {
                 self.toolbarModel.set('title',params.name);
             });         
             
+            this.toolbarModel.set('title','Cliente');
+            this.toolbarModel.set('showPrint',false);
+            this.toolbarModel.set('showRefresh',false);
+            this.toolbarModel.set('showCreate',false);
         }
     });
     return App.Component.ClienteComponent;

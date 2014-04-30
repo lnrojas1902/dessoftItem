@@ -64,6 +64,17 @@ function() {
             Backbone.on('show-cuenta-cliente', function() {
                self._renderEdit();
             });
+            Backbone.on('show-clientes', function() {
+               self.listaClientes();
+            });
+            Backbone.on('show-facturas-cliente', function() {
+               self.facturasCliente();
+            });
+            Backbone.on('logout-cliente', function() {
+               self.logout();
+            });
+            
+            
             
             
           
@@ -94,26 +105,47 @@ function() {
         comprar: function(params){
             console.log('comprar' + params.id);
             var self=this;
-            self.comprarDelegate(params.id,function(data){
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            self.clienteDelegate.comprarDelegate(params.id,function(data){
                 
             },function(data){
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
             });
         },
+        logout: function (){
+            
+            var self = this;
+            self.currentClienteModel = new App.Model.ClienteModel();
+            self.listProductos();
+            
+            Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Login'});
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Cuenta'}); 
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Facturas'}); 
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Logout'}); 
+                       
+                       
+                Backbone.trigger('asignar-nombre',
+                       {name: 'Cliente'});
+        },
         facturasCliente: function(params){
             
-          
-            console.log('facturasCliente' + params.id);
+            var idCliente = this.currentClienteModel.getDisplay("id");
+            console.log('facturasCliente' + idCliente);
             var self=this;
             self.facturaModelList = new App.Model.FacturaList();
             
-            
-            self.facturasDelegate(params.id,function(data){
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            var contador = 0;
+            self.clienteDelegate.facturasDelegate(idCliente,function(data){
                 _.each(data, function(d) {
 //Se hace el cï¿½lculo del nuevo campo
                  
                  var model=new App.Model.FacturaModel(d);
-                 
+                 console.log('factura: '+(contador++)+" - facturaNombre:" +model.getDisplay("name"));
 ///*Ahora se instancia un SportPromModel, con un nuevo objeto JSON como parï¿½metro como constructor (antes sportModel), extrayendo los datos de ï¿½dï¿½.*/
 //                var model = new App.Model.FacturaModel({name: d.attributes.name, 
 //                    
@@ -135,21 +167,6 @@ function() {
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
             });
         },
-        facturasDelegate: function(id,callback,callbackError){
-	    console.log('facturaDelegate: '+id);
-            
-            $.ajax({
-	          url: '/factura.service.subsystem.web/webresources/Factura/facturasCliente',
-	          type: 'POST',
-	          data: JSON.stringify(id),
-	          contentType: 'application/json'
-	      }).done(_.bind(function(data){
-                  
-	    	  callback(data);
-	      },this)).error(_.bind(function(data){
-	    	  callbackError(data);
-	      },this));
-	},
         _renderFacturaList: function() {
                var self = this;
             /*Aquï¿½ se utiliza el efecto grï¿½fico backbone deslizar. ï¿½$elï¿½ hace referencia al <div id=ï¿½mainï¿½> ubicado en el index.html. Dentro de este div se despliegue la tabla.*/
@@ -160,26 +177,13 @@ function() {
                             self.$el.slideDown("fast");
                });
          },
-         comprarDelegate: function(id,callback,callbackError){
-	    console.log('comprar: '+id);
-            
-            $.ajax({
-	          url: '/cliente.service.subsystem.web/webresources/Cliente/comprar',
-	          type: 'POST',
-	          data: JSON.stringify(id),
-	          contentType: 'application/json'
-	      }).done(_.bind(function(data){
-	    	  callback(data);
-	      },this)).error(_.bind(function(data){
-	    	  callbackError(data);
-	      },this));
-	},
         clienteLogin: function() {
             var self = this;
             var model = $('#' + this.componentId + '-clienteFormLogin').serializeObject();
             this.currentClienteModel = new App.Model.ClienteModel ();
             this.currentClienteModel.set(model);
-            self.loginP(
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            self.clienteDelegate.loginDelegate(
                 self.currentClienteModel,
             
                 function(data) {
@@ -192,6 +196,10 @@ function() {
                        {name: 'Cuenta'}); 
                 Backbone.trigger(self.componentId + '-show-button',
                        {name: 'Facturas'}); 
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Logout'}); 
+                       
+                       
                 Backbone.trigger('asignar-nombre',
                        {name: self.currentClienteModel.getDisplay("name")});
                        
@@ -200,20 +208,8 @@ function() {
             
             function(data) {
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-login', view: self, id: '', data: data, error: 'No se pudo iniciar sesion'});
+                alert("Usuario o contraseña inválidos");
             });
-        },
-        loginP: function(cliente, callback, callbackError) {
-            console.log('Cliente Login: ');
-            $.ajax({
-                url: '/cliente.service.subsystem.web/webresources/Cliente/login',
-                type: 'POST',
-                data: JSON.stringify(cliente),
-                contentType: 'application/json'
-            }).done(_.bind(function(data) {
-                callback(data);
-            }, this)).error(_.bind(function(data) {
-                callbackError(data);
-            }, this));
         },
         _renderLogin: function() {
             var self = this;
@@ -229,7 +225,8 @@ function() {
             var model = $('#' + this.componentId + '-clienteFormRegistro').serializeObject();
             this.currentClienteModel = new App.Model.ClienteModel();
             this.currentClienteModel.set(model);
-            self.registrarDelegate(self.currentClienteModel, function(data) {
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            self.clienteDelegate.registrarDelegate(self.currentClienteModel, function(data) {
                 
                 var model=new App.Model.ClienteModel(data);
                 self._renderEdit();
@@ -237,20 +234,6 @@ function() {
                 //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
                 alert("Ya existe un cliente con el mismo docID");
             });
-        },
-        registrarDelegate: function(cliente, callback, callbackError) {
-            
-            console.log('Cliente Search: ');
-            $.ajax({
-                url: '/cliente.service.subsystem.web/webresources/Cliente/registrarCliente',
-                type: 'POST',
-                data: JSON.stringify(cliente),
-                contentType: 'application/json'
-            }).done(_.bind(function(data) {
-                callback(data);
-            }, this)).error(_.bind(function(data) {
-                callbackError(data);
-            }, this));
         },
         productosCarritoCliente: function(){
             if(!this.clienteModelList){
@@ -273,8 +256,7 @@ function() {
             },function(data){
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
             });
-        },
-        
+        },       
         _renderProductosCarritoCliente: function() {
             console.log('productosRender: inicio');
                var self = this;
