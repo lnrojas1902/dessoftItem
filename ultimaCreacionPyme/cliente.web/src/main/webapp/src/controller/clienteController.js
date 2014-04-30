@@ -62,8 +62,11 @@ function() {
                self.productosCarritoCliente();
             });
             Backbone.on('show-cuenta-cliente', function() {
+               
                self._renderEdit();
             });
+            
+            
             Backbone.on('show-clientes', function() {
                self.listaClientes();
             });
@@ -99,6 +102,39 @@ function() {
         listProductos: function(){
             this.list();
         },
+        renderToolbarCliente: function(){
+            var self = this;
+            
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Login'});
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Cuenta'}); 
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Facturas'}); 
+                Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Logout'}); 
+                       
+                       
+                Backbone.trigger('asignar-nombre',
+                       {name: self.currentClienteModel.getDisplay("name")});
+        },
+        renderToolbarInicio: function(){
+            
+            var self = this;
+            
+            Backbone.trigger(self.componentId + '-show-button',
+                       {name: 'Login'});
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Cuenta'}); 
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Facturas'}); 
+            Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Logout'}); 
+                       
+                       
+                Backbone.trigger('asignar-nombre',
+                       {name: 'Cliente'});
+        },
         print: function(){
             window.open("/cliente.service.subsystem.web/webresources/Cliente/report","_blank");
         },
@@ -118,20 +154,10 @@ function() {
             self.currentClienteModel = new App.Model.ClienteModel();
             self.listProductos();
             
-            Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Login'});
-            Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Cuenta'}); 
-            Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Facturas'}); 
-            Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Logout'}); 
-                       
-                       
-                Backbone.trigger('asignar-nombre',
-                       {name: 'Cliente'});
+            self.renderToolbarInicio();
+            
         },
-        facturasCliente: function(params){
+        facturasCliente: function(){
             
             var idCliente = this.currentClienteModel.getDisplay("id");
             console.log('facturasCliente' + idCliente);
@@ -161,10 +187,10 @@ function() {
             
      });
      
-            self._renderFacturaList(params);
+            self._renderFacturaList();
             Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
             },function(data){
-                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-facturas', view: self, id: idCliente, data: data, error: 'Error in facturas de un cliente'});
             });
         },
         _renderFacturaList: function() {
@@ -190,18 +216,7 @@ function() {
                 self.currentClienteModel=new App.Model.ClienteModel(data);
                 self.clienteActual = self.currentClienteModel;
                 //self._renderLogin();
-                Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Login'});
-                Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Cuenta'}); 
-                Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Facturas'}); 
-                Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Logout'}); 
-                       
-                       
-                Backbone.trigger('asignar-nombre',
-                       {name: self.currentClienteModel.getDisplay("name")});
+                self.renderToolbarCliente();
                        
                 self._renderEdit();
             }, 
@@ -229,6 +244,8 @@ function() {
             self.clienteDelegate.registrarDelegate(self.currentClienteModel, function(data) {
                 
                 var model=new App.Model.ClienteModel(data);
+                self.currentClienteModel = model;
+                self.renderToolbarCliente();
                 self._renderEdit();
             }, function(data) {
                 //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});

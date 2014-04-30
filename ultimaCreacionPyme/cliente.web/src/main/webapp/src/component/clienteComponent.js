@@ -36,7 +36,15 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
                        
             Backbone.on('asignar-nombre', function(params) {
                 self.toolbarModel.set('title',params.name);
-            });         
+            });  
+            
+            Backbone.on('mostrar-save', function() {
+                self.toolbarModel.set('showSave',true);
+            });
+            
+            Backbone.on('ocultar-save', function() {
+                self.toolbarModel.set('showSave',false);
+            }); 
             
             this.toolbarModel.set('title','Cliente');
             this.toolbarModel.set('showPrint',false);
