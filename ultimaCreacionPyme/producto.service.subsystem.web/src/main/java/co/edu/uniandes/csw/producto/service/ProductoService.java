@@ -19,7 +19,15 @@ public class ProductoService extends _ProductoService {
     @POST
     @Path("/listar")
     public List<ProductoDTO> getProductosA(){
-		return productoLogicService.getProductos();
-	}
+	return productoLogicService.getProductos();
+    }
+    
+    @POST
+    @Path("/getProductoId")
+    public ProductoDTO getProductoId(Long id){
+	return productoLogicService.getProducto(id);
+    }
+    
 
+    
 }

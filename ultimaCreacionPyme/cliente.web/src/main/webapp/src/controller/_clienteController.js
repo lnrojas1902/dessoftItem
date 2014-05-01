@@ -249,7 +249,7 @@ define(['model/clienteModel'], function(clienteModel) {
                var self = this;
                this.$el.slideUp("fast", function() {
             
-               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models}));
+               self.$el.html(self.listProductoTemplate({productos: self.productoModelList.models,componentId: self.componentId}));
                             self.$el.slideDown("fast");
                });
          }

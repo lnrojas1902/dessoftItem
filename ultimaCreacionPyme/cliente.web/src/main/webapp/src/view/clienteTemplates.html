@@ -70,8 +70,8 @@
         </form>
         <button id="<%= componentId%>-cliente-loginButton" 
             onclick="Backbone.trigger('<%= componentId %>-cliente-login',{}); return false" 
-            type="button" class="btn btn-default">
-            inciar Sesión
+            type="button" class="btn btn-info">
+            Inciar Sesión
         </button>
     </div>
    </div>
@@ -83,7 +83,7 @@
   
             <div id="contenedor" class="form-group">
                 <div id="contenido2">
-                    <label for="name">name</label>
+                    <label for="name">Name: </label>
                 </div>
                 <div id="contenido2">
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter value" value=""/>		
@@ -92,7 +92,7 @@
            
             <div id="contenedor" class="form-group">
                 <div id="contenido2">
-                    <label for="docId">docId</label>
+                    <label for="docId">Documento Id: </label>
                 </div>
                 <div id="contenido2">
                     <input type="text" class="form-control" id="docId" name="docId" placeholder="Enter value" value=""/>	
@@ -101,7 +101,7 @@
             
             <div id="contenedor" class="form-group">
                 <div id="contenido2">
-                    <label for="tipo">tipo</label>
+                    <label for="tipo">Tipo: </label>
                 </div>
                 <div id="contenido2">
                     <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Enter value" value=""/>	
@@ -110,7 +110,7 @@
             
             <div id="contenedor" class="form-group">
                 <div id="contenido2">
-                    <label for="password">password</label>
+                    <label for="password">Password: </label>
                 </div>
                 <div id="contenido2">
                     <input class="form-control" id="password" name="password" placeholder="Enter value" value="" type="text">
@@ -119,7 +119,7 @@
     </form>
     <button id="<%= componentId%>-cliente-loginButton" 
             onclick="Backbone.trigger('<%= componentId %>-cliente-registrar',{}); return false" 
-            type="button" class="btn btn-default">
+            type="button" class="btn btn-warning">
             Registrar
     </button>
     </div>
@@ -216,28 +216,89 @@
 	</div>
 </script>
 <script type="text/template" id="productoList">
+    
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        
+        <table border="1">
+        <% var contador = 1;%>
+       
         <% _.each(productos, function(producto) { %>
+            
+            
+            
+            <td>
+                    <div align="center">
+                        <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
+                    </div>
+                    <div>
+                        <img src="<%= htmlEncode(producto.getDisplay('imagen')) %>" width="150px" />
+                    </div>
+                    <div>
+                        <h4>$<%= htmlEncode(producto.getDisplay('costo')) %></h4>
+                    </div>
+                    <div align="center">
+                        <button id="<%= componentId%>-ver-producto" 
+                            onclick="Backbone.trigger('<%= componentId %>-ver-producto',{producto: <%= producto.id %>}); return false" 
+                            
+                            type="button" class="btn btn-success">
+                            Ver
+                        </button>
+                    </div>
+             </td>
 
-            <div class ="row span9">             
-                
-                <div>
-                    <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
-                </div>
-                <div>
-                    <img src="<%= htmlEncode(producto.getDisplay('imagen')) %>" width="300px" />
-                </div>
-                <div>
-                    <h4>$<%= htmlEncode(producto.getDisplay('costo')) %></h4>
-                </div>
-                
-            </div>
+             
+            
+            <% contador++;%>
             
         <% }); %>
-        
+       
+        </table>
     </div>
+    </html>
+</script>
+
+<script type="text/template" id="verProducto">
+    
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <table>           
+            <tr>
+                <td>
+                    <div>
+                        <img src="<%= htmlEncode(producto.getDisplay('imagen')) %>" width="400px" />
+                    </div>
+                </td>
+                <td>
+                    
+                    <div >
+                            
+                            <h3>Nombre: <%= htmlEncode(producto.getDisplay('name')) %></h3><br>
+                    </div>
+
+                    <div>
+                            
+                            <h3>Costo: $<%= htmlEncode(producto.getDisplay('costo')) %></h3><br>
+                    </div>
+                    <div>
+                            
+                            <h3>Peso: <%= htmlEncode(producto.getDisplay('peso')) %></h3><br>
+                    </div>
+                    <div>
+                            <h4>Cantidad: <input type="number" name="cantidad" id="cantidad" min="0" max="100" step="1" value="1" size="6"></h4>
+                            
+                            <button id="<%= componentId%>-comprar-producto" 
+                                onclick="Backbone.trigger('<%= componentId %>-comprar-producto',{producto: <%= producto.id %>}); return false" 
+                            
+                                type="button" class="btn btn-danger">
+                                Comprar
+                            </button>
+                            
+                    </div>
+                </td>
+           </tr>
+        </table>
+    </div>
+    </html>
 </script>
 <script type="text/template" id="productoList2">
     <div class="panel panel-default">

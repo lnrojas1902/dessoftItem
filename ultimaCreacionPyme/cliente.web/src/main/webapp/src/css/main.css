@@ -1,0 +1,15 @@
+/* main.css */
+
+.wrapper{
+
+
+	width: 90%;
+	margin: 0 auto;
+
+}
+.content, .sidebar{
+
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 10px;
+}

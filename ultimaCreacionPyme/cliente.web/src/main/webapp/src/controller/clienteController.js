@@ -46,9 +46,14 @@ function() {
                 self.clienteLogin(params);
             });
             
+            Backbone.on(this.componentId+'-ver-producto', function(params) {
+                
+                self.verProducto(params);
+            });
             this.listProductoTemplate = _.template($('#productoList').html());
             this.listProductoModelClass = options.listModelClass;
       
+            this.verProductoTemplate = _.template($('#verProducto').html());
             
             
            //toolbar
@@ -101,6 +106,30 @@ function() {
         },
         listProductos: function(){
             this.list();
+        },
+        verProducto: function(params){
+            
+            var self = this;
+            var idProducto = params.producto;           
+                      
+            console.log('producto: '+idProducto );           
+            
+            self.clienteDeledate = new App.Delegate.ClienteDelegate();
+            self.clienteDeledate.getProductoId(idProducto,function(data){
+                
+                 var model=new App.Model.ProductoModel(data);
+                 console.log('producto:' +JSON.stringify(model));
+                                    
+                 //this.$el.slideUp("fast", function() {
+            
+               self.$el.html(self.verProductoTemplate({producto: model ,componentId: self.componentId}));
+                            //self.$el.slideDown("fast");
+               //});
+               
+            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'ver-Producto', view: self, id: params.id, data: data, error: 'Error in ver producto'});
+            });
         },
         renderToolbarCliente: function(){
             var self = this;
@@ -223,7 +252,7 @@ function() {
             
             function(data) {
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-login', view: self, id: '', data: data, error: 'No se pudo iniciar sesion'});
-                alert("Usuario o contraseña inválidos");
+                alert("Usuario o password invalidos");
             });
         },
         _renderLogin: function() {
@@ -279,7 +308,7 @@ function() {
                var self = this;
                this.$el.slideUp("fast", function() {
             
-               self.$el.html(self.listProductoTemplate({productos: self.productoCarritoModelList.models}));
+               self.$el.html(self.listProductoTemplate({productos: self.productoCarritoModelList.models, componentId: self.componentId}));
                             self.$el.slideDown("fast");
                });
          }
