@@ -12,7 +12,8 @@ public abstract class _ProductoDTO {
 	private String name;
 	private Integer costo;
 	private Integer peso;
-
+        
+        
 	public Long getId() {
 		return id;
 	}

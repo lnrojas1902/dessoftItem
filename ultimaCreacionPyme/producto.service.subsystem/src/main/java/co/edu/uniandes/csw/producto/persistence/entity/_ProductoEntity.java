@@ -18,7 +18,9 @@ public abstract class _ProductoEntity {
 	private String name;
 	private Integer costo;
 	private Integer peso;
-
+        
+        
+        
 	public Long getId(){
 		return id;
 	}
@@ -47,4 +49,5 @@ public abstract class _ProductoEntity {
 	public void setPeso(Integer peso){
 		this.peso = peso;
 	}
+        
 }

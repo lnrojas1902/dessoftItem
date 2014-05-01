@@ -7,6 +7,8 @@ define([], function() {
 		 'costo' : ''
  ,  
 		 'peso' : ''
+ ,
+                 'imagen': ''
         },
         initialize: function() {
         },

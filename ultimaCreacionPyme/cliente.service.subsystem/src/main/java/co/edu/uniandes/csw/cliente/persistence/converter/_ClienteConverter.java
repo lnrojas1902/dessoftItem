@@ -18,6 +18,7 @@ public abstract class _ClienteConverter {
 				dto.setDocId(entity.getDocId());
 				dto.setTipo(entity.getTipo());
 				dto.setPassword(entity.getPassword());
+                                
 			return dto;
 		}else{
 			return null;
@@ -32,6 +33,7 @@ public abstract class _ClienteConverter {
 			entity.setDocId(dto.getDocId());
 			entity.setTipo(dto.getTipo());
 			entity.setPassword(dto.getPassword());
+                        
 			return entity;
 		}else {
 			return null;

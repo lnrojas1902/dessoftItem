@@ -17,6 +17,7 @@ public abstract class _ProductoConverter {
 				dto.setName(entity.getName());
 				dto.setCosto(entity.getCosto());
 				dto.setPeso(entity.getPeso());
+                                dto.setImagen(entity.getImagen());
 			return dto;
 		}else{
 			return null;
@@ -30,6 +31,7 @@ public abstract class _ProductoConverter {
 			entity.setName(dto.getName());
 			entity.setCosto(dto.getCosto());
 			entity.setPeso(dto.getPeso());
+                        entity.setImagen(dto.getImagen());
 			return entity;
 		}else {
 			return null;

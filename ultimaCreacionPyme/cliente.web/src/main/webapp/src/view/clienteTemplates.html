@@ -217,6 +217,30 @@
 </script>
 <script type="text/template" id="productoList">
     <div class="panel panel-default">
+        <!-- Default panel contents -->
+        
+        <% _.each(productos, function(producto) { %>
+
+            <div class ="row span9">             
+                
+                <div>
+                    <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
+                </div>
+                <div>
+                    <img src="<%= htmlEncode(producto.getDisplay('imagen')) %>" width="300px" />
+                </div>
+                <div>
+                    <h4>$<%= htmlEncode(producto.getDisplay('costo')) %></h4>
+                </div>
+                
+            </div>
+            
+        <% }); %>
+        
+    </div>
+</script>
+<script type="text/template" id="productoList2">
+    <div class="panel panel-default">
     <!-- Default panel contents -->
     <table class="table striped">
     <thead>
