@@ -26,5 +26,9 @@ public class FacturaMockLogicService extends _FacturaMockLogicService implements
             return lista;
         }
 
+    public void actualizarFacturas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

@@ -66,9 +66,11 @@ function() {
             Backbone.on('show-carrito-cliente', function() {
                self.productosCarritoCliente();
             });
-            Backbone.on('show-cuenta-cliente', function() {
-               
-               self._renderEdit();
+            Backbone.on('show-carrito-cliente', function() {
+               self.productosCarritoCliente();
+            });
+            Backbone.on('act-factura', function() {
+               self.actualizarFacturas();
             });
             
             
@@ -172,7 +174,7 @@ function() {
             var self=this;
             self.clienteDelegate = new App.Delegate.ClienteDelegate();
             self.clienteDelegate.comprarDelegate(params.id,function(data){
-                
+                self.actualizarFacturas();
             },function(data){
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
             });
@@ -311,7 +313,21 @@ function() {
                self.$el.html(self.listProductoTemplate({productos: self.productoCarritoModelList.models, componentId: self.componentId}));
                             self.$el.slideDown("fast");
                });
-         }
+         },
+         actualizarFacturas: function(){
+	    console.log('Facturas: ');
+            
+            $.ajax({
+	          url: '/factura.service.subsystem.web/webresources/Factura/actualizarFacturas',
+	          type: 'POST',
+	          data: '',
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	 alert("Funcionó .|.");
+	      },this)).error(_.bind(function(data){
+	    	 alert("Error .|.");
+	      },this));
+	},
         
         
     });

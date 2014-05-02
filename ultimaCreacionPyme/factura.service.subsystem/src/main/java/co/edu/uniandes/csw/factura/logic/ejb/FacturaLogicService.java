@@ -21,4 +21,9 @@ public class FacturaLogicService extends _FacturaLogicService implements IFactur
         {
             return persistance.getFacturasFecha(d);
         }
+
+    public void actualizarFacturas() 
+        {
+            persistance.actualizarFacturas();
+        }
 }

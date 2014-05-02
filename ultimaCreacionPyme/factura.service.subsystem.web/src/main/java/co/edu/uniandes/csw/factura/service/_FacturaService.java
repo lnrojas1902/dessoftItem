@@ -42,9 +42,8 @@ public abstract class _FacturaService {
 	}
 	
 	@PUT
-    @Path("{id}")
+        @Path("{id}")
 	public void updateFactura(@PathParam("id") Long id, FacturaDTO factura){
 		facturaLogicService.updateFactura(factura);
 	}
-	
 }

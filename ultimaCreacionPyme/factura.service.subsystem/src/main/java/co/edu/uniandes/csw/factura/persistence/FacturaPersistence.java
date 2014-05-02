@@ -7,6 +7,7 @@ import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.factura.persistence.api.IFacturaPersistence;
 import co.edu.uniandes.csw.factura.persistence.converter.FacturaConverter;
+import co.edu.uniandes.csw.factura.persistence.entity.FacturaItemEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,4 +37,100 @@ public List<FacturaDTO> getFacturasFecha(FacturaDTO d)
                 }
                 return e;
 	}
+
+    public void actualizarFacturas() 
+    {
+        Query q = entityManager.createQuery("select u from FacturaItemEntity u");
+        
+        List <FacturaItemEntity> facturas = q.getResultList();
+        for (int k = 0; k < getFacturas().size(); k++) {
+            
+        long id = getFacturas().get(k).getId();
+           
+        ArrayList<Integer> resp = new ArrayList<Integer>();
+        
+        for (int i = 0; i < facturas.size(); i++) {
+            
+            FacturaItemEntity actual = facturas.get(i);
+            
+            if ( actual.getFacturaId() == id){
+                
+                Long itmID = actual.getItemId();
+                Query qEstadoItem = entityManager.createQuery("select u.estado from ItemEntity u where"
+                        + " u.id="+itmID);
+                
+                String estadoAct = (String) qEstadoItem.getSingleResult();
+                
+                if(estadoAct.equalsIgnoreCase("En proceso"))
+                {
+                    resp.add(1);
+                }
+                else if(estadoAct.equalsIgnoreCase("Terminado"))
+                {
+                    resp.add(2);
+                }
+                else if(estadoAct.equalsIgnoreCase("En bodega"))
+                {
+                    resp.add(3);
+                }
+                else if(estadoAct.equalsIgnoreCase("En tramite"))
+                {
+                    resp.add(4);
+                }
+                else if(estadoAct.equalsIgnoreCase("Entregado"))
+                {
+                    resp.add(5);
+                }
+            }
+        }
+        int min = 5;
+        for(int j = 0;j<resp.size();j++)
+        {
+            if(j == 0)
+            {
+                min = resp.get(0);
+            }
+            else
+            {
+                min = Math.min(min,resp.get(j));
+            }
+        }
+        if(min == 5)
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("Pedido entregado");
+            updateFactura(factDto);
+        }
+        else if(min == 4)
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("En transporte");
+            updateFactura(factDto);
+        }
+        else if(min == 3)
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("En bodega");
+            updateFactura(factDto);
+        }
+        else if(min == 2)
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("Fabricado");
+            updateFactura(factDto);
+        }
+        else if(min == 1)
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("En proceso de fabricación");
+            updateFactura(factDto);
+        }
+        else
+        {
+            FacturaDTO factDto = getFactura(id);
+            factDto.setEstado("???");
+            updateFactura(factDto);
+        }
+        }
+    }
 }

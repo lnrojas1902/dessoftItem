@@ -26,6 +26,8 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
                 {name: 'Clientes',icon: 'glyphicon-align-justify',event: 'show-clientes'});
              Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
                        {name: 'Logout',icon: 'glyphicon-log-out',event: 'logout-cliente'});
+            Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                       {name: 'Act',icon: 'glyphicon-log-out',event: 'act-factura'});
              
              Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Cuenta'});

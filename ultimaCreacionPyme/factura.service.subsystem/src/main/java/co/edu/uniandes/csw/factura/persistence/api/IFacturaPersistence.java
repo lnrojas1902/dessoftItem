@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IFacturaPersistence extends _IFacturaPersistence {
  public List<FacturaDTO> getFacturasFecha(FacturaDTO d);
+
+    public void actualizarFacturas();
 }
