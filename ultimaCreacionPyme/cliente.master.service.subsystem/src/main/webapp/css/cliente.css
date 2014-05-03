@@ -20,3 +20,15 @@ margin-top:10px;
     margin-right:10px;
     text-align:right;
 }
+
+#productos {
+    width:200px;
+    font-size:18px;
+    float:left;
+    height:300px;
+    margin-top:20px;
+    margin-right:20px;
+    text-align:center;
+    background-color: 	#DEC980;
+    border-radius: 55px 10px 55px 10px;
+}

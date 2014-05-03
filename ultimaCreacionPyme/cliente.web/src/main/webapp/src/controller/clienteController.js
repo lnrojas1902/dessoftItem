@@ -85,26 +85,6 @@ function() {
             });
             
             
-            
-            
-          
-          //Lo siguiente es un ejemplo para hacer modificaciones en el toolbar
-          this.p1 = true;
-           Backbone.on('button2-prueba', function(params) {
-                alert('prueba2');
-                if ( self.p1)
-                {
-                    Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Prueba'});
-                       self.p1 = false;
-                }
-                else
-                {
-                    Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Prueba'});
-                       self.p1 = true;
-                }
-            });
         },
         listProductos: function(){
             this.list();
@@ -288,7 +268,8 @@ function() {
                  this.clienteModelList = new this.listModelClass();
 	    }
           
-            console.log('productos' );
+            console.log('productos Carrito' );
+            
             var self=this;
             self.productoCarritoModelList = new App.Model.ProductoList();
             self.clienteDeledate = new App.Delegate.ClienteDelegate();
@@ -323,7 +304,7 @@ function() {
 	          data: '',
 	          contentType: 'application/json'
 	      }).done(_.bind(function(data){
-	    	 alert("Funcionó .|.");
+	    	 alert("Funcionï¿½ .|.");
 	      },this)).error(_.bind(function(data){
 	    	 alert("Error .|.");
 	      },this));

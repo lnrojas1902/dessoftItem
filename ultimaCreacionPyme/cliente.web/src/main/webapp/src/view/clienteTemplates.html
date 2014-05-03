@@ -217,21 +217,19 @@
 </script>
 <script type="text/template" id="productoList">
     
-    <div class="panel panel-default">
+    
         <!-- Default panel contents -->
-        <table border="1">
+
         <% var contador = 1;%>
-       
+       <div id="contenedor" class="panel panel-default">
         <% _.each(productos, function(producto) { %>
             
-            
-            
-            <td>
-                    <div align="center">
-                        <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
-                    </div>
+        
+            <div id="productos">
+                    <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
+
                     <div>
-                        <img src="<%= htmlEncode(producto.getDisplay('imagen')) %>" width="150px" />
+                        <img height="150px" width="150px" src="<%= htmlEncode(producto.getDisplay('imagen')) %>"  />
                     </div>
                     <div>
                         <h4>$<%= htmlEncode(producto.getDisplay('costo')) %></h4>
@@ -244,16 +242,15 @@
                             Ver
                         </button>
                     </div>
-             </td>
+            </div>
 
-             
+                  
             
             <% contador++;%>
             
         <% }); %>
        
-        </table>
-    </div>
+  </div> 
     </html>
 </script>
 
