@@ -42,8 +42,8 @@ margin-top:10px;
     margin-left:10px;
     margin-bottom:10px;
     text-align:center;
-    background-color:#32CD32;
-    border-radius: 20px 20px 20px 20px;
+    background-color:#DEC980;
+    border-radius: 0px 0px 20px 20px;
 }
 
 #contenido3 {
@@ -54,6 +54,15 @@ margin-top:10px;
     height:70px;
     margin-right:10px;
     text-align:left;
+}
+#contenido4 {
+    vertical-align: middle;
+    width:78px;
+    font-size:18px;
+    float:left;
+    height:70px;
+    margin-right:10px;
+    text-align:center;
 }
 #contenido0 {
     padding:10px 0px 10px 0px;
