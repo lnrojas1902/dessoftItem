@@ -7,10 +7,17 @@ define(['model/productoModel'], function() {
 		 'costo' : ''
  ,  
 		 'peso' : ''
+ ,  
+		 'imagen' : ''                
+ 
         },
         initialize: function() {
         },
         getDisplay: function(name) {
+            if(name==='costoAsNumber'){
+                   var numberConverter = App.Utils.Converter.number;
+                   return numberConverter.unserialize(this.get('costo'), this);
+             }
          return this.get(name);
         }
     });

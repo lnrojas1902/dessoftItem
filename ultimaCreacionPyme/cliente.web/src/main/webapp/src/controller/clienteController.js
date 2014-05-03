@@ -6,6 +6,7 @@ function() {
             var self = this;
             
             this.clienteActual;
+            this.carritoListTemplate = _.template($('#carritoList').html());
 //            Backbone.on(this.componentId + '-toolbar-print', function(params) {
 //                self.print();
 //            });
@@ -84,6 +85,13 @@ function() {
                self.logout();
             });
             
+            
+            Backbone.on(this.componentId+'-comprar-producto', function(params) {
+                self.addProductoACarrito(params);
+            });
+            Backbone.on(this.componentId+'-confirmar-compra', function(params) {
+                self.confirmarCompra();
+            });
             
         },
         listProductos: function(){
@@ -196,7 +204,7 @@ function() {
             self.facturaModelList.models.push(model);
             
             
-     });
+            });
      
             self._renderFacturaList();
             Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
@@ -264,37 +272,77 @@ function() {
             });
         },
         productosCarritoCliente: function(){
+            var self = this;
             if(!this.clienteModelList){
                  this.clienteModelList = new this.listModelClass();
 	    }
-          
             console.log('productos Carrito' );
-            
-            var self=this;
-            self.productoCarritoModelList = new App.Model.ProductoList();
-            self.clienteDeledate = new App.Delegate.ClienteDelegate();
-            self.clienteDeledate.productosCarritoDelegate(function(data){
-                _.each(data, function(d) {
-                    var model=new App.Model.ProductoModel(d);
-                    console.log('productos:' +JSON.stringify(model));
-                    self.productoCarritoModelList.models.push(model);
-                });
-     
             self._renderProductosCarritoCliente();
-            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
-            },function(data){
-                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
-            });
-        },       
+//            var self=this;
+//            self.productoCarritoModelList = new App.Model.ProductoList();
+//            self.clienteDeledate = new App.Delegate.ClienteDelegate();
+//            self.clienteDeledate.productosCarritoDelegate(function(data){
+//                _.each(data, function(d) {
+//                    var model=new App.Model.ProductoModel(d);
+//                    console.log('productos:' +JSON.stringify(model));
+//                    self.productoCarritoModelList.models.push(model);
+//                });
+//     
+//            self._renderProductosCarritoCliente();
+//            //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+//            },function(data){
+//                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+//            });
+        },  
+       addProductoACarrito: function(params){
+            var self=this;
+            if ( !self.productoCarritoModelList )
+            {
+                self.productoCarritoModelList = new App.Model.ProductoList();
+            }
+            var model = $('#' + this.componentId + '-productoToAdd').serializeObject();
+            var model1=new App.Model.ProductoModel( model);
+            console.log('producto añadido:' +JSON.stringify(model1));
+            self.productoCarritoModelList.models.push(model1);
+            
+            var costo = 0;
+            console.log('entonces los productos que tiene el carro son :');
+            _.each(self.productoCarritoModelList.models, function(d) {
+                    costo = costo + d.getDisplay('costoAsNumber');
+                    console.log('*' + d.getDisplay('name')  + ' Total: ' + costo.toString());
+                });
+
+            self._renderProductosCarritoCliente();
+//            if(!self.currentClienteModel){
+//                 self._renderLogin();
+//	    }
+        },
+        confirmarCompra: function(){
+            var self=this;
+            
+            if(!self.currentClienteModel){
+                 self._renderLogin();
+	    }
+            else
+            {
+                
+            }
+        },
         _renderProductosCarritoCliente: function() {
-            console.log('productosRender: inicio');
+            console.log('productosCarritoRender: inicio');
                var self = this;
+               if ( !self.productoCarritoModelList)
+               {
+                   self.productoCarritoModelList = new App.Model.ProductoList();
+               }
+               
                this.$el.slideUp("fast", function() {
             
-               self.$el.html(self.listProductoTemplate({productos: self.productoCarritoModelList.models, componentId: self.componentId}));
+               self.$el.html(self.carritoListTemplate({productos: self.productoCarritoModelList.models, componentId: self.componentId}));
                             self.$el.slideDown("fast");
                });
          },
+ 
          actualizarFacturas: function(){
 	    console.log('Facturas: ');
             

@@ -233,7 +233,7 @@ define(['model/clienteModel'], function(clienteModel) {
             self.clienteDeledate.productosDelegate(function(data){
                 _.each(data, function(d) {
                     var model=new App.Model.ProductoModel(d);
-                    console.log('productos:' +JSON.stringify(model));
+                    //console.log('productos:' +JSON.stringify(model));
                     self.productoModelList.models.push(model);
                 });
      

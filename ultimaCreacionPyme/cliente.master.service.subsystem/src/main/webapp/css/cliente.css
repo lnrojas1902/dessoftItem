@@ -32,3 +32,37 @@ margin-top:10px;
     background-color: 	#DEC980;
     border-radius: 55px 10px 55px 10px;
 }
+
+#productosCarrito {
+    width:auto;
+    font-size:18px;
+    height:60px;
+    margin-top:0px;
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
+    text-align:center;
+    background-color:#32CD32;
+    border-radius: 20px 20px 20px 20px;
+}
+
+#contenido3 {
+    vertical-align: middle;
+    width:185px;
+    font-size:18px;
+    float:left;
+    height:70px;
+    margin-right:10px;
+    text-align:left;
+}
+#contenido0 {
+    padding:10px 0px 10px 0px;
+    float:left;
+    margin-left:50px;
+}
+#mensajeCarrito {
+    vertical-align: middle;
+    width:200px;
+    font-size:20px;
+    text-align:center;
+}

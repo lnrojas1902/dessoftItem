@@ -253,6 +253,63 @@
   </div> 
     </html>
 </script>
+<script type="text/template" id="carritoList">
+    
+     <div id="contenedor">
+        <div id="contenido0">
+         
+                <P>Bienvenido a tu carrito de compras.</P> 
+                <P>Aqui encontrarás todos los productos</P> 
+                <P>que hayas añadido a tu carrito y </P>
+                <P>puedes confirmar tu compra</P>
+                
+                <button id="<%= componentId%>-confirmar-compra" 
+                    onclick="Backbone.trigger('<%= componentId %>-confirmar-compra',{}); return false" 
+                    type="button" class="btn btn-success">
+                    Confirmar Compra
+                </button>
+              
+       
+        </div>
+        <% var contador = 1;%>
+        <div id="contenido0">
+       <div id="contenedor" class="panel panel-default">
+        <% _.each(productos, function(producto) { %>
+            
+        
+            <div id="productosCarrito">
+                
+                    
+                    <div id="contenido3" width: "80px">
+                        <img align="right" height="70px" width="70px" src="<%= htmlEncode(producto.getDisplay('imagen')) %>"  />
+                    </div>
+                    
+                    <div id="contenido3">
+                    <h3><%= htmlEncode(producto.getDisplay('name')) %></h3>
+                    </div>
+                    <div id="contenido3">
+                        <h3>$<%= htmlEncode(producto.getDisplay('costo')) %></h3>
+                    </div>
+                    <div id="contenido3">
+                        <button id="<%= componentId%>-ver-producto" 
+                            onclick="Backbone.trigger('<%= componentId %>-ver-producto',{producto: <%= producto.id %>}); return false" 
+                            type="button" class="btn btn-danger">
+                            Eliminar
+                            <i class="icon-white icon-trash"></i>
+                        </button>
+                    </div>
+            </div>
+
+                  
+            
+            <% contador++;%>
+            
+        <% }); %>
+       </div>
+  </div> 
+  </div>
+    </html>
+</script>
 
 <script type="text/template" id="verProducto">
     
@@ -281,8 +338,16 @@
                             <h3>Peso: <%= htmlEncode(producto.getDisplay('peso')) %></h3><br>
                     </div>
                     <div>
-                            <h4>Cantidad: <input type="number" name="cantidad" id="cantidad" min="0" max="100" step="1" value="1" size="6"></h4>
-                            
+                               
+                            <form role="form" id="<%= componentId %>-productoToAdd">
+                                <h4>Cantidad: 
+                                   <input type="number" name="cantidad" id="cantidad" min="0" max="100" step="1" value="1" size="6">
+                                </h4>
+                                <input type="hidden" name="name" value="<%= htmlEncode(producto.getDisplay('name')) %>"/>
+                                <input type="hidden" name="costo" value="<%= htmlEncode(producto.getDisplay('costo')) %>"/>
+                                <input type="hidden" name="peso" value="<%= htmlEncode(producto.getDisplay('peso')) %>"/>
+                                <input type="hidden" name="imagen" value="<%= htmlEncode(producto.getDisplay('imagen')) %>"/>
+                            </form>
                             <button id="<%= componentId%>-comprar-producto" 
                                 onclick="Backbone.trigger('<%= componentId %>-comprar-producto',{producto: <%= producto.id %>}); return false" 
                             
