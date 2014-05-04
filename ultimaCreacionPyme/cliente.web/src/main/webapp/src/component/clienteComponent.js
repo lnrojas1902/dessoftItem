@@ -28,6 +28,9 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
                        {name: 'Logout',icon: 'glyphicon-log-out',event: 'logout-cliente'});
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
                        {name: 'Act',icon: 'glyphicon-log-out',event: 'act-factura'});
+                       
+            Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
+                       {name: 'About us',icon: 'glyphicon-eye-open',event: 'acerca-nosotros'});
              
              Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Cuenta'});

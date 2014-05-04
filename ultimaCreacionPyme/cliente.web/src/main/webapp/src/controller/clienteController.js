@@ -7,6 +7,8 @@ function() {
             
             this.clienteActual;
             this.carritoListTemplate = _.template($('#carritoList').html());
+            
+            
 //            Backbone.on(this.componentId + '-toolbar-print', function(params) {
 //                self.print();
 //            });
@@ -35,7 +37,7 @@ function() {
                 self.facturasCliente(params);
             });
             this.loginTemplate = _.template($('#clienteLogin').html());
-            
+            this.acercaNosotrosTemplate = _.template($('#acercaNosotros').html());
             this.listFactTemplate = _.template($('#facturaList').html());
             this.listFactModelClass = options.listModelClass;
             var self = this;
@@ -67,11 +69,14 @@ function() {
             Backbone.on('show-carrito-cliente', function() {
                self.productosCarritoCliente();
             });
-            Backbone.on('show-carrito-cliente', function() {
-               self.productosCarritoCliente();
+            Backbone.on('show-cuenta-cliente', function() {
+               self._renderEdit();
             });
             Backbone.on('act-factura', function() {
                self.actualizarFacturas();
+            });
+            Backbone.on('acerca-nosotros', function() {
+               self.acercaDeNosotros();
             });
             
             
@@ -357,6 +362,19 @@ function() {
 	    	 alert("Error .|.");
 	      },this));
 	},
+        
+        acercaDeNosotros: function(){
+	    console.log('Acerca De Nosotros: ');
+            var self = this;
+            
+               
+           this.$el.slideUp("fast", function() {
+
+           self.$el.html(self.acercaNosotrosTemplate());
+                        self.$el.slideDown("fast");
+           });
+            
+	}
         
         
     });
