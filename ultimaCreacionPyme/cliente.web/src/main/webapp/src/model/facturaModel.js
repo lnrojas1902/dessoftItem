@@ -17,6 +17,8 @@ define(['model/facturaModel'], function() {
 		 'dereccionDeEntrega' : ''
  ,  
 		 'clienteId' : ''
+ ,
+                 'calificacion': ''
         },
         initialize: function() {
         },

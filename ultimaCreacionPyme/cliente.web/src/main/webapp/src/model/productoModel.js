@@ -8,10 +8,7 @@ define(['model/productoModel'], function() {
  ,  
 		 'peso' : ''
  ,  
-		 'imagen' : ''   
-    ,  
-		 'cantidad' : '' 
- 
+		 'imagen' : '' 
         },
         initialize: function() {
         },

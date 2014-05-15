@@ -63,7 +63,7 @@
                     <label>Password: </label>
                 </div>
                 <div id="contenido2">
-                    <input type="text" class="form-control" id="password" name="password" value=""/>	
+                    <input type="password" class="form-control" id="password" name="password" value=""/>	
                 </div>
             </div>
             
@@ -113,7 +113,7 @@
                     <label for="password">Password: </label>
                 </div>
                 <div id="contenido2">
-                    <input class="form-control" id="password" name="password" placeholder="Enter value" value="" type="text">
+                    <input class="form-control" id="password" name="password" placeholder="Enter value" value="" type="password">
                 </div>
             </div>
     </form>
@@ -163,7 +163,7 @@
     <input type="hidden" name="id" value="<%= cliente.id %>"/>
     <% }%>
 		<div class="form-group" >
-		<label for="name">name</label>
+		<label for="name">Client Name</label>
     	<input type="text" class="form-control" id="name" name="name" placeholder="Enter value" value="<%= cliente.get('name') %>"/>	
 		</div>
 		
@@ -193,6 +193,7 @@
           <th>fechaEsperadaEntrega</th>
           <th>dereccionDeEntrega</th>
           <th>clienteId</th>
+          <th>Calificacion</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -209,6 +210,15 @@
             <td><%= htmlEncode(factura.getDisplay('fechaEsperadaEntrega')) %></td>
             <td><%= htmlEncode(factura.getDisplay('dereccionDeEntrega')) %></td>
             <td><%= htmlEncode(factura.getDisplay('clienteId')) %></td>
+            <td>
+               <div class="ec-stars-wrapper">
+                    <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+                    <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+                    <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+                    <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+                    <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+            </div>
+            </td>
 	</tr>
 	<% }); %>
 	</tbody>
@@ -427,8 +437,8 @@
             <td>
                 <h4>Nombre: </h4><h5>Diego Farfan</h5>
                 <h4>Rol: </h4><h5>Lider De Planeacion</h5>
-                <h4>Semestre: </h4><h5></h5>
-                <h4>Frase: </h4><h5>""</h5>
+                <h4>Semestre: </h4><h5>4</h5>
+                <h4>Frase: </h4><h5>"No tengo frase. Me demoré más pensándola que haciendo código."</h5>
             </td>
         <tr>
         <tr>

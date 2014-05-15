@@ -30,7 +30,8 @@ public List<FacturaDTO> getFacturasFecha(FacturaDTO d)
 		for(int i =0; i<FacturaConverter.entity2PersistenceDTOList(q.getResultList()).size(); i++ )
                 {
                     FacturaDTO f = (FacturaDTO) FacturaConverter.entity2PersistenceDTOList(q.getResultList()).get(i);
-                    if(f.getFechaDeRealizacion().compareTo(d.getFechaDeRealizacion())>0 )
+                    if(f.getFechaDeRealizacion().compareTo(d.getFechaEsperadaEntrega()) >= 0
+                            && f.getFechaDeRealizacion().compareTo(d.getFechaDeRealizacion())<= 0)
                     {
                         e.add(f);
                     }

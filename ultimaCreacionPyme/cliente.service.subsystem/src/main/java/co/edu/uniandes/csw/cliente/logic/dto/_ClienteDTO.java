@@ -12,7 +12,8 @@ public abstract class _ClienteDTO {
 	private String name;
 	private String docId;
 	private String tipo;
-	private String password;
+        private String password;
+        private String calificacion;
 
 	public Long getId() {
 		return id;
@@ -49,5 +50,12 @@ public abstract class _ClienteDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+        
+        public String getCalificion(){
+                return calificacion;
+        }
 	
+        public void setCalificacion(String nCalif){
+            this.calificacion = nCalif;
+        }
 }
