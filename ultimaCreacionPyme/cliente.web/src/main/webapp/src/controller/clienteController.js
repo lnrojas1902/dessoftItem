@@ -1,4 +1,4 @@
-define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel','model/productoModel'],
+define(['controller/_clienteController','delegate/clienteDelegate','model/facturaModel','model/productoModel', 'model/itemModel'],
 function() {
     App.Controller.ClienteController = App.Controller._ClienteController.extend({
         
@@ -94,7 +94,7 @@ function() {
             Backbone.on(this.componentId+'-comprar-producto', function(params) {
                 self.addProductoACarrito(params);
             });
-            Backbone.on(this.componentId+'-confirmar-compra', function(params) {
+            Backbone.on(this.componentId+'-confirmar-compra-cliente', function(params) {
                 self.confirmarCompra();
             });
             
@@ -313,8 +313,8 @@ function() {
             var costo = 0;
             console.log('entonces los productos que tiene el carro son :');
             _.each(self.productoCarritoModelList.models, function(d) {
-                    costo = costo + d.getDisplay('costoAsNumber');
-                    console.log('*' + d.getDisplay('name')  + ' Total: ' + costo.toString());
+                    costo = costo + parseInt(d.getDisplay('costo')); 
+                    console.log('* ' + d.getDisplay('name')  + ' costo: ' + costo.toString());
                 });
 
             self._renderProductosCarritoCliente();
@@ -330,7 +330,25 @@ function() {
 	    }
             else
             {
+                self.itemsAComprar = new App.Model.ItemList ();
                 
+                _.each(self.productoCarritoModelList.models, function(d) {
+                    var item = new App.Model.ItemModel();
+                    item.set ('cantidad', d.getDisplay('cantidad'));
+                    item.set ( 'productoId', d.getDisplay('productoId') ) ;
+                    console.log(d.getDisplay('productoId'));
+                    console.log(d.getDisplay('cantidad'));
+                    
+                    self.itemsAComprar.models.push(item);
+                });
+                
+                self.clienteDelegate = new App.Delegate.ClienteDelegate();
+                self.clienteDelegate.confirmarCompraDelegate(self.currentClienteModel, self.itemsAComprar, function(data) {
+
+                }, function(data) {
+                    //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
+                    //alert("Ya existe un cliente con el mismo docID");
+                });
             }
         },
         _renderProductosCarritoCliente: function() {

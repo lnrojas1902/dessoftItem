@@ -1,7 +1,7 @@
 
 package co.edu.uniandes.csw.cliente.logic.dto;
 
-import java.util.Date;
+
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -51,7 +51,7 @@ public abstract class _ClienteDTO {
 		this.password = password;
 	}
         
-        public String getCalificion(){
+        public String getCalificacion(){
                 return calificacion;
         }
 	

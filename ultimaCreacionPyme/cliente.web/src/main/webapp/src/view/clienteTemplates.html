@@ -274,7 +274,7 @@
                 <P>puedes confirmar tu compra</P>
                 
                 <button id="<%= componentId%>-confirmar-compra" 
-                    onclick="Backbone.trigger('<%= componentId %>-confirmar-compra',{}); return false" 
+                    onclick="Backbone.trigger('<%= componentId %>-confirmar-compra-cliente',{}); return false" 
                     type="button" class="btn btn-success">
                     Confirmar Compra
                 </button>
@@ -360,6 +360,7 @@
                                 <input type="hidden" name="costo" value="<%= htmlEncode(producto.getDisplay('costo')) %>"/>
                                 <input type="hidden" name="peso" value="<%= htmlEncode(producto.getDisplay('peso')) %>"/>
                                 <input type="hidden" name="imagen" value="<%= htmlEncode(producto.getDisplay('imagen')) %>"/>
+                                <input type="hidden" name="productoId" value="<%= htmlEncode(producto.id) %>"/>
                             </form>
                             <button id="<%= componentId%>-comprar-producto" 
                                 onclick="Backbone.trigger('<%= componentId %>-comprar-producto',{producto: <%= producto.id %>}); return false" 
@@ -438,7 +439,7 @@
                 <h4>Nombre: </h4><h5>Diego Farfan</h5>
                 <h4>Rol: </h4><h5>Lider De Planeacion</h5>
                 <h4>Semestre: </h4><h5>4</h5>
-                <h4>Frase: </h4><h5>"No tengo frase. Me demoré más pensándola que haciendo código."</h5>
+                <h4>Frase: </h4><h5>"No tengo frase. Me demorï¿½ mï¿½s pensï¿½ndola que haciendo cï¿½digo."</h5>
             </td>
         <tr>
         <tr>

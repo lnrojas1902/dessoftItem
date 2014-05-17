@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.cliente.logic.api.IClienteLogicService;
+import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import java.util.List;
 
@@ -59,6 +60,14 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
         {i++;}
         return (i == clientesP.size())? null: clientesP.get(i);
     }
-   
+
+    public void confirmarCompra(ClienteAndItemsDTO clienteAndItems) {
+        System.out.println ("clitnte: " + clienteAndItems.getClienteEntity().getName() );
+         for (int i = 0; i < clienteAndItems.items.size(); i++) {
+            System.out.println ("\n ProdcutoId "+ i+ ": "+ clienteAndItems.getItems().get(i).getProductoId());  
+            System.out.println ("\t\t cantidad "+ i+ ": "+ clienteAndItems.getItems().get(i).getCantidad()); 
+        }                 
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } 
 
 }

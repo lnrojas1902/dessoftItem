@@ -4,6 +4,7 @@ import javax.enterprise.inject.Alternative;
 import javax.inject.Singleton;
 
 import co.edu.uniandes.csw.cliente.logic.api.IClienteLogicService;
+import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class ClienteMockLogicService extends _ClienteMockLogicService implements
     }
 
     public ClienteDTO loginCliente(ClienteDTO cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void confirmarCompra(ClienteAndItemsDTO clienteAndItems) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 	

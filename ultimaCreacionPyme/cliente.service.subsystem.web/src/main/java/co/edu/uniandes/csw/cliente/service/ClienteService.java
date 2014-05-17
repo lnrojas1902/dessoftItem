@@ -1,5 +1,6 @@
 package co.edu.uniandes.csw.cliente.service;
 
+import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import java.util.List;
 
@@ -36,6 +37,13 @@ public class ClienteService extends _ClienteService {
     @Path("/comprar")
     public void comprar(Long id) {
         this.clienteLogicService.comprar(id);
+        
+    }
+    
+    @POST
+    @Path("/confirmar")
+    public void confirmarCompra(ClienteAndItemsDTO clienteAndItems) {
+        this.clienteLogicService.confirmarCompra(clienteAndItems);
         
     }
     

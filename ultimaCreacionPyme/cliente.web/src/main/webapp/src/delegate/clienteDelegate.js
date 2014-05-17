@@ -98,13 +98,27 @@ define(['delegate/_clienteDelegate'], function() {
                 callbackError(data);
             }, this));
         },
-         comprarDelegate: function(id,callback,callbackError){
+        comprarDelegate: function(id,callback,callbackError){
 	    console.log('comprar: '+id);
             
             $.ajax({
 	          url: '/cliente.service.subsystem.web/webresources/Cliente/comprar',
 	          type: 'POST',
 	          data: JSON.stringify(id),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
+        confirmarCompraDelegate: function(usuario, items,callback,callbackError){
+	    
+            
+            $.ajax({
+	          url: '/cliente.service.subsystem.web/webresources/Cliente/confirmar',
+	          type: 'POST',
+	          data: '{ "clienteEntity":' +  JSON.stringify(usuario) + ', "items":' +  JSON.stringify(items.models) + '}',
 	          contentType: 'application/json'
 	      }).done(_.bind(function(data){
 	    	  callback(data);
