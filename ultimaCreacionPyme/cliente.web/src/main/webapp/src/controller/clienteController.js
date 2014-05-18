@@ -330,6 +330,8 @@ function() {
 	    }
             else
             {
+                var datosDeEntrega = $('#' + this.componentId + '-clienteForm-confirmarCompra').serializeObject();
+                var datosDeEntrega2 =new App.Model.ProductoModel( datosDeEntrega);
                 self.itemsAComprar = new App.Model.ItemList ();
                 
                 _.each(self.productoCarritoModelList.models, function(d) {
@@ -343,11 +345,11 @@ function() {
                 });
                 
                 self.clienteDelegate = new App.Delegate.ClienteDelegate();
-                self.clienteDelegate.confirmarCompraDelegate(self.currentClienteModel, self.itemsAComprar, function(data) {
-
+                self.clienteDelegate.confirmarCompraDelegate(self.currentClienteModel, self.itemsAComprar,datosDeEntrega2 , function(data) {
+                self.productoCarritoModelList = new App.Model.ProductoList();
                 }, function(data) {
-                    //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
-                    //alert("Ya existe un cliente con el mismo docID");
+                    self._renderFacturaList();
+                    alert("Muchas gracias por su compra. Esperamos que su experienca como usario de nuestro servicio haya sido la mejor.");
                 });
             }
         },

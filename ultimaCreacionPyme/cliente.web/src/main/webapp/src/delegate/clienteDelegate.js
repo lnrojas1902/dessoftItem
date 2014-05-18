@@ -112,13 +112,17 @@ define(['delegate/_clienteDelegate'], function() {
 	    	  callbackError(data);
 	      },this));
 	},
-        confirmarCompraDelegate: function(usuario, items,callback,callbackError){
+        confirmarCompraDelegate: function(usuario, items, datosDeEntrega, callback,callbackError){
 	    
             
             $.ajax({
 	          url: '/cliente.service.subsystem.web/webresources/Cliente/confirmar',
 	          type: 'POST',
-	          data: '{ "clienteEntity":' +  JSON.stringify(usuario) + ', "items":' +  JSON.stringify(items.models) + '}',
+	          data: '{ "clienteEntity":' +  JSON.stringify(usuario) 
+                          + ', "items":' +  JSON.stringify(items.models) 
+                          + ', "direccion":' +  JSON.stringify(datosDeEntrega.getDisplay('direccion')) 
+                          + ', "metodoPago":' +  JSON.stringify(datosDeEntrega.getDisplay('pago')) 
+                          + '}',
 	          contentType: 'application/json'
 	      }).done(_.bind(function(data){
 	    	  callback(data);

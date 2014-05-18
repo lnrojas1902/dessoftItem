@@ -86,8 +86,10 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
      * los items del carrito.
      * @param id 
      * @param items 
+     * @param direccion 
+     * @param metodoPago 
      */
-    public void comprar(Long id, List<ItemDTO> items) {
+    public void comprar(Long id, List<ItemDTO> items, String direccion, String metodoPago) {
                
         FacturaEntity nueva = new FacturaEntity();
         Query qMax = entityManager.createQuery("select MAX(u.id) from FacturaEntity u");
@@ -99,7 +101,8 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         nueva.setFechaEsperadaEntrega(new Date());
         nueva.setClienteId(id);
         nueva.setEstado("En proceso");
-        nueva.setTipoDePago("Efectivo");
+        nueva.setTipoDePago(metodoPago);
+        nueva.setDereccionDeEntrega(direccion);
         nueva.setName(getCliente(id).getName()+" - "+(new Date()));
         entityManager.persist(nueva);
         System.out.println("Paso2");

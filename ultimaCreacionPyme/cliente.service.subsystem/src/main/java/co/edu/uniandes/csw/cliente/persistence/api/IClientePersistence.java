@@ -14,5 +14,5 @@ public interface IClientePersistence extends _IClientePersistence {
 
     public boolean existeCliente(ClienteDTO cliente);
     
-    public void comprar(Long id, List<ItemDTO> items);
+    public void comprar(Long id, List<ItemDTO> items, String direccion, String metodoPago);
 }

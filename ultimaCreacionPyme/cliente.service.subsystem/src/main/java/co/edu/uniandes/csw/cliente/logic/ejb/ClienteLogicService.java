@@ -67,7 +67,7 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
             System.out.println ("\n ProdcutoId "+ i+ ": "+ clienteAndItems.getItems().get(i).getProductoId());  
             System.out.println ("\t\t cantidad "+ i+ ": "+ clienteAndItems.getItems().get(i).getCantidad()); 
         }  
-         persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems());
+         persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems(), clienteAndItems.getDireccion(), clienteAndItems.getMetodoPago());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     } 
 
