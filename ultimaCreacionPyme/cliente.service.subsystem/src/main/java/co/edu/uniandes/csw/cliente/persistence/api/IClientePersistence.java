@@ -2,6 +2,7 @@
 package co.edu.uniandes.csw.cliente.persistence.api;
 
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
+import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
 import java.util.List;
 
 public interface IClientePersistence extends _IClientePersistence {
@@ -13,5 +14,5 @@ public interface IClientePersistence extends _IClientePersistence {
 
     public boolean existeCliente(ClienteDTO cliente);
     
-    public void comprar(Long id);
+    public void comprar(Long id, List<ItemDTO> items);
 }

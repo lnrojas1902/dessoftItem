@@ -29,7 +29,7 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
 
     public void comprar(Long id) {
         
-        persistance.comprar(id);
+        //persistance.comprar(id);
     }
 
     public boolean existeCliente(ClienteDTO cliente) {
@@ -66,7 +66,8 @@ public class ClienteLogicService extends _ClienteLogicService implements IClient
          for (int i = 0; i < clienteAndItems.items.size(); i++) {
             System.out.println ("\n ProdcutoId "+ i+ ": "+ clienteAndItems.getItems().get(i).getProductoId());  
             System.out.println ("\t\t cantidad "+ i+ ": "+ clienteAndItems.getItems().get(i).getCantidad()); 
-        }                 
+        }  
+         persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     } 
 

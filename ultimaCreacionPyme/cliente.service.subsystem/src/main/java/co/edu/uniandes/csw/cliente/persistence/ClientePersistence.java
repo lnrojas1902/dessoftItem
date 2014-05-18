@@ -6,15 +6,12 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
-import co.edu.uniandes.csw.cliente.persistence.converter.ClienteConverter;
-import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
-import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
+import co.edu.uniandes.csw.cliente.persistence.entity.ItemEntity;
 import co.edu.uniandes.csw.cliente.persistence.entity.PymeFacturaEntity;
-import co.edu.uniandes.csw.cliente.persistence.entity._FacturaItemEntity;
-import co.edu.uniandes.csw.cliente.persistence.entity._FacturaEntity;
+import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
@@ -42,7 +39,7 @@ import net.sf.jasperreports.engine.JasperReport;
 public class ClientePersistence extends _ClientePersistence  implements IClientePersistence {
 
     /**
-     * Metodo que retorna un archivo pdf con la información de los clientes
+     * Metodo que retorna un archivo pdf con la informaciï¿½n de los clientes
      * @return 
      */
     public byte[] getReport() {
@@ -64,7 +61,7 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
     }
 
     /**
-     * Busca y retorna un cliente en el sistema que tenga el mismo nombre dado por parámetro
+     * Busca y retorna un cliente en el sistema que tenga el mismo nombre dado por parï¿½metro
      * @param cliente
      * @return 
      */
@@ -85,18 +82,18 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
 
     /**
      * Metodo que recibe un id de un cliente, y busca todos sus items del carrito, luego crea una
-     * factura con esta información y con el valor total y la agrega al sistema, por último borra todos
+     * factura con esta informaciï¿½n y con el valor total y la agrega al sistema, por ï¿½ltimo borra todos
      * los items del carrito.
      * @param id 
+     * @param items 
      */
-    public void comprar(Long id) {
+    public void comprar(Long id, List<ItemDTO> items) {
                
         FacturaEntity nueva = new FacturaEntity();
-        
         Query qMax = entityManager.createQuery("select MAX(u.id) from FacturaEntity u");
         
-        
         Long facturaID = 1L + (Long) ((qMax.getSingleResult()== null)? 0L:qMax.getSingleResult());
+        System.out.println("Paso1");
         nueva.setId(facturaID);
         nueva.setFechaDeRealizacion(new Date());
         nueva.setFechaEsperadaEntrega(new Date());
@@ -105,48 +102,52 @@ public class ClientePersistence extends _ClientePersistence  implements ICliente
         nueva.setTipoDePago("Efectivo");
         nueva.setName(getCliente(id).getName()+" - "+(new Date()));
         entityManager.persist(nueva);
+        System.out.println("Paso2");
          
-        int costoTotal = 0;
-                
-        Query q = entityManager.createQuery("select u from ClienteItemEntity u");
-        
-        List <ClienteItemEntity> items = q.getResultList();
-        
+        int costoTotal = 0;    
+        //Query q = entityManager.createQuery("select u from ClienteItemEntity u");
+        //List <ClienteItemEntity> items = q.getResultList();  
+        Query qMax2 = entityManager.createQuery("select MAX(u.id) from ItemEntity u");
+        Long sigItemID = 1L + (Long) ((qMax2.getSingleResult()== null)? 0L:qMax2.getSingleResult());
+        System.out.println("Paso3");
         for (int i = 0; i < items.size(); i++) {
+            //ClienteItemEntity actual = items.get(i);
+            //if ( actual.getClienteId() == id){
+            ItemDTO itemActual = items.get(i);
+            ItemEntity itemPersistence = new ItemEntity();
+                    itemPersistence.setCantidad(itemActual.getCantidad());
+                    itemPersistence.setEstado(itemActual.getEstado());
+                    itemPersistence.setName("Fact: " + facturaID + "-" + (i+1));
+                    itemPersistence.setProductoId(itemActual.getProductoId());
+                    itemPersistence.setId(sigItemID);
+            entityManager.persist(itemPersistence);
             
-            ClienteItemEntity actual = items.get(i);
-            
-            if ( actual.getClienteId() == id){
-                
-                Long prodID = actual.getItemEntity().getProductoId();
+                Long prodID = itemActual.getProductoId();
                 Query qCostoItem = entityManager.createQuery("select u.costo from ProductoEntity u where"
                         + " u.id="+prodID);
                 
                 int costoItem = (Integer) qCostoItem.getSingleResult();
                 
-                costoTotal += costoItem*actual.getItemEntity().getCantidad();
+                costoTotal += costoItem*itemActual.getCantidad();
                 FacturaItemEntity facItem = new FacturaItemEntity();
-
                 facItem.setFacturaID(facturaID);
-                facItem.setItemId(actual.getItemId());
-                
+                facItem.setItemId(sigItemID);
                 entityManager.persist(facItem);
-                
-                
-                
-                Query q2 = entityManager.createNamedQuery("ClienteItemEntity.deleteClienteItem");
-                q2.setParameter("clienteId", id);
-                q2.setParameter("itemId", actual.getItemId());
-                q2.executeUpdate();
-            }
+                sigItemID += 1L;
+//                Query q2 = entityManager.createNamedQuery("ClienteItemEntity.deleteClienteItem");
+//                q2.setParameter("clienteId", id);
+//                q2.setParameter("itemId", SigItemID + i);
+//                q2.executeUpdate();
+            //}
         }
         nueva.setValor(costoTotal);
-       
+       System.out.println("Paso4");
         PymeFacturaEntity pymeFact = new PymeFacturaEntity(new Long(1), facturaID);
         entityManager.persist(pymeFact);
         
         
     }
+
 
     
 
