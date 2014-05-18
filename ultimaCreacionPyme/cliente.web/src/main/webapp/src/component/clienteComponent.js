@@ -21,7 +21,7 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
                 {name: 'Cuenta',icon: 'glyphicon-user',event: 'show-cuenta-cliente'});
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
-                {name: 'Facturas',icon: 'glyphicon-folder-open',event: 'show-facturas-cliente'});
+                {name: 'Compras',icon: 'glyphicon-folder-open',event: 'show-facturas-cliente'});
             Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
                 {name: 'Clientes',icon: 'glyphicon-align-justify',event: 'show-clientes'});
              Backbone.trigger(this.toolbarModel.get('componentId')+'-add-button',
