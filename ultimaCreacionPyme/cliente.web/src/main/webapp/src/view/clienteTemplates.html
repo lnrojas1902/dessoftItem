@@ -194,6 +194,7 @@
           <th>dereccionDeEntrega</th>
           <th>clienteId</th>
           <th>Calificacion</th>
+          <th>Acciones</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -218,6 +219,17 @@
                     <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
                     <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
             </div>
+            </td>
+            <td>
+                    <div align="center">
+                        <button id="<%= componentId%>-ver-factura" 
+                            onclick="Backbone.trigger('<%= componentId %>-ver-factura',{factura: <%= factura.id %>}); return false" 
+                            
+                            type="button" class="btn btn-info">
+                            Ver
+                        </button>
+                    </div>
+                    
             </td>
 	</tr>
 	<% }); %>
@@ -387,6 +399,66 @@
                     </div>
                 </td>
            </tr>
+        </table>
+    </div>
+    </html>
+</script>
+
+<script type="text/template" id="verFactura">
+    
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <table>
+            <tr>
+                <h3><p > Factura: </p></h3><br>
+            </tr>
+
+            <tr>
+                <div>
+                    <h4>Nombre: <%= htmlEncode(factura.getDisplay('name')) %></h4><br>
+                </div>
+
+            <tr>
+                <div>
+                    <h4>Valor: <%= htmlEncode(factura.getDisplay('valor')) %></h4><br>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                    <h4>Estado: <%= htmlEncode(factura.getDisplay('estado')) %></h4><br>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                    <h4>Tipo de pago: <%= htmlEncode(factura.getDisplay('tipoDePago')) %></h4><br>
+                </div>
+            </tr>               
+          
+           <tr>
+           </tr>
+           <tr>
+                <h3><p >Productos Compra: </p></h3><br>
+           </tr>           
+                    <% _.each(items, function(item) { console.log('for each html');%>       
+                        
+                        <tr>
+                            
+                                
+                                <h4>Nombre: <%= htmlEncode(item.getDisplay('nombre')) %></h4><br>
+                           
+                                <h4> <img src="<%= htmlEncode(item.getDisplay('imagen')) %>" width="100px" /></h4><br>
+                            
+                                <h4>Costo: <%= htmlEncode(item.getDisplay('costo')) %></h4><br>
+                            
+                                <h4>Cantidad: <%= htmlEncode(item.getDisplay('cantidad')) %></h4><br>
+                           
+                                <h4>Estado: <%= htmlEncode(item.getDisplay('estado')) %></h4><br>
+                                           
+                                   
+                        </tr>          
+                     <% }); %>
+           
+           
         </table>
     </div>
     </html>

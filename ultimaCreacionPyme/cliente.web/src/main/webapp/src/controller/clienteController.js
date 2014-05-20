@@ -57,7 +57,7 @@ function() {
             this.listProductoModelClass = options.listModelClass;
       
             this.verProductoTemplate = _.template($('#verProducto').html());
-            
+            this.verFacturaTemplate = _.template($('#verFactura').html());
             
            //toolbar
             Backbone.on('show-login-cliente', function() {
@@ -98,6 +98,13 @@ function() {
                 self.confirmarCompra();
             });
             
+            
+            Backbone.on(this.componentId+'-ver-factura', function(params) {
+                
+                self.verFactura(params);
+            });
+            
+           
         },
         listProductos: function(){
             this.list();
@@ -134,7 +141,7 @@ function() {
                 Backbone.trigger(self.componentId + '-show-button',
                        {name: 'Cuenta'}); 
                 Backbone.trigger(self.componentId + '-show-button',
-                       {name: 'Facturas'}); 
+                       {name: 'Compras'}); 
                 Backbone.trigger(self.componentId + '-show-button',
                        {name: 'Logout'}); 
                        
@@ -151,7 +158,7 @@ function() {
             Backbone.trigger(self.componentId + '-hide-button',
                        {name: 'Cuenta'}); 
             Backbone.trigger(self.componentId + '-hide-button',
-                       {name: 'Facturas'}); 
+                       {name: 'Compras'}); 
             Backbone.trigger(self.componentId + '-hide-button',
                        {name: 'Logout'}); 
                        
@@ -223,7 +230,7 @@ function() {
                this.$el.slideUp("fast", function() {
             /*Establece que en el <div> se despliegue el template de la variable �listPromTemplate�. Como par�metros entran las variables establecidas dentro de los tags <%%> con sus valores como un objeto JSON. En este caso, la propiedad sports tendr� la lista que instanci� �sportSearch� en la variable del bucle <% _.each(sports, function(sport) { %>*/
 
-               self.$el.html(self.listFactTemplate({facturas: self.facturaModelList.models}));
+               self.$el.html(self.listFactTemplate({facturas: self.facturaModelList.models, componentId: self.componentId}));
                             self.$el.slideDown("fast");
                });
          },
@@ -394,7 +401,67 @@ function() {
                         self.$el.slideDown("fast");
            });
             
-	}
+	},
+        verFactura: function(params){
+            
+            var self = this;
+            var idFactura = params.factura;           
+                      
+            console.log('factura: '+idFactura );           
+            
+            self.clienteDeledate = new App.Delegate.ClienteDelegate();
+            self.clienteDeledate.getFacturaId(idFactura,function(data){
+                
+                var model=new App.Model.FacturaModel(data);
+                     console.log('factura:' +JSON.stringify(model));
+                     
+                 self.clienteDeledate.getItemsFactura(idFactura,function(data){
+                
+                     self.itemsFactura = new App.Model.ItemList ();
+                
+                    _.each(data, function(d) {
+                        var item = new App.Model.ItemModel(d);
+                        var productoId = item.getDisplay('productoId');
+                        console.log('item-prodID '+item.id );           
+            
+                        self.clienteDeledate.getProductoId(productoId, function(data){
+                            var producto = new App.Model.ProductoModel(data);
+                            console.log('producto: '+producto.getDisplay('name') );           
+                            console.log(' - '+producto.getDisplay('imagen') ); 
+                            console.log(' - '+producto.getDisplay('costo') ); 
+                            
+                            
+                            
+                           item.set ('nombre', producto.getDisplay('name'));
+                            item.set ('imagen', producto.getDisplay('imagen'));
+                            item.set ('costo', producto.getDisplay('costo'));
+                            console.log('item-prodID 2 '+item.id );
+                            console.log('item-prodName 2 '+item.getDisplay('nombre') );
+                            console.log('item-prodImagen 2 '+item.getDisplay('imagen') );
+                            console.log('item-prodCantidad 2 '+item.getDisplay('cantidad') );
+                            console.log('item-prodCosto 2 '+item.getDisplay('costo'));
+                             self.itemsFactura.models.push(item);                
+                             self.$el.html(self.verFacturaTemplate({factura: model ,componentId: self.componentId, items: self.itemsFactura.models}));
+                        },function(data){
+                                console.log('Error producto Id' ); 
+                        });
+                       
+                    });
+                    
+                     //this.$el.slideUp("fast", function() {
+
+                  
+                                //self.$el.slideDown("fast");
+                           //});
+
+                    //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
+                    },function(data){
+                        Backbone.trigger(self.componentId + '-' + 'error', {event: 'ver-Factura', view: self, id: params.id, data: data, error: 'Error in ver factura'});
+                    });
+            },function(data){
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'ver-Factura', view: self, id: params.id, data: data, error: 'Error in ver factura'});
+            });
+        }
         
         
     });

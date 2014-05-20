@@ -29,10 +29,38 @@ define(['delegate/_clienteDelegate'], function() {
 	      },this));
 	},
         getProductoId: function(id,callback,callbackError){
-	    console.log('productosDelegate: ');
+	    console.log('getProductoId: ');
             
             $.ajax({
 	          url: '/producto.service.subsystem.web/webresources/Producto/getProductoId',
+	          type: 'POST',
+	          data: JSON.stringify(id),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
+        getFacturaId: function(id,callback,callbackError){
+	    console.log('facturaDelegate: ');
+            
+            $.ajax({
+	          url: '/factura.service.subsystem.web/webresources/Factura/getFacturaId',
+	          type: 'POST',
+	          data: JSON.stringify(id),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
+        getItemsFactura: function(id,callback,callbackError){
+	    console.log('facturaDelegate: ');
+            
+            $.ajax({
+	          url: '/factura.master.service.subsystem/webresources/FacturaMaster/getItemsFactura',
 	          type: 'POST',
 	          data: JSON.stringify(id),
 	          contentType: 'application/json'

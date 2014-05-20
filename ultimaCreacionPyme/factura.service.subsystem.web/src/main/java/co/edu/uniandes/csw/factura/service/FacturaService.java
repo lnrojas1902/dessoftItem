@@ -44,4 +44,11 @@ public class FacturaService extends _FacturaService {
     {
         facturaLogicService.actualizarFacturas();
     }
+    
+    @POST
+    @Path("/getFacturaId")
+    public FacturaDTO getFacturaId(Long id)
+    {
+        return getFactura(id);
+    }
 }

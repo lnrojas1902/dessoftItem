@@ -35,7 +35,7 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
              Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Cuenta'});
             Backbone.trigger(self.componentId + '-hide-button',
-                {name: 'Facturas'});
+                {name: 'Compras'});
             Backbone.trigger(self.componentId + '-hide-button',
                 {name: 'Logout'});  
                        
