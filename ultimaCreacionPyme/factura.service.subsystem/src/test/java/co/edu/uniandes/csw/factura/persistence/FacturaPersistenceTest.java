@@ -20,6 +20,11 @@ import java.util.*;
 import co.edu.uniandes.csw.factura.logic.dto.FacturaDTO;
 import co.edu.uniandes.csw.factura.persistence.api.IFacturaPersistence;
 import co.edu.uniandes.csw.factura.persistence.entity.FacturaEntity;
+import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.persistence.Query;
 
 @RunWith(Arquillian.class)
 public class FacturaPersistenceTest {
@@ -68,17 +73,20 @@ public class FacturaPersistenceTest {
 
 	private List<FacturaEntity> data=new ArrayList<FacturaEntity>();
 
-	private void insertData() {
+	private void insertData() throws ParseException {
 		for(int i=0;i<3;i++){
 			FacturaEntity entity=new FacturaEntity();
-			entity.setName(generateRandom(String.class));
-			entity.setValor(generateRandom(Integer.class));
-			entity.setEstado(generateRandom(String.class));
-			entity.setTipoDePago(generateRandom(String.class));
-			entity.setFechaDeRealizacion(generateRandom(Date.class));
-			entity.setFechaEsperadaEntrega(generateRandom(Date.class));
-			entity.setDereccionDeEntrega(generateRandom(String.class));
-			entity.setClienteId(generateRandom(Long.class));
+			entity.setName("Factura "+i);
+			entity.setValor(i*1000);
+			entity.setEstado("En proceso");
+			entity.setTipoDePago("Crédito");
+                        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+                        Date date1 = formatter.parse("0"+1+i+"/29/02");
+                        Date date2 = formatter.parse("0"+2+i+"/29/02");
+			entity.setFechaDeRealizacion(date1);
+			entity.setFechaEsperadaEntrega(date2);
+			entity.setDereccionDeEntrega("Direccion "+i);
+			entity.setClienteId(new Long(i));
 			em.persist(entity);
 			data.add(entity);
 		}
@@ -127,7 +135,34 @@ public class FacturaPersistenceTest {
             Assert.assertTrue(found);
         }
 	}
-	
+        
+        @Test
+	public void getFacturasFechaTest() throws ParseException{
+            for(int i=0;i<3;i++)
+            {
+                        boolean found = false;
+			FacturaDTO fecha1 = new FacturaDTO();
+                        fecha1.setName("");
+                        fecha1.setValor(0);
+                        fecha1.setEstado("");
+                        fecha1.setTipoDePago("");
+                        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+                        Date date1 = formatter.parse("0"+1+i+"/29/02");
+                        Date date2 = formatter.parse("0"+1+i+"/29/02");
+                        fecha1.setFechaDeRealizacion(date1);
+                        fecha1.setFechaEsperadaEntrega(date2);
+                        fecha1.setDereccionDeEntrega("");
+                        fecha1.setClienteId(1L);
+                        List<FacturaDTO> list=facturaPersistence.getFacturasFecha(fecha1);
+                        FacturaDTO comp = list.get(0);
+                        if(("Factura "+i).equals(comp.getName()))
+                        {
+                            found = true;
+                        } 
+                        Assert.assertTrue(found);
+            }
+	}
+        
 	@Test
 	public void getFacturaTest(){
 		FacturaEntity entity=data.get(0);

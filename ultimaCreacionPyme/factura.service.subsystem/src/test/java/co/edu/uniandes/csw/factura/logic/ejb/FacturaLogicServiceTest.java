@@ -22,6 +22,9 @@ import co.edu.uniandes.csw.factura.logic.api.IFacturaLogicService;
 import co.edu.uniandes.csw.factura.persistence.FacturaPersistence;
 import co.edu.uniandes.csw.factura.persistence.api.IFacturaPersistence;
 import co.edu.uniandes.csw.factura.persistence.entity.FacturaEntity;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @RunWith(Arquillian.class)
 public class FacturaLogicServiceTest {
@@ -63,17 +66,20 @@ public class FacturaLogicServiceTest {
 
 	private List<FacturaDTO> data=new ArrayList<FacturaDTO>();
 
-	private void insertData() {
+	private void insertData() throws ParseException {
 		for(int i=0;i<3;i++){
 			FacturaDTO pdto=new FacturaDTO();
-			pdto.setName(generateRandom(String.class));
-			pdto.setValor(generateRandom(Integer.class));
-			pdto.setEstado(generateRandom(String.class));
-			pdto.setTipoDePago(generateRandom(String.class));
-			pdto.setFechaDeRealizacion(generateRandom(Date.class));
-			pdto.setFechaEsperadaEntrega(generateRandom(Date.class));
-			pdto.setDereccionDeEntrega(generateRandom(String.class));
-			pdto.setClienteId(generateRandom(Long.class));
+			pdto.setName("Factura "+i);
+			pdto.setValor(i*1000);
+			pdto.setEstado("En proceso");
+			pdto.setTipoDePago("Crédito");
+                        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+                        Date date1 = formatter.parse("0"+1+i+"/29/02");
+                        Date date2 = formatter.parse("0"+2+i+"/29/02");
+			pdto.setFechaDeRealizacion(date1);
+			pdto.setFechaEsperadaEntrega(date2);
+			pdto.setDereccionDeEntrega("Direccion "+i);
+			pdto.setClienteId(new Long(i));
 			pdto=facturaPersistence.createFactura(pdto);
 			data.add(pdto);
 		}
@@ -138,7 +144,34 @@ public class FacturaLogicServiceTest {
 		Assert.assertEquals(pdto.getClienteId(), ldto.getClienteId());
         
 	}
-	
+        
+	@Test
+        public void getFacturasFechaTest() throws ParseException{
+            for(int i=0;i<3;i++)
+            {
+                        boolean found = false;
+			FacturaDTO fecha1 = new FacturaDTO();
+                        fecha1.setName("");
+                        fecha1.setValor(0);
+                        fecha1.setEstado("");
+                        fecha1.setTipoDePago("");
+                        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+                        Date date1 = formatter.parse("0"+1+i+"/29/02");
+                        Date date2 = formatter.parse("0"+1+i+"/29/02");
+                        fecha1.setFechaDeRealizacion(date1);
+                        fecha1.setFechaEsperadaEntrega(date2);
+                        fecha1.setDereccionDeEntrega("");
+                        fecha1.setClienteId(1L);
+                        List<FacturaDTO> list=facturaLogicService.getFacturasFecha(fecha1);
+                        FacturaDTO comp = list.get(0);
+                        if(("Factura "+i).equals(comp.getName()))
+                        {
+                            found = true;
+                        } 
+                        Assert.assertTrue(found);
+            }
+	}
+        
 	@Test
 	public void deleteFacturaTest(){
 		FacturaDTO pdto=data.get(0);

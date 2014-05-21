@@ -20,4 +20,6 @@ public interface IClienteLogicService extends _IClienteLogicService {
     public ClienteDTO loginCliente(ClienteDTO cliente)throws Exception;
 
     public void confirmarCompra(ClienteAndItemsDTO clienteAndItems);
+
+    public ClienteDTO searchClienteByDocID(ClienteDTO pdto);
 }

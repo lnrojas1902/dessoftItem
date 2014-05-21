@@ -35,5 +35,9 @@ public class ClienteMockLogicService extends _ClienteMockLogicService implements
     public void confirmarCompra(ClienteAndItemsDTO clienteAndItems) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ClienteDTO searchClienteByDocID(ClienteDTO pdto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 }

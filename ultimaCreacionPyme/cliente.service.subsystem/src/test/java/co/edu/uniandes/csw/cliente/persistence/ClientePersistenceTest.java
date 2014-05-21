@@ -20,6 +20,8 @@ import java.util.*;
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
+import javax.persistence.Query;
 
 @RunWith(Arquillian.class)
 public class ClientePersistenceTest {
@@ -71,10 +73,10 @@ public class ClientePersistenceTest {
 	private void insertData() {
 		for(int i=0;i<3;i++){
 			ClienteEntity entity=new ClienteEntity();
-			entity.setName(generateRandom(String.class));
-			entity.setDocId(generateRandom(String.class));
-			entity.setTipo(generateRandom(String.class));
-			entity.setPassword(generateRandom(String.class));
+			entity.setName("Nombre "+i);
+			entity.setDocId("Doc "+i);
+			entity.setTipo("Tipo "+i);
+			entity.setPassword("Password "+i);
 			em.persist(entity);
 			data.add(entity);
 		}
@@ -119,6 +121,45 @@ public class ClientePersistenceTest {
             }
             Assert.assertTrue(found);
         }
+	}
+        
+        @Test
+	public void searchClientesTest(){
+                for(ClienteEntity entity:data)
+                {
+                    ClienteDTO dto=new ClienteDTO();
+                    dto.setName(entity.getName());
+                    dto.setDocId(entity.getDocId());
+                    dto.setTipo(entity.getTipo());
+                    dto.setPassword(entity.getPassword());
+                    List<ClienteDTO> list=clientePersistence.searchCliente(dto);
+                    ClienteDTO buscado=list.get(0);
+                    boolean found = false;
+                    if(buscado != null)
+                    {
+                        if(buscado.getDocId().equals(entity.getDocId()))
+                        {
+                            found=true;
+                        }
+                    }
+                    else
+                    {
+                        found=true;
+                    }
+                    Assert.assertTrue(found);
+                }
+	}
+        
+        @Test
+	public void comprarTest(){
+                Query qMax = em.createQuery("select MAX(u.id) from FacturaEntity u");
+                Long primero = 0L;
+                List<ItemDTO> items = new ArrayList<ItemDTO>();
+                List<ClienteDTO> list=clientePersistence.getClientes();
+                Long id = list.get(0).getId();
+                clientePersistence.comprar(id, items, "Dir", "Pago");
+                Long segundo = (Long)qMax.getSingleResult();
+                Assert.assertTrue((segundo-primero)==1);
 	}
 	
 	@Test

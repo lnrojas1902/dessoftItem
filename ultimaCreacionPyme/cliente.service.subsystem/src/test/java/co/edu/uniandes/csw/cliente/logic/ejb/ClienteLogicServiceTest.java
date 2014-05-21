@@ -19,9 +19,12 @@ import java.util.*;
 
 import co.edu.uniandes.csw.cliente.logic.dto.ClienteDTO;
 import co.edu.uniandes.csw.cliente.logic.api.IClienteLogicService;
+import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.cliente.persistence.ClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.api.IClientePersistence;
 import co.edu.uniandes.csw.cliente.persistence.entity.ClienteEntity;
+import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
+import javax.persistence.Query;
 
 @RunWith(Arquillian.class)
 public class ClienteLogicServiceTest {
@@ -43,6 +46,9 @@ public class ClienteLogicServiceTest {
 	
 	@Inject
 	private IClientePersistence clientePersistence;	
+        
+        @PersistenceContext
+	private EntityManager em;
 
 	@Before
 	public void configTest() {
@@ -66,10 +72,10 @@ public class ClienteLogicServiceTest {
 	private void insertData() {
 		for(int i=0;i<3;i++){
 			ClienteDTO pdto=new ClienteDTO();
-			pdto.setName(generateRandom(String.class));
-			pdto.setDocId(generateRandom(String.class));
-			pdto.setTipo(generateRandom(String.class));
-			pdto.setPassword(generateRandom(String.class));
+			pdto.setName("Nombre "+i);
+			pdto.setDocId("DocId "+i);
+			pdto.setTipo("Tipo "+i);
+			pdto.setPassword("Password "+i);
                         try{
 			pdto=clientePersistence.createCliente(pdto);
 			data.add(pdto);
@@ -119,7 +125,158 @@ public class ClienteLogicServiceTest {
             Assert.assertTrue(found);
         }
 	}
+        
+        @Test
+	public void searchClientesTest(){
+	for(ClienteDTO pdto:data)
+            {
+                boolean found=false;
+                List<ClienteDTO> list=clienteLogicService.searchCliente(pdto);
+                ClienteDTO buscado=list.get(0);
+                if(buscado != null)
+                {
+                    if(buscado.getDocId().equals(pdto.getDocId()))
+                    {
+                        found=true;
+                    }
+                }
+                else
+                {
+                    found=true;
+                }
+                Assert.assertTrue(found);
+            }
+	}
+        
+        @Test
+	public void existeClienteTest1(){
+	for(ClienteDTO pdto:data)
+            {
+                boolean existe = clienteLogicService.existeCliente(pdto);
+                Assert.assertTrue(existe);
+            }
+	}
+        
+        @Test
+	public void existeClienteTest2(){
+                ClienteDTO ldto=new ClienteDTO();
+		ldto.setName("No existe");
+		ldto.setDocId("No existe");
+		ldto.setTipo("No existe");
+		ldto.setPassword("No existe");
+                boolean noExiste = !clienteLogicService.existeCliente(ldto);
+                Assert.assertTrue(noExiste);
+	}
 	
+        @Test
+	public void searchClientesByDocIDTest(){
+	for(ClienteDTO pdto:data)
+            {
+                boolean found=false;
+                ClienteDTO buscado = clienteLogicService.searchClienteByDocID(pdto);
+                if(buscado != null)
+                {
+                    if(buscado.getDocId().equals(pdto.getDocId()))
+                    {
+                        found=true;
+                    }
+                }
+                else
+                {
+                    found=true;
+                }
+                Assert.assertTrue(found);
+            }
+	}
+        
+        @Test
+	public void confirmarCompraTest(){
+                Query qMax = em.createQuery("select MAX(u.id) from FacturaEntity u");
+                Long primero = 0L;
+                List<ItemDTO> items = new ArrayList<ItemDTO>();
+                List<ClienteDTO> list=clienteLogicService.getClientes();
+                ClienteDTO objDto = list.get(0);
+                Long id = objDto.getId();
+                ClienteAndItemsDTO clienteitems = new ClienteAndItemsDTO();
+                clienteitems.setClienteEntity(objDto);
+                clienteitems.setCreateItem(items);
+                clienteitems.setDireccion("Dir");
+                clienteitems.setId(id);
+                clienteitems.setMetodoPago("Metodo");
+                clienteLogicService.confirmarCompra(clienteitems);
+                Long segundo = (Long)qMax.getSingleResult();
+                Assert.assertTrue((segundo-primero)==1);
+	}
+        
+        @Test
+	public void loginClienteTest1()
+        {
+                ClienteDTO prueba = new ClienteDTO();
+                prueba.setName("No existe");
+                prueba.setId(-1L);
+                prueba.setDocId("No existe");
+                prueba.setPassword("No existe");
+                prueba.setTipo("No existe");
+                boolean funciona = false;
+                try
+                {
+                    clienteLogicService.loginCliente(prueba);
+                }
+                catch(Exception e)
+                {
+                    if(e.getMessage().equals("El usuario no existe"))
+                    {
+                        funciona = true;
+                    }
+                }
+                Assert.assertTrue(funciona);
+	}
+        
+        @Test
+	public void loginClienteTest2()
+        {
+                ClienteDTO prueba = new ClienteDTO();
+                prueba.setName("Nombre 1");
+                prueba.setId(1L);
+                prueba.setDocId("DocId 1");
+                prueba.setPassword("Password 2");
+                prueba.setTipo("Tipo 1");
+                boolean funciona = false;
+                try
+                {
+                    clienteLogicService.loginCliente(prueba);
+                }
+                catch(Exception e)
+                {
+                    if(e.getMessage().equals("Clave incorrecta. Intente de nuevo"))
+                    {
+                        funciona = true;
+                    }
+                }
+                Assert.assertTrue(funciona);
+	}
+        
+        @Test
+	public void loginClienteTest3()
+        {
+                ClienteDTO prueba = new ClienteDTO();
+                prueba.setName("Nombre 1");
+                prueba.setId(1L);
+                prueba.setDocId("DocId 1");
+                prueba.setPassword("Password 1");
+                prueba.setTipo("Tipo 1");
+                boolean funciona = true;
+                try
+                {
+                    clienteLogicService.loginCliente(prueba);
+                }
+                catch(Exception e)
+                {
+                    funciona = false;
+                }
+                Assert.assertTrue(funciona);
+	}
+        
 	@Test
 	public void getClienteTest(){
 		ClienteDTO pdto=data.get(0);
