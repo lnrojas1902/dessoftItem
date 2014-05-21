@@ -1,5 +1,5 @@
 #contenedor {
-padding:30px 0px 0px 0px;
+padding:0px 0px 0px 0px;
 width:auto;
 margin-top:10px;
 }
@@ -10,6 +10,12 @@ margin-top:10px;
     width:459px;
     float:left;
     margin-left:50px;
+}
+
+#contenedorIniciarSecion {
+padding:30px 0px 0px 0px;
+width:auto;
+margin-top:10px;
 }
 
 #contenido2 {
@@ -45,6 +51,33 @@ margin-top:10px;
     background-color:#DEC980;
     border-radius: 0px 0px 20px 20px;
 }
+#listaTitulo {
+    width:auto;
+    font-size:18px;
+    height:100px;
+    margin-top:0px;
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
+    text-align:center;
+    background-color:#FF9900;
+    border-radius: 2px 2px 2px 2px;
+}
+#listaTotal{
+    width:auto;
+    font-size:18px;
+    height:60px;
+    margin-top:0px;
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
+    text-align:right;
+    background-color:#66CC00;
+    border-radius: 2px 2px 2px 2px;
+    vertical-align: middle;
+    padding:1px 30px 0px 0px;
+}
+
 
 #contenido3 {
     vertical-align: middle;
@@ -55,6 +88,16 @@ margin-top:10px;
     margin-right:10px;
     text-align:left;
 }
+#contenido3-big {
+    vertical-align: middle;
+    width:370px;
+    font-size:18px;
+    float:left;
+    height:70px;
+    margin-right:10px;
+    text-align:center;
+}
+
 #contenido4 {
     vertical-align: middle;
     width:78px;
@@ -64,6 +107,7 @@ margin-top:10px;
     margin-right:10px;
     text-align:center;
 }
+
 #contenido0 {
     padding:10px 0px 10px 0px;
     float:left;
@@ -79,16 +123,19 @@ margin-top:10px;
 	/* Espacio entre los inline-block (los hijos, los `a`) 
 	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
 	font-size: 0;
-	/* PodrÌamos quitarlo, 
+	/* Podr√≠amos quitarlo, 
 		pero de esta manera (siempre que no le demos padding), 
-		sÛlo aplicar· la regla .ec-stars-wrapper:hover a cuando
-		tambiÈn se estÈ haciendo hover a alguna estrella */
+		s√≥lo aplicar√° la regla .ec-stars-wrapper:hover a cuando
+		tambi√©n se est√© haciendo hover a alguna estrella */
 	display: inline-block;
+        margin-left:50px;
+        margin-right:50px;
+        font-size: 24px;
 }
 .ec-stars-wrapper a {
 	text-decoration: none;
 	display: inline-block;
-	/* Volver a dar tamaÒo al texto */
+	/* Volver a dar tama√±o al texto */
 	font-size: 32px;
 	font-size: 2rem;
 	

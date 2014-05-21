@@ -354,8 +354,9 @@ function() {
                 self.clienteDelegate = new App.Delegate.ClienteDelegate();
                 self.clienteDelegate.confirmarCompraDelegate(self.currentClienteModel, self.itemsAComprar,datosDeEntrega2 , function(data) {
                 self.productoCarritoModelList = new App.Model.ProductoList();
+                self._renderFacturaList();
                 }, function(data) {
-                    self._renderFacturaList();
+                    
                     alert("Muchas gracias por su compra. Esperamos que su experienca como usario de nuestro servicio haya sido la mejor.");
                 });
             }

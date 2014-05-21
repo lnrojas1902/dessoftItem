@@ -43,7 +43,7 @@
     
     <!-- Iniciar Sesion -->
      <center>
-    <div id="contenedor">
+    <div id="contenedorIniciarSecion">
     <div id="contenido">
     <div class="panel panel-default">
      <div class="form-group">         
@@ -218,7 +218,7 @@
                     <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
                     <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
                     <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
-            </div>
+                </div>
             </td>
             <td>
                     <div align="center">
@@ -296,10 +296,11 @@
                         <div class="form-group" >
                             <label for="direccion">direccion</label>
                             <input type="text" class="form-control" id="direccion" name="direccion" placeholder="direccion de entrega" />	
-                </div>
+                        </div>
 		
-    </form>
-    </div>
+                    </form>
+               </div>
+               
                 <button id="<%= componentId%>-confirmar-compra" 
                     onclick="Backbone.trigger('<%= componentId %>-confirmar-compra-cliente',{}); return false" 
                     type="button" class="btn btn-success">
@@ -348,7 +349,6 @@
        </div>
   </div> 
   </div>
-    </html>
 </script>
 
 <script type="text/template" id="verProducto">
@@ -401,67 +401,80 @@
            </tr>
         </table>
     </div>
-    </html>
 </script>
 
 <script type="text/template" id="verFactura">
+    <div id="contenedor">
+        <div id="contenido0">
+         
+                <P>Hola, a la derecha está la factura</P> 
+                <P>que seleccionaste con los productos</P> 
+                <P>que has comprado. </P>
+                <P></P>
+                <P>Como provedores de productos lacteos </P>
+                <P>quisiramos que calificaras nuestro </P>
+                <P>servicio dando clic a la estrella que </P>
+                <P>creas debe ser nuestra calificación. </P>
+                
+                <div class="ec-stars-wrapper">
+                    <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
+                    <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
+                    <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
+                    <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
+                    <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+                </div>
+               
+        </div>
+        <% var contador = 1;%>
+       <div id="contenido0">
+       <div id="contenedor" class="panel panel-default">
+            <div id="listaTitulo">
+                    
+                    <div >
+                        <h3>Factura: <%= htmlEncode(factura.getDisplay('name')) %></h3>
+                    </div>
+                    <div id="contenido3-big">
+                        <h4>Tipo de pago: <%= htmlEncode(factura.getDisplay('tipoDePago')) %></h4>
+                    </div>
+                    <div id="contenido3-big">
+                        <h4>Estado: <%= htmlEncode(factura.getDisplay('estado')) %></h4><br>
+                    </div>
+            </div>
+        <% _.each(items, function(producto) { %>
+            
+        
+            <div id="productosCarrito">
+                
+                    <div id="contenido4">
+                        <h3><%= htmlEncode(producto.getDisplay('cantidad')) %></h3>
+                    </div>
+                    <div id="contenido4">
+                        <img align="right" height="70px" width="70px" src="<%= htmlEncode(producto.getDisplay('imagen')) %>"  />
+                    </div>
+                    
+                    <div id="contenido3">
+                    <h3><%= htmlEncode(producto.getDisplay('nombre')) %></h3>
+                    </div>
+                    <div id="contenido3">
+                        <h3>$<%= htmlEncode(producto.getDisplay('costo')) %></h3>
+                    </div>
+                    <div id="contenido3">
+                        <h3>Estado: <%= htmlEncode(producto.getDisplay('estado')) %></h3>
+                    </div>
+            </div>
+
+                  
+            
+            <% contador++;%>
+            
+        <% }); %>
+            <div id="listaTotal">
+                    <h3>Total: <%= htmlEncode(factura.getDisplay('valor')) %></h3>
+            </div>
+       </div>
+  </div> 
+  </div>
     
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <table>
-            <tr>
-                <h3><p > Factura: </p></h3><br>
-            </tr>
-
-            <tr>
-                <div>
-                    <h4>Nombre: <%= htmlEncode(factura.getDisplay('name')) %></h4><br>
-                </div>
-
-            <tr>
-                <div>
-                    <h4>Valor: <%= htmlEncode(factura.getDisplay('valor')) %></h4><br>
-                </div>
-            </tr>
-            <tr>
-                <div>
-                    <h4>Estado: <%= htmlEncode(factura.getDisplay('estado')) %></h4><br>
-                </div>
-            </tr>
-            <tr>
-                <div>
-                    <h4>Tipo de pago: <%= htmlEncode(factura.getDisplay('tipoDePago')) %></h4><br>
-                </div>
-            </tr>               
-          
-           <tr>
-           </tr>
-           <tr>
-                <h3><p >Productos Compra: </p></h3><br>
-           </tr>           
-                    <% _.each(items, function(item) { console.log('for each html');%>       
-                        
-                        <tr>
-                            
-                                
-                                <h4>Nombre: <%= htmlEncode(item.getDisplay('nombre')) %></h4><br>
-                           
-                                <h4> <img src="<%= htmlEncode(item.getDisplay('imagen')) %>" width="100px" /></h4><br>
-                            
-                                <h4>Costo: <%= htmlEncode(item.getDisplay('costo')) %></h4><br>
-                            
-                                <h4>Cantidad: <%= htmlEncode(item.getDisplay('cantidad')) %></h4><br>
-                           
-                                <h4>Estado: <%= htmlEncode(item.getDisplay('estado')) %></h4><br>
-                                           
-                                   
-                        </tr>          
-                     <% }); %>
-           
-           
-        </table>
-    </div>
-    </html>
 </script>
 <script type="text/template" id="productoList2">
     <div class="panel panel-default">
