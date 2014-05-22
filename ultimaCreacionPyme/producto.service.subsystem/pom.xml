@@ -42,5 +42,17 @@
             <version>1.0.0.CR3</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>co.edu.uniandes.csw</groupId>
+      <artifactId>item.service.subsystem</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>co.edu.uniandes.csw</groupId>
+      <artifactId>cliente.service.subsystem</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
 </project>

@@ -48,6 +48,12 @@
             <artifactId>producto.service.subsystem</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>co.edu.uniandes.csw</groupId>
+            <artifactId>item.service.subsystem</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <name>producto.service.subsystem.web</name>
 </project>

@@ -130,7 +130,7 @@ define(['delegate/_clienteDelegate'], function() {
 	    console.log('comprar: '+id);
             
             $.ajax({
-	          url: '/cliente.service.subsystem.web/webresources/Cliente/comprar',
+	          url: '/producto.service.subsystem.web/webresources/Producto/comprar',
 	          type: 'POST',
 	          data: JSON.stringify(id),
 	          contentType: 'application/json'
@@ -144,7 +144,7 @@ define(['delegate/_clienteDelegate'], function() {
 	    
             
             $.ajax({
-	          url: '/cliente.service.subsystem.web/webresources/Cliente/confirmar',
+	          url: '/producto.service.subsystem.web/webresources/Producto/comprar',
 	          type: 'POST',
 	          data: '{ "clienteEntity":' +  JSON.stringify(usuario) 
                           + ', "items":' +  JSON.stringify(items.models) 
