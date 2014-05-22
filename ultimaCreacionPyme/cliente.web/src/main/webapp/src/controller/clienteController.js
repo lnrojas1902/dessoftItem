@@ -359,7 +359,8 @@ function() {
                 self.clienteDelegate = new App.Delegate.ClienteDelegate();
                 self.clienteDelegate.confirmarCompraDelegate(self.currentClienteModel, self.itemsAComprar,datosDeEntrega2 , function(data) {
                 self.productoCarritoModelList = new App.Model.ProductoList();
-                self._renderFacturaList();
+                
+                self.facturasCliente();
                 }, function(data) {
                     
                     alert("Muchas gracias por su compra. Esperamos que su experienca como usario de nuestro servicio haya sido la mejor.");
@@ -404,7 +405,12 @@ function() {
                 
                 self.clienteDelegate = new App.Delegate.ClienteDelegate();
                 self.clienteDelegate.buscarProductoDelegate(producto,function(data) {
-                 verProducto({producto: data.id});
+                    var producto2 = new App.Model.ProductoModel(data);
+                    
+                    console.log('data'+data);
+                    console.log('producto2 id: '+producto2.id);
+                    self.verProducto({producto: producto2.id});
+                    
                  console.log('PRODUCTO BUSCADO');
                 }, function(data) {
                     

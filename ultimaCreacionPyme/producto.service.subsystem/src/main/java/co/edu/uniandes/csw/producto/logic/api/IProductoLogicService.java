@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IProductoLogicService extends _IProductoLogicService {
     public void comprar(ClienteAndItemsDTO clienteAndItems);
-    public ProductoDTO buscarProducto(String nombre);
+    public ProductoDTO buscarProducto(ProductoDTO nombre)throws Exception;
 
 }

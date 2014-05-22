@@ -12,8 +12,10 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
 import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
-import co.edu.uniandes.csw.cliente.persistence.entity.FacturaItemEntity;
-import co.edu.uniandes.csw.cliente.persistence.entity.PymeFacturaEntity;
+import co.edu.uniandes.csw.producto.persistence.entity.FacturaItemEntity;
+import co.edu.uniandes.csw.producto.persistence.entity.PymeFacturaEntity;
+import co.edu.uniandes.csw.producto.logic.dto.ProductoDTO;
+import java.util.ArrayList;
 
 @Default
 @Stateless 
@@ -60,14 +62,17 @@ public class ProductoPersistence extends _ProductoPersistence  implements IProdu
             entityManager.persist(itemPersistence);
             
                 Long prodID = itemActual.getProductoId();
-                Query qCostoItem = entityManager.createQuery("select u.costo from ProductoEntity u where"
-                        + " u.id="+prodID);
+//                Query qCostoItem = entityManager.createQuery("select u.costo from ProductoEntity u where"
+//                        + " u.id="+prodID);
                 
-                int costoItem = (Integer) qCostoItem.getSingleResult();
+                
+                
+                ProductoDTO producto = getProducto(prodID);
+                int costoItem = producto.getCosto();
                 
                 costoTotal += costoItem*itemActual.getCantidad();
                 FacturaItemEntity facItem = new FacturaItemEntity();
-                facItem.setFacturaID(facturaID);
+                facItem.setFacturaId(facturaID);
                 facItem.setItemId(sigItemID);
                 entityManager.persist(facItem);
                 sigItemID += 1L;

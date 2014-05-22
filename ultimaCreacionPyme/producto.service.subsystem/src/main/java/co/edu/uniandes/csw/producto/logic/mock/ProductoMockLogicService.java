@@ -21,8 +21,10 @@ public class ProductoMockLogicService extends _ProductoMockLogicService implemen
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public ProductoDTO buscarProducto(String nombre) {
+    public ProductoDTO buscarProducto(ProductoDTO nombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
 	
 }

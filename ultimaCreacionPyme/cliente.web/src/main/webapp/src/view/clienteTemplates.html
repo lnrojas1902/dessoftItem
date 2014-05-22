@@ -245,15 +245,15 @@
     <form role="form" id="<%= componentId %>-buscarProducto">
 		
 		<label for="name">Nombre Producto</label>
-    	<input type="text" class="form-control" id="name" name="name" placeholder="Enter value" >"/>	
+    	<input type="text" class="form-control" id="name" name="name" placeholder="Ingrese valor" >	
 		
 		
  
     </form>
     <button id="<%= componentId%>-buscarProducto" 
         onclick="Backbone.trigger('<%= componentId %>-buscarProducto',{}); return false" 
-        type="button" class="btn btn-warning">
-            <span class="glyphicon glyphicon-search"></span> BuscarProducto
+        type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-search"></span> Buscar Producto
     </button>
     </div>
         <% var contador = 1;%>

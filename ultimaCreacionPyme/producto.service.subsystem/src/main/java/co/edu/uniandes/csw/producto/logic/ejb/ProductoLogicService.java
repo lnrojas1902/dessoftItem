@@ -26,33 +26,45 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class ProductoLogicService extends _ProductoLogicService implements IProductoLogicService {
 
     public void comprar(ClienteAndItemsDTO clienteAndItems) {
-        System.out.println ("clitnte: " + clienteAndItems.getClienteEntity().getName() );
-         for (int i = 0; i < clienteAndItems.items.size(); i++) {
-            System.out.println ("\n ProdcutoId "+ i+ ": "+ clienteAndItems.getItems().get(i).getProductoId());  
-            System.out.println ("\t\t cantidad "+ i+ ": "+ clienteAndItems.getItems().get(i).getCantidad()); 
-        }  
+       
          persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems(), clienteAndItems.getDireccion(), clienteAndItems.getMetodoPago());
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        
+         try {
+            //Se crea un cliente apache
+            Client client = Client.create();
+            /**
+             * SE CONSUME EL SERVICIO REMOTO DE PRODUCTOS getProducto.
+             * URL_SERVICIO tiene la ubicación de la aplicación de proveedores
+             * (que se carga de service.properties)
+             */
+            WebResource webResource = client.resource(URL_SERVICIO + "/webresources/Producto/comprar");
+            // Se instancia un nuevo object mapper para convertir el string JSON a un DTO
+            ObjectMapper map = new ObjectMapper();
+            //Se obtiene el string JSON por medio de get
+            String resp = webResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get(String.class);
+            //Se convierte el String a un DTO con ayuda de jackson y luego se retorna
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
     }
     
-    public ProductoDTO buscarProducto(String nombre){
-    try {
-        
+    public ProductoDTO buscarProducto(ProductoDTO producto)throws Exception{
+    
            List<ProductoDTO> pepe = getProductos();
            ProductoDTO resp = null;
            for(int i =0; i<pepe.size();i++){
                ProductoDTO pepa = pepe.get(i);
-               if(pepa.getName()== nombre){
+               if(pepa.getName().equalsIgnoreCase(producto.getName())){
                    resp = pepa;
                }
                    
            }
-            
-            return resp;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-}
+           if ( resp==null)
+                throw new Exception ("No existe ese producto");
+           
+          return resp;       
+    }
     
 }

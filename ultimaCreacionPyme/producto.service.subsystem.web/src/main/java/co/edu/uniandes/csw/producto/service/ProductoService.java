@@ -40,8 +40,8 @@ public class ProductoService extends _ProductoService {
 
     @POST
     @Path("/buscarProducto")
-    public ProductoDTO buscarProducto(String nombre) {
-        return this.productoLogicService.buscarProducto(nombre);
+    public ProductoDTO buscarProducto(ProductoDTO producto) throws Exception{
+        return this.productoLogicService.buscarProducto(producto);
         
     }
     

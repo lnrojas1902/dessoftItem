@@ -24,7 +24,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.TypeFactory;
 
 public abstract class _ProductoLogicService implements _IProductoLogicService {
-        public static String URL_SERVICIO = "http://10.0.2.104:8080/producto.service.subsystem.web";
+        public static String URL_SERVICIO = "http://10.0.2.122:8080/producto.service.subsystem.web";
 @Inject
 protected IProductoPersistence persistance;
         
@@ -74,6 +74,7 @@ try {
             ex.printStackTrace();
         }
         return null; 
+//    return persistance.getProductos();
 }
 
 public ProductoDTO getProducto(Long id){
@@ -97,6 +98,7 @@ try {
             ex.printStackTrace();
         }
         return null;
+//    return persistance.getProducto(id);
 }
 
 public void deleteProducto(Long id){

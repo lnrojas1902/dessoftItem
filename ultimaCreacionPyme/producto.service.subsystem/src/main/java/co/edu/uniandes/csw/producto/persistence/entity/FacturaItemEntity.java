@@ -74,4 +74,8 @@ public class FacturaItemEntity implements Serializable {
         this.facturaEntity = facturaEntity;
     }
 
+   
+    
+
+  
 }
