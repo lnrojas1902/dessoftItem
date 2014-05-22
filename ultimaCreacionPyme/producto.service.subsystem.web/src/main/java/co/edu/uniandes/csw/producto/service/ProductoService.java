@@ -1,6 +1,6 @@
 package co.edu.uniandes.csw.producto.service;
 
-import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
+import co.edu.uniandes.csw.producto.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
 import co.edu.uniandes.csw.producto.logic.dto.ProductoDTO;
 import java.util.List;
@@ -35,6 +35,13 @@ public class ProductoService extends _ProductoService {
     @Path("/comprar")
     public void confirmarCompra(ClienteAndItemsDTO clienteAndItems) {
         this.productoLogicService.comprar(clienteAndItems);
+        
+    }
+
+    @POST
+    @Path("/buscarProducto")
+    public ProductoDTO buscarProducto(String nombre) {
+        return this.productoLogicService.buscarProducto(nombre);
         
     }
     

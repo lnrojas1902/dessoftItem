@@ -240,7 +240,7 @@ define(['model/clienteModel'], function(clienteModel) {
             self._renderProductosList();
             //Backbone.trigger(self.componentId + '-' + 'post-factura-list', {view: self});
             },function(data){
-                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: params.id, data: data, error: 'Error in cliente comprar'});
+                Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-comprar', view: self, id: data.id, data: data, error: 'Error in cliente comprar'});
             });
         },
         

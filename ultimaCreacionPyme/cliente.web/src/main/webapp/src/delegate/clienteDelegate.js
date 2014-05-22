@@ -28,6 +28,20 @@ define(['delegate/_clienteDelegate'], function() {
 	    	  callbackError(data);
 	      },this));
 	},
+        buscarProductoDelegate: function(nombre,callback,callbackError){
+	    console.log('productosDelegate: ');
+            
+            $.ajax({
+	          url: '/producto.service.subsystem.web/webresources/Producto/buscarProducto',
+	          type: 'POST',
+	          data: JSON.stringify(nombre),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
         getProductoId: function(id,callback,callbackError){
 	    console.log('getProductoId: ');
             

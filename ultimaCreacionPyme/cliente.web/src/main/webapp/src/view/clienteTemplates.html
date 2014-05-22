@@ -241,9 +241,24 @@
     
     
         <!-- Default panel contents -->
-
+        <div class="form-group">
+    <form role="form" id="<%= componentId %>-buscarProducto">
+		
+		<label for="name">Nombre Producto</label>
+    	<input type="text" class="form-control" id="name" name="name" placeholder="Enter value" >"/>	
+		
+		
+ 
+    </form>
+    <button id="<%= componentId%>-buscarProducto" 
+        onclick="Backbone.trigger('<%= componentId %>-buscarProducto',{}); return false" 
+        type="button" class="btn btn-warning">
+            <span class="glyphicon glyphicon-search"></span> BuscarProducto
+    </button>
+    </div>
         <% var contador = 1;%>
        <div id="contenedor" class="panel panel-default">
+       
         <% _.each(productos, function(producto) { %>
             
         

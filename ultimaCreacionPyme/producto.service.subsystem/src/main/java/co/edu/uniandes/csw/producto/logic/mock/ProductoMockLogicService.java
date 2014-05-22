@@ -1,11 +1,12 @@
 
 package co.edu.uniandes.csw.producto.logic.mock;
-import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
+import co.edu.uniandes.csw.producto.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Singleton;
 
 import co.edu.uniandes.csw.producto.logic.api.IProductoLogicService;
+import co.edu.uniandes.csw.producto.logic.dto.ProductoDTO;
 import java.util.List;
 
 @Alternative
@@ -17,6 +18,10 @@ public class ProductoMockLogicService extends _ProductoMockLogicService implemen
     }
 
     public void comprar(ClienteAndItemsDTO clienteAndItems) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ProductoDTO buscarProducto(String nombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 	

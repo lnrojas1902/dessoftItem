@@ -1,7 +1,7 @@
 
 package co.edu.uniandes.csw.producto.logic.ejb;
 
-import co.edu.uniandes.csw.cliente.logic.dto.ClienteAndItemsDTO;
+import co.edu.uniandes.csw.producto.logic.dto.ClienteAndItemsDTO;
 import co.edu.uniandes.csw.item.logic.dto.ItemDTO;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -11,7 +11,14 @@ import javax.inject.Inject;
 import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.producto.logic.api.IProductoLogicService;
+import co.edu.uniandes.csw.producto.logic.dto.ProductoDTO;
+import static co.edu.uniandes.csw.producto.logic.ejb._ProductoLogicService.URL_SERVICIO;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import java.io.IOException;
 import java.util.List;
+import javax.ws.rs.core.MediaType;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @Default
 @Stateless
@@ -27,5 +34,25 @@ public class ProductoLogicService extends _ProductoLogicService implements IProd
          persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems(), clienteAndItems.getDireccion(), clienteAndItems.getMetodoPago());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public ProductoDTO buscarProducto(String nombre){
+    try {
+        
+           List<ProductoDTO> pepe = getProductos();
+           ProductoDTO resp = null;
+           for(int i =0; i<pepe.size();i++){
+               ProductoDTO pepa = pepe.get(i);
+               if(pepa.getName()== nombre){
+                   resp = pepa;
+               }
+                   
+           }
+            
+            return resp;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+}
+    
 }

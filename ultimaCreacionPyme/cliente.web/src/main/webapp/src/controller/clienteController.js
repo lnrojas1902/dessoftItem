@@ -104,6 +104,11 @@ function() {
                 self.verFactura(params);
             });
             
+             Backbone.on(this.componentId+'-buscarProducto', function(params) {
+                
+                self.buscarProducto(params);
+            });
+            
            
         },
         listProductos: function(){
@@ -389,6 +394,23 @@ function() {
 	      },this)).error(_.bind(function(data){
 	    	 alert("Error .|.");
 	      },this));
+	},
+        buscarProducto: function(){
+	   var self=this;
+            
+            
+                var nombre = $('#' + this.componentId + '-buscarProducto').serializeObject();
+                var producto = new App.Model.ProductoModel(nombre);
+                
+                self.clienteDelegate = new App.Delegate.ClienteDelegate();
+                self.clienteDelegate.buscarProductoDelegate(producto,function(data) {
+                 verProducto({producto: data.id});
+                 console.log('PRODUCTO BUSCADO');
+                }, function(data) {
+                    
+                    alert("No se encontrò el producto, puede que el nombre que ingresò sea incorrecto.");
+                });
+             
 	},
         
         acercaDeNosotros: function(){
