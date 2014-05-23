@@ -27,7 +27,8 @@ public class ProductoLogicService extends _ProductoLogicService implements IProd
 
     public void comprar(ClienteAndItemsDTO clienteAndItems) {
        
-         persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems(), clienteAndItems.getDireccion(), clienteAndItems.getMetodoPago());
+         persistance.comprar(clienteAndItems.getClienteEntity().getId(), clienteAndItems.getItems(), clienteAndItems.getDireccion()
+                 , clienteAndItems.getMetodoPago(),getProductos());
 //        
          try {
             //Se crea un cliente apache

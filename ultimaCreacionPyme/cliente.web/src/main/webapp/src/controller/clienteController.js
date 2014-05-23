@@ -414,7 +414,7 @@ function() {
                  console.log('PRODUCTO BUSCADO');
                 }, function(data) {
                     
-                    alert("No se encontrò el producto, puede que el nombre que ingresò sea incorrecto.");
+                    alert("No se encontro el producto, puede que el nombre que ingreso sea incorrecto.");
                 });
              
 	},

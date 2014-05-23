@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @Stateless 
 @LocalBean
 public class ProductoPersistence extends _ProductoPersistence  implements IProductoPersistence {
-    public void comprar(Long id, List<ItemDTO> items, String direccion, String metodoPago) {
+    public void comprar(Long id, List<ItemDTO> items, String direccion, String metodoPago, List<ProductoDTO> productos) {
                
         FacturaEntity nueva = new FacturaEntity();
         Query qMax = entityManager.createQuery("select MAX(u.id) from FacturaEntity u");
@@ -65,10 +65,16 @@ public class ProductoPersistence extends _ProductoPersistence  implements IProdu
 //                Query qCostoItem = entityManager.createQuery("select u.costo from ProductoEntity u where"
 //                        + " u.id="+prodID);
                 
+                 int costoItem = 0;
+                 boolean termino= false;
+                for (int j = 0; j < productos.size()&& !termino; j++) {
                 
+                    if ( productos.get(j).getId()== prodID){
+                        costoItem = productos.get(j).getCosto();
+                        termino = true;
+                    }
+                }
                 
-                ProductoDTO producto = getProducto(prodID);
-                int costoItem = producto.getCosto();
                 
                 costoTotal += costoItem*itemActual.getCantidad();
                 FacturaItemEntity facItem = new FacturaItemEntity();
