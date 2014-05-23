@@ -51,4 +51,13 @@ public class FacturaService extends _FacturaService {
     {
         return getFactura(id);
     }
+    
+    @POST
+    @Path("/calificar")
+    public void calificar(FacturaDTO fac)
+    {
+        System.out.println("Estamos en el service.web");
+       facturaLogicService.calificar(fac);
+    }
+    
 }

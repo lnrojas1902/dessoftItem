@@ -46,12 +46,13 @@ margin-top:10px;
     margin-top:0px;
     margin-right:10px;
     margin-left:10px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     text-align:center;
     background-color:#DEC980;
     border-radius: 0px 0px 20px 20px;
 }
 #listaTitulo {
+    
     width:auto;
     font-size:18px;
     height:100px;

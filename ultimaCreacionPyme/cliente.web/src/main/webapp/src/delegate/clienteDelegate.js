@@ -42,6 +42,34 @@ define(['delegate/_clienteDelegate'], function() {
 	    	  callbackError(data);
 	      },this));
 	},
+        buscarProductosCostoDelegate: function(producto,callback,callbackError){
+	    console.log('productosDelegate: ');
+            
+            $.ajax({
+	          url: '/producto.service.subsystem.web/webresources/Producto/buscarProductosCosto',
+	          type: 'POST',
+	          data: JSON.stringify(producto),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
+        buscarProductosPesoDelegate: function(producto,callback,callbackError){
+	    console.log('productosDelegate: peso ');
+            
+            $.ajax({
+	          url: '/producto.service.subsystem.web/webresources/Producto/buscarProductosPeso',
+	          type: 'POST',
+	          data: JSON.stringify(producto),
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
+	},
         getProductoId: function(id,callback,callbackError){
 	    console.log('getProductoId: ');
             

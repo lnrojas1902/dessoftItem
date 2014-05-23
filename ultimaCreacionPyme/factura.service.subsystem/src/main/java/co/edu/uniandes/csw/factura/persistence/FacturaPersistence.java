@@ -134,4 +134,21 @@ public List<FacturaDTO> getFacturasFecha(FacturaDTO d)
         }
         }
     }
+    
+    public void calificar(FacturaDTO fac) {
+        
+        System.out.print("Llegamos al fondo");
+        Long idFactura = fac.getId();
+        int calificacion = fac.getCalificacion();
+        System.out.print("Estos son los datos que llegaron: idFactura: "+idFactura+"; calificacion: "+calificacion);
+
+        
+        FacturaDTO factura = getFactura(idFactura);
+        System.out.print("Esta es el id de factura que se encontro a partir del id: " + factura.getId());
+        
+        factura.setCalificacion(calificacion);
+        System.out.print("Ahora esta es la calificacion modificada: "+ factura.getCalificacion());
+        updateFactura(factura);
+        
+    }
 }

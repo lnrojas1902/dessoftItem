@@ -94,9 +94,9 @@ public class ClienteTest {
         
         @Test
         public void testRegistrar() throws Exception{
-            String cadena = "pqpq11111111111111";
+            String cadena = "prueba11";
             driver.findElement(By.xpath("//button[contains(@id,'button3')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElement(By.id("name")).clear();
             driver.findElement(By.id("name")).sendKeys(cadena);
             driver.findElements(By.id("docId")).get(1).clear();
@@ -106,7 +106,7 @@ public class ClienteTest {
             driver.findElements(By.id("password")).get(1).clear();
             driver.findElements(By.id("password")).get(1).sendKeys(cadena);
             driver.findElements(By.xpath("//button[contains(@id,'cliente-loginButton')]")).get(1).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
 //            List<WebElement> table = driver.findElements(By.xpath("//table[contains(@class,'table striped')]/tbody/tr"));
 //            boolean sucess = false;
 //            for (WebElement webElement : table) 
@@ -150,9 +150,9 @@ public class ClienteTest {
         
         @Test
         public void testLogin() throws Exception{
-            String cadena = "pqpq22222222222222";
+            String cadena = "prueba21";
             driver.findElement(By.xpath("//button[contains(@id,'button3')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElement(By.id("name")).clear();
             driver.findElement(By.id("name")).sendKeys(cadena);
             driver.findElements(By.id("docId")).get(1).clear();
@@ -162,7 +162,8 @@ public class ClienteTest {
             driver.findElements(By.id("password")).get(1).clear();
             driver.findElements(By.id("password")).get(1).sendKeys(cadena);
             driver.findElements(By.xpath("//button[contains(@id,'cliente-loginButton')]")).get(1).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000
+            );
 //            List<WebElement> table = driver.findElements(By.xpath("//table[contains(@class,'table striped')]/tbody/tr"));
 //            boolean sucess = false;
 //            for (WebElement webElement : table) 
@@ -203,15 +204,15 @@ public class ClienteTest {
             }
             assertTrue(sucess);
             driver.findElement(By.xpath("//button[contains(@id,'button7')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElement(By.xpath("//button[contains(@id,'button3')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElements(By.id("docId")).get(0).clear();
             driver.findElements(By.id("docId")).get(0).sendKeys(cadena);
             driver.findElements(By.id("password")).get(0).clear();
             driver.findElements(By.id("password")).get(0).sendKeys(cadena);
             driver.findElements(By.xpath("//button[contains(@id,'cliente-loginButton')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             sucess = false;
             texto1 = driver.findElement(By.id("name")).getAttribute("value");
             if(texto1.equals(cadena))
@@ -244,11 +245,11 @@ public class ClienteTest {
         
         @Test
         public void testVerInfoProducto() throws Exception{
-            String nombreProducto = "Queso";
+            String nombreProducto = "Leche";
             int costoProducto = 1000;
             int pesoProducto = 1000;
             driver.findElements(By.xpath("//button[contains(@id,'ver-producto')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             WebElement cad1 = driver.findElement(By.xpath("//*[contains(.,'"+nombreProducto+"')]"));
             if(cad1!=null)
             {
@@ -280,11 +281,11 @@ public class ClienteTest {
         
         @Test
         public void testAgregarProductoACarrito() throws Exception{
-            String nombreProducto = "Queso";
+            String nombreProducto = "Leche";
             int costoProducto = 1000;
             int pesoProducto = 1000;
             driver.findElements(By.xpath("//button[contains(@id,'ver-producto')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             WebElement cad1 = driver.findElement(By.xpath("//*[contains(.,'"+nombreProducto+"')]"));
             if(cad1!=null)
             {
@@ -313,7 +314,7 @@ public class ClienteTest {
                 assertTrue(false);
             }
             driver.findElement(By.xpath("//button[contains(@id,'comprar-producto')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             cad1 = driver.findElement(By.xpath("//*[contains(.,'"+nombreProducto+"')]"));
             if(cad1!=null)
             {
@@ -336,9 +337,9 @@ public class ClienteTest {
         
         @Test
         public void testComprar() throws Exception{
-            String cadena = "ww";
+            String cadena = "prueba31";
             driver.findElement(By.xpath("//button[contains(@id,'button3')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElement(By.id("name")).clear();
             driver.findElement(By.id("name")).sendKeys(cadena);
             driver.findElements(By.id("docId")).get(1).clear();
@@ -348,7 +349,7 @@ public class ClienteTest {
             driver.findElements(By.id("password")).get(1).clear();
             driver.findElements(By.id("password")).get(1).sendKeys(cadena);
             driver.findElements(By.xpath("//button[contains(@id,'cliente-loginButton')]")).get(1).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
 //            List<WebElement> table = driver.findElements(By.xpath("//table[contains(@class,'table striped')]/tbody/tr"));
 //            boolean sucess = false;
 //            for (WebElement webElement : table) 
@@ -389,15 +390,15 @@ public class ClienteTest {
             }
             assertTrue(sucess);
             driver.findElement(By.xpath("//button[contains(@id,'button7')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElement(By.xpath("//button[contains(@id,'button3')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElements(By.id("docId")).get(0).clear();
             driver.findElements(By.id("docId")).get(0).sendKeys(cadena);
             driver.findElements(By.id("password")).get(0).clear();
             driver.findElements(By.id("password")).get(0).sendKeys(cadena);
             driver.findElements(By.xpath("//button[contains(@id,'cliente-loginButton')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             sucess = false;
             texto1 = driver.findElement(By.id("name")).getAttribute("value");
             if(texto1.equals(cadena))
@@ -426,13 +427,13 @@ public class ClienteTest {
                 sucess = true;
             }
             assertTrue(sucess);
-            String nombreProducto = "Queso";
+            String nombreProducto = "Leche";
             int costoProducto = 1000;
             int pesoProducto = 1000;
             driver.findElements(By.xpath("//button[contains(@id,'button1')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             driver.findElements(By.xpath("//button[contains(@id,'ver-producto')]")).get(0).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             WebElement cad1 = driver.findElement(By.xpath("//*[contains(.,'"+nombreProducto+"')]"));
             if(cad1!=null)
             {
@@ -461,7 +462,7 @@ public class ClienteTest {
                 assertTrue(false);
             }
             driver.findElement(By.xpath("//button[contains(@id,'comprar-producto')]")).click();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             cad1 = driver.findElement(By.xpath("//*[contains(.,'"+nombreProducto+"')]"));
             if(cad1!=null)
             {

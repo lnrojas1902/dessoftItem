@@ -17,7 +17,18 @@ public abstract class _FacturaDTO {
 	private Date fechaEsperadaEntrega;
 	private String dereccionDeEntrega;
 	private Long clienteId;
+        private int calificacion;
 
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
+    }
+        
+        
+        
 	public Long getId() {
 		return id;
 	}

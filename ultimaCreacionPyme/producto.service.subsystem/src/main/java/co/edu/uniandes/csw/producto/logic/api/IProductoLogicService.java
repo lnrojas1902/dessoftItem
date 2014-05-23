@@ -9,5 +9,6 @@ import java.util.List;
 public interface IProductoLogicService extends _IProductoLogicService {
     public void comprar(ClienteAndItemsDTO clienteAndItems);
     public ProductoDTO buscarProducto(ProductoDTO nombre)throws Exception;
-
+    public List<ProductoDTO> buscarProductosCosto(ProductoDTO costo)throws Exception;
+    public List<ProductoDTO> buscarProductosPeso(ProductoDTO precio)throws Exception;
 }

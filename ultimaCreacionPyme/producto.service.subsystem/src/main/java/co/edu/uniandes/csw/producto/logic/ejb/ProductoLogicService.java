@@ -16,6 +16,7 @@ import static co.edu.uniandes.csw.producto.logic.ejb._ProductoLogicService.URL_S
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.MediaType;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -67,5 +68,38 @@ public class ProductoLogicService extends _ProductoLogicService implements IProd
            
           return resp;       
     }
+    public List<ProductoDTO> buscarProductosCosto(ProductoDTO producto)throws Exception{
     
+           List<ProductoDTO> todosProductos = getProductos();
+           List<ProductoDTO> respuesta = new ArrayList<ProductoDTO>();
+           
+           for(int i =0; i<todosProductos.size();i++){
+               ProductoDTO pepa = todosProductos.get(i);
+               if(Integer.parseInt(pepa.getCosto()+"")==Integer.parseInt(producto.getCosto()+"")){
+                   respuesta.add(pepa);
+               }
+                   
+           }
+           if ( respuesta.isEmpty())
+                throw new Exception ("No existe ese producto");
+           
+          return respuesta;       
+    }
+    public List<ProductoDTO> buscarProductosPeso(ProductoDTO producto)throws Exception{
+    
+           List<ProductoDTO> todosProductos = getProductos();
+           List<ProductoDTO> respuesta = new ArrayList<ProductoDTO>();
+           
+           for(int i =0; i<todosProductos.size();i++){
+               ProductoDTO pepa = todosProductos.get(i);
+               if(Integer.parseInt(pepa.getPeso()+"")==Integer.parseInt(producto.getPeso()+"")){
+                   respuesta.add(pepa);
+               }
+                   
+           }
+           if ( respuesta.isEmpty())
+                throw new Exception ("No existe ese producto");
+           
+          return respuesta;       
+    }
 }

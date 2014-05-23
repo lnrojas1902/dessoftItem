@@ -114,8 +114,18 @@ function() {
                 
                 self.buscarProducto(params);
             });
-            
+            Backbone.on(this.componentId+'-buscarProductosCosto', function(params) {
+                
+                self.buscarProductosCosto(params);
+            });
+            Backbone.on(this.componentId+'-buscarProductosPeso', function(params) {
+                
+                self.buscarProductosPeso(params);
+            });
            
+           Backbone.on(this.componentId+'-eliminar-producto-carrito', function(params) {
+               self.eliminarProducto(params);
+            });
         },
         listProductos: function(){
             this.list();
@@ -155,7 +165,9 @@ function() {
                        {name: 'Compras'}); 
                 Backbone.trigger(self.componentId + '-show-button',
                        {name: 'Logout'}); 
-                       
+                
+                 Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Clientes'}); 
                        
                 Backbone.trigger('asignar-nombre',
                        {name: self.currentClienteModel.getDisplay("name")});
@@ -172,6 +184,9 @@ function() {
                        {name: 'Compras'}); 
             Backbone.trigger(self.componentId + '-hide-button',
                        {name: 'Logout'}); 
+           
+                 Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Clientes'}); 
                        
                        
                 Backbone.trigger('asignar-nombre',
@@ -193,7 +208,7 @@ function() {
         logout: function (){
             
             var self = this;
-            self.currentClienteModel = new App.Model.ClienteModel();
+            self.currentClienteModel = null;
             self.listProductos();
             
             self.renderToolbarInicio();
@@ -325,26 +340,48 @@ function() {
             }
             var model = $('#' + this.componentId + '-productoToAdd').serializeObject();
             var model1=new App.Model.ProductoModel( model);
-            console.log('producto aÃ±adido:' +JSON.stringify(model1));
-            self.productoCarritoModelList.models.push(model1);
-            
+            console.log('producto añadido:' +JSON.stringify(model1));
+            var estaba = false;
             var costo = 0;
-            console.log('entonces los productos que tiene el carro son :');
             _.each(self.productoCarritoModelList.models, function(d) {
+                if ( d.getDisplay('productoId') === model1.getDisplay('productoId'))
+                {
+                    d.set('cantidad', (parseInt(d.getDisplay('cantidad'))+parseInt(model1.getDisplay('cantidad'))) );
+                    estaba = true;
+                }
                     costo = costo + parseInt(d.getDisplay('costo')); 
                     console.log('* ' + d.getDisplay('name')  + ' costo: ' + costo.toString());
-                });
-
+            });
+            if (!estaba)
+            {
+                self.productoCarritoModelList.models.push(model1);
+            }
+        
             self._renderProductosCarritoCliente();
-//            if(!self.currentClienteModel){
-//                 self._renderLogin();
-//	    }
+        },
+        eliminarProducto: function(params){
+            var self=this;
+            self.listaApoyoCarritoList = new App.Model.ProductoList();;
+            _.each(self.productoCarritoModelList.models, function(d) {
+                console.log('comparar :' + d.getDisplay('productoId') + '  ' + params.idProducto);
+                if ( parseInt(d.getDisplay('productoId')) === params.idProducto)
+                {
+                    console.log('find');
+                }
+                else
+                {
+                    self.listaApoyoCarritoList.models.push(d);
+                }
+            });
+            self.productoCarritoModelList = self.listaApoyoCarritoList;
+            self._renderProductosCarritoCliente();
         },
         confirmarCompra: function(){
             var self=this;
             
             if(!self.currentClienteModel){
                  self._renderLogin();
+                 alert("Para poder comprar debes iniciar sesión o registrarte. ");
 	    }
             else
             {
@@ -367,9 +404,10 @@ function() {
                 self.productoCarritoModelList = new App.Model.ProductoList();
                 
                 self.facturasCliente();
+                alert("Muchas gracias por su compra. Esperamos que su experienca como usario de nuestro servicio haya sido la mejor.");
                 }, function(data) {
                     
-                    alert("Muchas gracias por su compra. Esperamos que su experienca como usario de nuestro servicio haya sido la mejor.");
+                    alert("confirmarcompra 2 error")
                 });
             }
         },
@@ -399,7 +437,7 @@ function() {
 	      }).done(_.bind(function(data){
 	    	 alert("Funcionï¿½ .|.");
 	      },this)).error(_.bind(function(data){
-	    	 alert("Error .|.");
+	    	 alert("Error");
 	      },this));
 	},
         buscarProducto: function(){
@@ -424,7 +462,68 @@ function() {
                 });
              
 	},
-        
+        buscarProductosCosto: function(){
+	   var self=this;
+            
+            
+                var costo = $('#' + this.componentId + '-buscarProductosCosto').serializeObject();
+                console.log('costo YYYY:'+costo);
+                console.log('costo YYYY2:'+JSON.stringify(costo));
+                var producto = new App.Model.ProductoModel();
+                producto.set('costo',parseInt(costo.costo));
+                console.log('costo YYYY3:'+JSON.stringify(producto));
+                self.clienteDelegate = new App.Delegate.ClienteDelegate();
+                self.productoModelList = new App.Model.ProductoList();
+                self.clienteDelegate.buscarProductosCostoDelegate(producto,function(data) {
+                    
+                    _.each(data, function(d) {
+                        console.log('costo YY7:'+JSON.stringify(d));
+                        var model=new App.Model.ProductoModel(d);
+                        console.log('costo YY8:'+JSON.stringify(model));
+                    //console.log('productos:' +JSON.stringify(model));
+                        self.productoModelList.models.push(model);
+                    });
+     
+                    self._renderProductosList();
+                    
+                    console.log('PRODUCTO BUSCADO costo');
+                }, function(data) {
+                    
+                    alert("No se encontro el producto, puede que el costo que ingreso no se encuentre.");
+                });
+             
+	},
+        buscarProductosPeso: function(){
+	   var self=this;
+            
+            
+                var peso = $('#' + this.componentId + '-buscarProductosPeso').serializeObject();
+                console.log('peso YYYY:'+peso);
+                console.log('peso YYYY2:'+JSON.stringify(peso));
+                var producto = new App.Model.ProductoModel();
+                producto.set('peso',parseInt(peso.peso));
+                console.log('peso YYYY3:'+JSON.stringify(producto));
+                self.clienteDelegate = new App.Delegate.ClienteDelegate();
+                self.productoModelList = new App.Model.ProductoList();
+                self.clienteDelegate.buscarProductosPesoDelegate(producto,function(data) {
+                    
+                    _.each(data, function(d) {
+                        console.log('peso YY7:'+JSON.stringify(d));
+                        var model=new App.Model.ProductoModel(d);
+                        console.log('peso YY8:'+JSON.stringify(model));
+                    //console.log('productos:' +JSON.stringify(model));
+                        self.productoModelList.models.push(model);
+                    });
+     
+                    self._renderProductosList();
+                    
+                    console.log('PRODUCTO BUSCADO peso');
+                }, function(data) {
+                    
+                    alert("No se encontro el producto, puede que el costo que ingreso no se encuentre.");
+                });
+             
+	},
         acercaDeNosotros: function(){
 	    console.log('Acerca De Nosotros: ');
             var self = this;

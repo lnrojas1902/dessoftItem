@@ -26,4 +26,10 @@ public class FacturaLogicService extends _FacturaLogicService implements IFactur
         {
             persistance.actualizarFacturas();
         }
+    
+    
+    public void calificar (FacturaDTO fact){
+        
+        persistance.calificar(fact);
+    }
 }

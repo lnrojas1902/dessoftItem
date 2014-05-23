@@ -44,7 +44,17 @@ public class ProductoService extends _ProductoService {
         return this.productoLogicService.buscarProducto(producto);
         
     }
-    
-
+    @POST
+    @Path("/buscarProductosCosto")
+    public List<ProductoDTO> buscarProductosCosto(ProductoDTO producto) throws Exception{
+        return this.productoLogicService.buscarProductosCosto(producto);
+        
+    }
+    @POST
+    @Path("/buscarProductosPeso")
+    public List<ProductoDTO> buscarProductosPeso(ProductoDTO producto) throws Exception{
+        return this.productoLogicService.buscarProductosPeso(producto);
+        
+    }
     
 }

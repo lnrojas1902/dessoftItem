@@ -30,5 +30,9 @@ public class FacturaMockLogicService extends _FacturaMockLogicService implements
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void calificar(FacturaDTO fact) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

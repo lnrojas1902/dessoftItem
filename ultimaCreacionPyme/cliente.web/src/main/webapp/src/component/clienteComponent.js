@@ -55,6 +55,12 @@ define(['component/_CRUDComponent', 'controller/toolbarController', 'model/toolb
             this.toolbarModel.set('showPrint',false);
             this.toolbarModel.set('showRefresh',false);
             this.toolbarModel.set('showCreate',false);
+             this.toolbarModel.set('showSearch',false);
+             
+             
+                 Backbone.trigger(self.componentId + '-hide-button',
+                       {name: 'Clientes'}); 
+             
         }
     });
     return App.Component.ClienteComponent;

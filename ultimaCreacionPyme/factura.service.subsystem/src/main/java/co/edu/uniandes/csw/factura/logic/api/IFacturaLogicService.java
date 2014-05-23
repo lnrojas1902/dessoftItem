@@ -9,4 +9,6 @@ public interface IFacturaLogicService extends _IFacturaLogicService {
     public List<FacturaDTO> getFacturasFecha(FacturaDTO d);
 
     public void actualizarFacturas();
+       public void calificar (FacturaDTO fact);
+
 }
