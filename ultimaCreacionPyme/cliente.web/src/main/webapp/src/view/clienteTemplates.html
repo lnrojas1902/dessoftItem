@@ -193,7 +193,6 @@
           <th>fechaEsperadaEntrega</th>
           <th>dereccionDeEntrega</th>
           <th>clienteId</th>
-          <th>Calificacion</th>
           <th>Acciones</th>
 	</tr>
 	</thead>
@@ -211,15 +210,6 @@
             <td><%= htmlEncode(factura.getDisplay('fechaEsperadaEntrega')) %></td>
             <td><%= htmlEncode(factura.getDisplay('dereccionDeEntrega')) %></td>
             <td><%= htmlEncode(factura.getDisplay('clienteId')) %></td>
-            <td>
-               <div class="ec-stars-wrapper">
-                    <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                    <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                    <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                    <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                    <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
-                </div>
-            </td>
             <td>
                     <div align="center">
                         <button id="<%= componentId%>-ver-factura" 
@@ -432,11 +422,11 @@
                 <P>creas debe ser nuestra calificación. </P>
                 
                 <div class="ec-stars-wrapper">
-                    <a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-                    <a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-                    <a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-                    <a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-                    <a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
+                    <a onclick="Backbone.trigger('<%= componentId %>-votar',{calificacion: 1, factura:<%=factura.id%>})" title="Votar con 1 estrellas">&#9733;</a>
+                    <a onclick="Backbone.trigger('<%= componentId %>-votar',{calificacion: 2, factura:<%=factura.id%>})" title="Votar con 2 estrellas">&#9733;</a>
+                    <a onclick="Backbone.trigger('<%= componentId %>-votar',{calificacion: 3, factura:<%=factura.id%>})" title="Votar con 3 estrellas">&#9733;</a>
+                    <a onclick="Backbone.trigger('<%= componentId %>-votar',{calificacion: 4, factura:<%=factura.id%>})" title="Votar con 4 estrellas">&#9733;</a>
+                    <a onclick="Backbone.trigger('<%= componentId %>-votar',{calificacion: 5, factura:<%=factura.id%>})" title="Votar con 5 estrellas">&#9733;</a>
                 </div>
                
         </div>

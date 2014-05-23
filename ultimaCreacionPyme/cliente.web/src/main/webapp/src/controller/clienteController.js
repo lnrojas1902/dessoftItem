@@ -12,6 +12,12 @@ function() {
 //            Backbone.on(this.componentId + '-toolbar-print', function(params) {
 //                self.print();
 //            });
+
+            Backbone.on(this.componentId+'-votar', function(params) {
+                
+                self.votar(params);
+            });
+            
             Backbone.on(this.componentId+'-'+'cliente-registrar', function() {
                 
                self.registrarCliente();
@@ -490,9 +496,33 @@ function() {
             },function(data){
                 Backbone.trigger(self.componentId + '-' + 'error', {event: 'ver-Factura', view: self, id: params.id, data: data, error: 'Error in ver factura'});
             });
-        }
+        },
         
-        
+        votar:function(params){
+
+            var self = this; 
+            
+            var idFactura = params.factura;
+            var calificacion = params.calificacion;
+            
+            console.log("idFactura: "+idFactura+"; calificacion" + calificacion);
+            self.clienteDelegate = new App.Delegate.ClienteDelegate();
+            
+            var factura = new App.Model.FacturaModel();
+            factura.set ('clienteId',idFactura);
+            factura.set ('calificacion',calificacion);
+
+            self.clienteDeledate.agregarCalificacion(factura,
+                function(data){
+                    self.verFactura({factura : idFactura});  
+                    alert("Se ha registrado tu calificacion satisfactoriamente");
+                },
+                function(data) {
+                //Backbone.trigger(self.componentId + '-' + 'error', {event: 'cliente-search', view: self, id: '', data: data, error: 'Error in cliente search'});
+                alert("Se ha producido un error inesperado");
+            });
+       } 
+       
     });
     return App.Controller.ClienteController;
 }); 

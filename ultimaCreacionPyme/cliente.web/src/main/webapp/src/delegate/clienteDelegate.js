@@ -171,6 +171,24 @@ define(['delegate/_clienteDelegate'], function() {
 	      },this)).error(_.bind(function(data){
 	    	  callbackError(data);
 	      },this));
+	},
+        
+        agregarCalificacion: function(factura, callback, callbackError){
+	    console.log('facturaCalificar: Estamos en Delegate');
+            console.log("DatosFactura"+JSON.stringify(factura));
+            $.ajax({
+	          url: '/factura.service.subsystem.web/webresources/Factura/calificar',
+	          type: 'POST',
+	          data: '{"id":'+ JSON.stringify(factura.getDisplay('clienteId'))
+                  + ', "calificacion":'+ JSON.stringify(factura.getDisplay('calificacion'))
+                  + '}',
+	          contentType: 'application/json'
+	      }).done(_.bind(function(data){
+	    	  callback(data);
+	      },this)).error(_.bind(function(data){
+	    	  callbackError(data);
+	      },this));
 	}
+        
     });
 });
